@@ -10,10 +10,10 @@ interface PlayerProps {
 }
 
 export function Player({ setPlayerPosition }: PlayerProps) {
-  const [position, setPosition] = useState<Position>([0, 1, 0])
+  const [position, setPosition] = useState<Position>([0, 0, 0])
   const [rotation, setRotation] = useState(0)
   // Store position in a ref for smoother transitions
-  const positionRef = useRef<Position>([0, 1, 0])
+  const positionRef = useRef<Position>([0, 0, 0])
   // Lower base speed to make movement less jerky
   const baseSpeed = 0.15
   const { camera } = useThree()
@@ -313,36 +313,48 @@ export function Player({ setPlayerPosition }: PlayerProps) {
       position={[position[0], position[1], position[2]]}
       rotation-y={rotation}
     >
-      {/* Player body */}
-      <mesh castShadow>
-        <capsuleGeometry args={[0.5, 1, 8, 16]} />
-        <meshStandardMaterial color='#1e88e5' />
+      {/* Mushroom stem */}
+      <mesh castShadow position={[0, 0.4, 0]}>
+        <cylinderGeometry args={[0.3, 0.35, 0.8, 16]} />
+        <meshStandardMaterial color='#f5f5dc' />
       </mesh>
 
-      {/* Player head */}
-      <mesh castShadow position={[0, 1, 0]}>
-        <sphereGeometry args={[0.3, 16, 16]} />
-        <meshStandardMaterial color='#ffb74d' />
+      {/* Mushroom cap - rounded */}
+      <mesh
+        castShadow
+        position={[0, 0.9, 0]}
+        rotation={[Math.PI / 2, Math.PI, 0]}
+      >
+        <sphereGeometry args={[0.6, 16, 16, 0, Math.PI]} />
+        <meshStandardMaterial color='#ff4d4d' flatShading={false} />
       </mesh>
 
-      {/* Player eyes */}
-      <mesh position={[0.15, 1.1, 0.25]}>
-        <sphereGeometry args={[0.05, 16, 16]} />
+      {/* Mushroom spots */}
+      <mesh position={[0.25, 1.33, 0.3]}>
+        <sphereGeometry args={[0.07, 8, 8]} />
+        <meshStandardMaterial color='#ffffff' />
+      </mesh>
+      <mesh position={[-0.2, 1.38, 0.25]}>
+        <sphereGeometry args={[0.08, 8, 8]} />
+        <meshStandardMaterial color='#ffffff' />
+      </mesh>
+      <mesh position={[0.15, 1.4, -0.25]}>
+        <sphereGeometry args={[0.07, 8, 8]} />
+        <meshStandardMaterial color='#ffffff' />
+      </mesh>
+      <mesh position={[-0.3, 1.35, -0.3]}>
+        <sphereGeometry args={[0.06, 8, 8]} />
+        <meshStandardMaterial color='#ffffff' />
+      </mesh>
+
+      {/* Eyes */}
+      <mesh position={[0.15, 0.5, 0.25]}>
+        <sphereGeometry args={[0.05, 8, 8]} />
         <meshStandardMaterial color='#000000' />
       </mesh>
-      <mesh position={[-0.15, 1.1, 0.25]}>
-        <sphereGeometry args={[0.05, 16, 16]} />
+      <mesh position={[-0.15, 0.5, 0.25]}>
+        <sphereGeometry args={[0.05, 8, 8]} />
         <meshStandardMaterial color='#000000' />
-      </mesh>
-
-      {/* Player hat */}
-      <mesh castShadow position={[0, 1.4, 0]}>
-        <cylinderGeometry args={[0.4, 0.4, 0.2, 16]} />
-        <meshStandardMaterial color='#4caf50' />
-      </mesh>
-      <mesh castShadow position={[0, 1.6, 0]}>
-        <cylinderGeometry args={[0.3, 0.4, 0.3, 16]} />
-        <meshStandardMaterial color='#4caf50' />
       </mesh>
     </group>
   )
