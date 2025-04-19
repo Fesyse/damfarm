@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import {
   DialogHeader,
   DialogTitle,
@@ -8,80 +7,67 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+} from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useGameStore } from "@/store/game-store"
+import { useState } from "react"
+import { Carrot, Hand } from "lucide-react"
+import {
+  TooltipProvider,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import { toast } from "sonner"
 
+const animalEmoji = {
+  cow: "🐄",
+  chicken: "🐔",
+  sheep: "🐑",
+  pig: "🐖",
+  rabbit: "🐇",
+  horse: "🐎",
+}
+
+const animalProduct = {
+  milk: "Молоко",
+  eggs: "Яйца",
+  wool: "Шерсть",
+  meat: "Мясо",
+}
+
+const animalName = {
+  cow: "Корова",
+  chicken: "Курица",
+  sheep: "Овца",
+  pig: "Свинья",
+  rabbit: "Кролик",
+  horse: "Лошадь",
+}
+
+const productEmoji = {
+  milk: "🥛",
+  eggs: "🥚",
+  wool: "🧶",
+  meat: "🍖",
+}
+const availableAnimals = [
+  { type: "cow", price: 2000, description: "Дает молоко каждый день" },
+  { type: "chicken", price: 500, description: "Несет яйца каждый день" },
+  { type: "sheep", price: 1500, description: "Дает шерсть каждые 3 дня" },
+  { type: "pig", price: 1200, description: "Быстро растет, дает мясо" },
+  { type: "rabbit", price: 400, description: "Дает мясо и мех" },
+  { type: "horse", price: 3000, description: "Ускоряет передвижение" },
+] as const
 export function BarnDialog() {
-  const animals = [
-    {
-      id: 1,
-      type: "cow",
-      name: "Бурёнка",
-      health: 90,
-      hunger: 70,
-      happiness: 80,
-      product: "milk",
-      productAmount: 8,
-      lastCollected: "Вчера",
-    },
-    {
-      id: 2,
-      type: "chicken",
-      name: "Пеструшка",
-      health: 95,
-      hunger: 50,
-      happiness: 90,
-      product: "egg",
-      productAmount: 12,
-      lastCollected: "Сегодня",
-    },
-    {
-      id: 3,
-      type: "sheep",
-      name: "Кудряшка",
-      health: 85,
-      hunger: 60,
-      happiness: 70,
-      product: "wool",
-      productAmount: 0,
-      lastCollected: "3 дня назад",
-    },
-    {
-      id: 4,
-      type: "pig",
-      name: "Хрюша",
-      health: 80,
-      hunger: 30,
-      happiness: 75,
-      product: null,
-      productAmount: 0,
-      lastCollected: "-",
-    },
-  ]
-
-  const animalEmoji = {
-    cow: "🐄",
-    chicken: "🐔",
-    sheep: "🐑",
-    pig: "🐖",
-    rabbit: "🐇",
-    horse: "🐎",
-  }
-
-  const productEmoji = {
-    milk: "🥛",
-    egg: "🥚",
-    wool: "🧶",
-  }
-
-  const [availableAnimals] = useState([
-    { type: "cow", price: 2000, description: "Дает молоко каждый день" },
-    { type: "chicken", price: 500, description: "Несет яйца каждый день" },
-    { type: "sheep", price: 1500, description: "Дает шерсть каждые 3 дня" },
-    { type: "pig", price: 1200, description: "Быстро растет, дает мясо" },
-    { type: "rabbit", price: 400, description: "Дает мясо и мех" },
-    { type: "horse", price: 3000, description: "Ускоряет передвижение" },
-  ])
+  const [tab, setTab] = useState<"animals" | "market">("animals")
+  const { animals, strokeAnimal } = useGameStore(state => state)
 
   return (
     <>
@@ -92,7 +78,12 @@ export function BarnDialog() {
         </DialogDescription>
       </DialogHeader>
 
-      <Tabs defaultValue='animals' className='mt-4'>
+      <Tabs
+        defaultValue='animals'
+        value={tab}
+        onValueChange={value => setTab(value as "animals" | "market")}
+        className='mt-4'
+      >
         <TabsList className='grid w-full grid-cols-2'>
           <TabsTrigger value='animals'>Мои животные</TabsTrigger>
           <TabsTrigger value='market'>Купить животных</TabsTrigger>
@@ -105,14 +96,14 @@ export function BarnDialog() {
                 <Card key={animal.id}>
                   <CardHeader className='p-4 pb-2'>
                     <div className='flex justify-between items-center'>
-                      <CardTitle className='text-lg flex items-center gap-2'>
+                      <CardTitle className='text-lg flex items-end gap-2'>
                         <span className='text-2xl'>
                           {animalEmoji[animal.type]}
                         </span>
                         {animal.name}
                       </CardTitle>
                       <span className='text-sm text-muted-foreground'>
-                        ID: {animal.id}
+                        {animalName[animal.type]}
                       </span>
                     </div>
                   </CardHeader>
@@ -146,24 +137,55 @@ export function BarnDialog() {
                         <div className='flex justify-between items-center text-sm border-t pt-2 mt-2'>
                           <div className='flex items-center gap-1'>
                             <span>{productEmoji[animal.product]}</span>
-                            <span>Продукт: {animal.productAmount}</span>
+                            <span>
+                              {animalProduct[animal.product]}:{" "}
+                              {animal.productAmount}
+                            </span>
                           </div>
-                          <span className='text-xs text-muted-foreground'>
-                            Собрано: {animal.lastCollected}
-                          </span>
                         </div>
                       )}
 
-                      <div className='flex gap-2 pt-2'>
-                        <Button size='sm' className='flex-1'>
-                          {animal.hunger < 50 ? "Покормить" : "Погладить"}
-                        </Button>
+                      <div className='flex items-center gap-2 pt-2'>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <Button
+                                size='sm'
+                                variant='secondary'
+                                className='flex-1'
+                                onClick={() => {
+                                  const changed = strokeAnimal(animal.id)
+                                  if (changed) {
+                                    toast("Вы погладили животное!", {
+                                      description: "Возвращайтесь завтра!",
+                                    })
+                                  } else {
+                                    toast(
+                                      "Вы уже гладили это животное сегодня!"
+                                    )
+                                  }
+                                }}
+                              >
+                                <Hand />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>Погладить</TooltipContent>
+                          </Tooltip>
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <Button
+                                size='sm'
+                                variant='secondary'
+                                className='flex-1'
+                              >
+                                <Carrot />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>Покормить</TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
                         {animal.product && animal.productAmount > 0 && (
-                          <Button
-                            size='sm'
-                            variant='outline'
-                            className='flex-1'
-                          >
+                          <Button size='sm' className='flex-1'>
                             Собрать продукты
                           </Button>
                         )}
@@ -176,11 +198,7 @@ export function BarnDialog() {
           ) : (
             <div className='text-center py-8 text-muted-foreground'>
               <p className='mb-4'>У вас пока нет животных</p>
-              <Button
-                onClick={() => document.getElementById("market-tab")?.click()}
-              >
-                Купить животных
-              </Button>
+              <Button onClick={() => setTab("market")}>Купить животных</Button>
             </div>
           )}
         </TabsContent>
@@ -188,17 +206,19 @@ export function BarnDialog() {
         <TabsContent value='market' className='mt-2'>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
             {availableAnimals.map((animal, index) => (
-              <Card key={index}>
+              <Card key={index} className='flex flex-col'>
                 <CardHeader className='p-4 pb-2'>
                   <CardTitle className='text-lg flex items-center gap-2'>
                     <span className='text-2xl'>{animalEmoji[animal.type]}</span>
-                    <span className='capitalize'>{animal.type}</span>
+                    <span className='capitalize'>
+                      {animalName[animal.type]}
+                    </span>
                   </CardTitle>
-                </CardHeader>
-                <CardContent className='p-4 pt-0'>
-                  <p className='text-sm text-muted-foreground mb-4'>
+                  <CardDescription className='text-sm text-muted-foreground mb-4'>
                     {animal.description}
-                  </p>
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className='p-4 pt-0 mt-auto'>
                   <div className='flex justify-between items-center'>
                     <span className='font-semibold'>{animal.price} монет</span>
                     <Button size='sm'>Купить</Button>
