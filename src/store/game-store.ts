@@ -28,11 +28,46 @@ export const useGameStore = create<GameState>()(
     (set, get) => ({
       days: 1,
       setNextDay: () => {
-        set(state => ({
-          seasons:
-            (state.days + 1) % 7 == 0 ? state.setSeason() : state.seasons,
-          days: state.days + 1,
-        }))
+        set(state => {
+          const newAnimals = state.animals.map(animal => {
+            const newAnimal = { ...animal }
+            // Randomly update animal's happiness, hunger, and health
+            newAnimal.happiness -= Math.floor(Math.random() * 15 + 10) // Random change between 10 and 25
+            newAnimal.hunger -= Math.floor(Math.random() * 15 + 10) // Random change between 10 and 25
+            newAnimal.health -= Math.floor(Math.random() * 15 + 10) // Random change between 10 and 25
+
+            // Ensure values are within bounds
+            newAnimal.happiness = Math.max(
+              0,
+              Math.min(newAnimal.happiness, 100)
+            )
+            newAnimal.hunger = Math.max(0, Math.min(newAnimal.hunger, 100))
+            newAnimal.health = Math.max(0, Math.min(newAnimal.health, 100))
+
+            // Randomly update product amount based on animal's state
+            if (
+              newAnimal.happiness > 50 &&
+              newAnimal.hunger < 50 &&
+              newAnimal.health > 50
+            ) {
+              newAnimal.productAmount += Math.floor(Math.random() * 5) // Increase product amount if animal is happy, not hungry, and healthy
+            } else {
+              newAnimal.productAmount -= Math.floor(Math.random() * 5) // Decrease product amount if animal is unhappy, hungry, or unhealthy
+            }
+
+            // Ensure product amount is not negative
+            newAnimal.productAmount = Math.max(0, newAnimal.productAmount)
+
+            return newAnimal
+          })
+
+          return {
+            animals: newAnimals,
+            seasons:
+              (state.days + 1) % 7 == 0 ? state.setSeason() : state.seasons,
+            days: state.days + 1,
+          }
+        })
       },
 
       moneys: 2500,

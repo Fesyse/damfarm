@@ -23,11 +23,8 @@ export function HouseDialog({
 
   const handleSleep = () => {
     // Call the onSleep handler if it exists, otherwise just advance the day
-    if (onSleep) {
-      onSleep()
-    } else {
-      gameStore.setNextDay()
-    }
+    if (onSleep) onSleep()
+    else gameStore.setNextDay()
   }
 
   return (
