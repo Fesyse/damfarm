@@ -5,7 +5,7 @@ import { Text } from "@react-three/drei"
 export function Kiosk() {
   return (
     <group>
-      {/* Concrete platform foundation */}
+      {/* Base platform */}
       <mesh position={[0, 0.2, 0]} receiveShadow>
         <boxGeometry args={[8, 0.4, 8]} />
         <meshStandardMaterial color='#9e9e9e' />
@@ -13,43 +13,40 @@ export function Kiosk() {
 
       {/* Main structure */}
       <group position={[0, 2, 0]}>
-        {/* Floor */}
+        {/* Wooden floor */}
         <mesh position={[0, -1.6, 0]} receiveShadow>
           <boxGeometry args={[6.9, 0.2, 6]} />
           <meshStandardMaterial color='#8d6e63' />
         </mesh>
 
-        {/* Back wall */}
+        {/* Walls */}
         <mesh position={[0, 0, -3.2]} castShadow>
           <boxGeometry args={[7, 3.6, 0.2]} />
           <meshStandardMaterial color='#e0e0e0' />
         </mesh>
 
-        {/* Left wall */}
         <mesh position={[-3.4, 0, 0]} castShadow>
           <boxGeometry args={[0.2, 3.6, 6.6]} />
           <meshStandardMaterial color='#e0e0e0' />
         </mesh>
 
-        {/* Right wall */}
         <mesh position={[3.4, 0, 0]} castShadow>
           <boxGeometry args={[0.2, 3.6, 6.6]} />
           <meshStandardMaterial color='#e0e0e0' />
         </mesh>
 
-        {/* Front counter - only bottom half */}
+        {/* Front counter */}
         <mesh position={[0, -0.9, 3.2]} castShadow>
           <boxGeometry args={[7, 1.8, 0.3]} />
           <meshStandardMaterial color='#e0e0e0' />
         </mesh>
 
-        {/* Counter top */}
         <mesh position={[0, 0.1, 3.2]} castShadow>
           <boxGeometry args={[6.9, 0.2, 0.5]} />
           <meshStandardMaterial color='#5d4037' />
         </mesh>
 
-        {/* Interior back wall panel */}
+        {/* Interior wall */}
         <mesh position={[0, 0, -3.1]} castShadow>
           <boxGeometry args={[6.7, 3.4, 0.1]} />
           <meshStandardMaterial color='#bbdefb' />

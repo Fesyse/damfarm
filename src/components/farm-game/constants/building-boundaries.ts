@@ -1,69 +1,78 @@
 import { BuildingBoundary } from "../types"
 import { calculateRotatedBoundaries } from "../utils"
 
-// Define building boundaries for collision detection
 export const BUILDING_BOUNDARIES: BuildingBoundary[] = [
-  // Greenhouse (rotated by Math.PI/6)
+  // Greenhouse
   {
     ...calculateRotatedBoundaries([-15, 0, 0], 8, 9, Math.PI / 6),
     type: "greenhouse",
     doorPosition: {
-      x: -13.9, // Position of door adjusted for rotation
-      z: 3.5, // Position of door adjusted for rotation
-      radius: 1.5, // Area around door where collision is disabled
+      x: -13.9,
+      z: 3.5,
+      radius: 1.5,
     },
   },
-  // Kiosk (rotated by -Math.PI/6)
+  // Kiosk
   {
-    ...calculateRotatedBoundaries([10, 0, 10], 3.6, 5, -Math.PI / 6),
+    ...calculateRotatedBoundaries([5, 0, 15], 3.6, 5, Math.atan2(-5, -15)),
     type: "kiosk",
     doorPosition: {
-      x: 10, // Front of kiosk is open
-      z: 12, // Front of kiosk is open
-      radius: 2, // Wider area for counter interaction
+      x: 5,
+      z: 17,
+      radius: 2,
     },
   },
-  // House (no rotation)
+  // House
   {
     ...calculateRotatedBoundaries([0, 0, -10], 6, 6, 0),
     type: "house",
     doorPosition: {
-      x: 0, // Door is at front center
-      z: -7, // Door Z position
-      radius: 1.2, // Area around door where collision is disabled
+      x: 0,
+      z: -7,
+      radius: 1.2,
     },
   },
-  // Stock Exchange (rotated by Math.PI/4)
+  // Stock Exchange
   {
-    ...calculateRotatedBoundaries([15, 0, -15], 6, 6, Math.PI / 4),
+    ...calculateRotatedBoundaries([15, 0, -8], 6, 6, Math.atan2(-15, 8)),
     type: "stocks",
     doorPosition: {
-      x: 13.7, // Door position adjusted for rotation
-      z: -16.7, // Door position adjusted for rotation
-      radius: 1.2, // Area around door where collision is disabled
+      x: 13.7,
+      z: -6,
+      radius: 1.2,
     },
   },
-  // Mailbox (smaller object)
+  // Mailbox
   {
     ...calculateRotatedBoundaries([2, 0, -12], 1, 2, 0),
     type: "mail",
     doorPosition: {
-      x: 2.2, // Mail slot location
-      z: -12, // Mail slot location
-      radius: 0.8, // Area around mailbox where collision is disabled for interaction
+      x: 2.2,
+      z: -12,
+      radius: 0.8,
     },
   },
-  // Fishing Pond (circular, using approximation for collision)
+  // Fishing Pond
   {
-    minX: -25, // Left boundary of pond
-    maxX: -15, // Right boundary of pond
-    minZ: 15, // Near boundary of pond
-    maxZ: 25, // Far boundary of pond
+    minX: -25,
+    maxX: -15,
+    minZ: 15,
+    maxZ: 25,
     type: "fishing",
     doorPosition: {
-      x: -15.5, // Center position for interaction
-      z: 17.6, // Edge of pond where dock is
-      radius: 2, // Area for interaction
+      x: -15.5,
+      z: 17.6,
+      radius: 2,
+    },
+  },
+  // Barn
+  {
+    ...calculateRotatedBoundaries([15, 0, 8], 8, 10, Math.atan2(-15, -8)),
+    type: "barn",
+    doorPosition: {
+      x: 15,
+      z: 12,
+      radius: 1.5,
     },
   },
 ]
