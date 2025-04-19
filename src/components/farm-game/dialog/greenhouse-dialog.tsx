@@ -81,6 +81,7 @@ const PLANTS: Plant[] = [
 ];
 
 const PLOT_PRICE = 500;
+const PLOT_SELL_PRICE = Math.floor(PLOT_PRICE * 0.7); // 70% от цены покупки
 
 export function GreenhouseDialog({}) {
 	const { toast } = useToast();
@@ -172,8 +173,8 @@ export function GreenhouseDialog({}) {
 		const plant = PLANTS.find((p) => p.id === selectedPlant);
 		if (!plant) return;
 
-		const seedCount = seeds[plant.seedType as keyof typeof seeds];
-		if (seedCount <= 0) {
+		const seed = seeds[plant.seedType as keyof typeof seeds];
+		if (seed.inInventory <= 0) {
 			toast({
 				title: "Нет семян",
 				description: `У вас нет семян ${plant.name}`,
@@ -199,7 +200,7 @@ export function GreenhouseDialog({}) {
 		// Deduct one seed
 		setSeeds({
 			...seeds,
-			[plant.seedType]: seedCount - 1,
+			[plant.seedType]: seed.inInventory - 1,
 		});
 	};
 
@@ -292,6 +293,39 @@ export function GreenhouseDialog({}) {
 		});
 	};
 
+	const handleSellPlot = (plotId: number) => {
+		// Нельзя продать последнюю грядку
+		if (plots.length <= 1) {
+			toast({
+				title: "Нельзя продать последнюю грядку",
+				description: "У вас должна остаться хотя бы одна грядка",
+			});
+			return;
+		}
+
+		// Находим грядку для продажи
+		const plotToSell = plots.find((p) => p.id === plotId);
+		if (!plotToSell) return;
+
+		// Если на грядке растет растение, предупреждаем пользователя
+		if (plotToSell.plant) {
+			toast({
+				title: "На грядке растет растение",
+				description: "Сначала соберите урожай, прежде чем продавать грядку",
+			});
+			return;
+		}
+
+		// Удаляем грядку и начисляем деньги
+		setPlots((currentPlots) => currentPlots.filter((p) => p.id !== plotId));
+		setMoney(PLOT_SELL_PRICE);
+
+		toast({
+			title: "Грядка продана",
+			description: `Вы продали грядку за ${PLOT_SELL_PRICE} монет`,
+		});
+	};
+
 	return (
 		<div className="relative">
 			<div className="absolute right-4 top-4 flex items-center gap-2 text-sm">
@@ -325,7 +359,8 @@ export function GreenhouseDialog({}) {
 							<div className="flex flex-col items-start">
 								<span className="text-sm">{plant.name}</span>
 								<span className="text-xs opacity-75">
-									{seeds[plant.seedType as keyof typeof seeds]} семян
+									{seeds[plant.seedType as keyof typeof seeds].inInventory}{" "}
+									семян
 								</span>
 							</div>
 						</button>
@@ -419,6 +454,15 @@ export function GreenhouseDialog({}) {
 									>
 										Посадить {PLANTS.find((p) => p.id === selectedPlant)?.emoji}
 									</button>
+
+									{plots.length > 1 && (
+										<button
+											onClick={() => handleSellPlot(plot.id)}
+											className="px-2 py-1 bg-gray-200 text-gray-600 rounded text-xs hover:bg-gray-300 transition-colors mt-1"
+										>
+											Продать ({PLOT_SELL_PRICE} монет)
+										</button>
+									)}
 								</div>
 							)}
 

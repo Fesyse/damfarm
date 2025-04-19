@@ -51,12 +51,30 @@ export const useGameStore = create<GameState>()((set, get) => ({
 
 	// seeds
 	seeds: {
-		carrotsSeed: 0,
-		potatoesSeed: 0,
-		wheatSeed: 0,
-		cornSeed: 0,
-		tomatoesSeed: 0,
-		strawberriesSeed: 0,
+		carrotsSeed: {
+			inInventory: 0,
+			stock: 8,
+		},
+		potatoesSeed: {
+			inInventory: 0,
+			stock: 8,
+		},
+		wheatSeed: {
+			inInventory: 0,
+			stock: 8,
+		},
+		cornSeed: {
+			inInventory: 0,
+			stock: 8,
+		},
+		tomatoesSeed: {
+			inInventory: 0,
+			stock: 8,
+		},
+		strawberriesSeed: {
+			inInventory: 0,
+			stock: 8,
+		},
 	},
 	setSeeds: (seeds: SeedsType) => {
 		set(() => ({
@@ -88,6 +106,7 @@ export const useGameStore = create<GameState>()((set, get) => ({
 		eggs: 0,
 		milk: 0,
 		wool: 0,
+		meat: 0,
 	},
 	setProducts: (name: keyof ProductsType, value: number) => {
 		set((state) => ({ products: { ...state.products, [name]: value } }));

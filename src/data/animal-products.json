@@ -1,0 +1,8 @@
+{
+	"products": [
+		{ "name": "Молоко", "icon": "🥛", "price": 7, "key": "milk" },
+		{ "name": "Мясо", "icon": "🥩", "price": 10, "key": "meat" },
+		{ "name": "Шерсть", "icon": "🐑", "price": 3, "key": "wool" },
+		{ "name": "Яйца", "icon": "🥚", "price": 0, "key": "eggs" }
+	]
+}

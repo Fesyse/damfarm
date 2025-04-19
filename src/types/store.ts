@@ -7,13 +7,18 @@ type ResoursesType = {
 	strawberry: number;
 };
 
+type SeedType = {
+	inInventory: number;
+	stock: number;
+};
+
 export type SeedsType = {
-	carrotsSeed: number;
-	potatoesSeed: number;
-	wheatSeed: number;
-	cornSeed: number;
-	tomatoesSeed: number;
-	strawberriesSeed: number;
+	carrotsSeed: SeedType;
+	potatoesSeed: SeedType;
+	wheatSeed: SeedType;
+	cornSeed: SeedType;
+	tomatoesSeed: SeedType;
+	strawberriesSeed: SeedType;
 };
 
 export type ToolsType = {

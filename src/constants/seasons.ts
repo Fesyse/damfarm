@@ -1,1 +1,1 @@
-export const SEASONS = ["spring", "summer", "autumn", "winter"];
+export const SEASONS = ["Весна", "Лето", "Осень", "Зима"];
