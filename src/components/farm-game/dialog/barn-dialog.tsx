@@ -104,15 +104,15 @@ export function BarnDialog() {
     useGameStore(state => state)
 
   const strokeAnimalHandler = (id: number) => {
-    const changed = strokeAnimal(id)
-    if (changed) {
+    const error = strokeAnimal(id)
+    if (!error) {
       toast.success("Вы погладили животное!", {
         description: (
           <span className='text-foreground'>Возвращайтесь завтра!</span>
         ),
       })
     } else {
-      toast.error("Вы уже гладили это животное сегодня!")
+      toast.error(error)
     }
   }
 

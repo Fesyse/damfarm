@@ -100,7 +100,7 @@ export interface GameState {
   setIsPaidNews: (is_paid_news: boolean) => void
 
   animals: AnimalType[]
-  strokeAnimal: (id: number) => boolean
+  strokeAnimal: (id: number) => string | undefined
   feedAnimal: (id: number) => string | undefined
   setAnimals: (animals: AnimalType[]) => void
   addNewAnimal: (animal: AnimalType) => void

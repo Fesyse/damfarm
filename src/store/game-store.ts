@@ -173,11 +173,19 @@ export const useGameStore = create<GameState>()(
         set(state => ({ animals: [...state.animals, animal] }))
       },
       strokeAnimal: (id: number) => {
-        let changed = false
+        let error
         set(state => ({
           animals: state.animals.map(animal => {
-            const isNewAnimal = animal.id === id && !animal.isStroked
-            if (isNewAnimal) changed = true
+            const isNewAnimal = animal.id === id
+
+            if (isNewAnimal && animal.happiness >= 100) {
+              error = "Животное уже счастливое!"
+              return animal
+            }
+            if (isNewAnimal && animal.isStroked) {
+              error = "Вы уже погладили это животное сегодня!"
+              return animal
+            }
 
             return isNewAnimal
               ? { ...animal, happiness: animal.happiness + 10, isStroked: true }
@@ -185,7 +193,7 @@ export const useGameStore = create<GameState>()(
           }),
         }))
 
-        return changed
+        return error
       },
       feedAnimal: (id: number) => {
         let error
@@ -200,13 +208,17 @@ export const useGameStore = create<GameState>()(
             const resource = animalFeedResource[animal.type]
             const resourceAmount = animalFeedResourceAmount[animal.type]
 
+            if (isNewAnimal && state.resources[resource] < resourceAmount) {
+              error = `Недостаточно ${resourceName[resource]}`
+            }
+            if (isNewAnimal && animal.hunger >= 100) {
+              error = "Животное уже сытое!"
+              return animal
+            }
+
             if (isNewAnimal && state.resources[resource] >= resourceAmount) {
               error = "Вы покормили животное!"
               return { ...animal, hunger: animal.hunger + 10, isFed: true }
-            }
-
-            if (isNewAnimal && state.resources[resource] < resourceAmount) {
-              error = `Недостаточно ${resourceName[resource]}`
             }
 
             return animal
@@ -253,7 +265,6 @@ export const useGameStore = create<GameState>()(
           const newAnimal: AnimalType = {
             id: state.animals.length,
             type: animal,
-            name: animal,
             health: 100,
             hunger: 100,
             happiness: 100,
