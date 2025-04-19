@@ -62,7 +62,6 @@ export type AnimalType = {
   happiness: number
 
   isStroked: boolean
-  isFed: boolean
 
   product: keyof ProductsType
   productAmount: number

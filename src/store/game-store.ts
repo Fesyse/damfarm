@@ -33,7 +33,6 @@ export const useGameStore = create<GameState>()(
             const newAnimal: AnimalType = {
               ...animal,
               isStroked: false,
-              isFed: false,
             }
             newAnimal.happiness -= Math.floor(Math.random() * 15 + 10)
             newAnimal.hunger -= Math.floor(Math.random() * 15 + 10)
@@ -231,10 +230,6 @@ export const useGameStore = create<GameState>()(
         set(state => ({
           animals: state.animals.map(animal => {
             const isNewAnimal = animal.id === id
-            if (isNewAnimal && animal.isFed) {
-              error = "Вы уже кормили это животное сегодня!"
-              return animal
-            }
 
             const resource = animalFeedResource[animal.type]
             const resourceAmount = animalFeedResourceAmount[animal.type]
@@ -249,7 +244,11 @@ export const useGameStore = create<GameState>()(
 
             if (isNewAnimal && state.resources[resource] >= resourceAmount) {
               error = "Вы покормили животное!"
-              return { ...animal, hunger: animal.hunger + 10, isFed: true }
+              return {
+                ...animal,
+                hunger: animal.hunger + 25,
+                happiness: animal.happiness + 10,
+              }
             }
 
             return animal
@@ -300,7 +299,6 @@ export const useGameStore = create<GameState>()(
             hunger: 100,
             happiness: 100,
             isStroked: false,
-            isFed: false,
             product: animalProduct[animal],
             productAmount: 10,
           }

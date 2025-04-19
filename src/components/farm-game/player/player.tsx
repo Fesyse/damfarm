@@ -587,4 +587,3 @@ export function Player({ isDialogOpen, setPlayerPosition }: PlayerProps) {
 function lerp(start: number, end: number, amount: number): number {
   return (1 - amount) * start + amount * end
 }
-// Add linear interpolation helper function
