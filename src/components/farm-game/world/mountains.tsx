@@ -19,23 +19,23 @@ export function Mountains({
   // Modified mountain configuration for outside-fence placement
   const mountainRanges = useMemo(() => {
     return [
-      // Main mountain range - taller, more imposing but distanced
+      // Tall mountains in the background
       {
         count: 5,
-        basePosition: [0, 0, -10], // Move back from fence
+        basePosition: [0, 0, -10],
         spreadX: 70,
         spreadZ: 10,
         minScale: 10,
         maxScale: 20,
-        minHeight: 35, // Taller
+        minHeight: 35,
         maxHeight: 60,
         color: "#78909C",
         segments: 6,
       },
-      // Secondary taller peaks
+      // Mid-range peaks
       {
         count: 4,
-        basePosition: [0, 0, -20], // Positioned further back
+        basePosition: [0, 0, -20],
         spreadX: 80,
         spreadZ: 15,
         minScale: 15,

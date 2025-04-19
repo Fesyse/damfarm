@@ -3,19 +3,19 @@
 export function Greenhouse() {
   return (
     <group>
-      {/* Base with foundation */}
+      {/* Foundation */}
       <mesh position={[0, 0.1, 0]} receiveShadow castShadow>
         <boxGeometry args={[8.4, 0.2, 10.4]} />
         <meshStandardMaterial color='#8B4513' />
       </mesh>
 
-      {/* Improved base with more realistic proportions */}
+      {/* Glass walls */}
       <mesh position={[0, 2, 0]} castShadow>
         <boxGeometry args={[8, 4, 10]} />
         <meshStandardMaterial color='#FFFFFF' transparent opacity={0.6} />
       </mesh>
 
-      {/* Greenhouse Roof - dome shaped with improved materials */}
+      {/* Glass roof */}
       <mesh
         position={[0, 4, 0]}
         rotation={[Math.PI / 2, Math.PI / 2, 0]}
@@ -31,7 +31,7 @@ export function Greenhouse() {
         />
       </mesh>
 
-      {/* Side metal frame structures */}
+      {/* Frame edges */}
       {[-3.95, 3.95].map((x, i) => (
         <mesh
           key={`greenhouse-roof-edge-${i}`}
@@ -47,7 +47,7 @@ export function Greenhouse() {
         </mesh>
       ))}
 
-      {/* Enhanced metal frame structure */}
+      {/* Frame supports */}
       {/* Vertical supports */}
       {[-3.91, -2, 0, 2, 3.91].map((x, i, arr) => (
         <group key={`vs-${i}`}>
@@ -108,9 +108,8 @@ export function Greenhouse() {
         <meshStandardMaterial color='#C0C0C0' metalness={0.8} roughness={0.2} />
       </mesh>
 
-      {/* Plants inside with more variety */}
+      {/* Plants */}
       <group position={[0, 0.5, 0]}>
-        {/* Add three types of plants for visual variety */}
         {[-2.5, -1, 0.5, 2].map((x, i) => {
           return (
             <group key={`plant-${i}`} position={[x, 0, -2]}>
@@ -128,7 +127,6 @@ export function Greenhouse() {
           )
         })}
 
-        {/* Add a second row of plants */}
         {[-2, 0, 2].map((x, i) => {
           return (
             <group key={`plant2-${i}`} position={[x, 0, -3.5]}>
@@ -147,7 +145,7 @@ export function Greenhouse() {
         })}
       </group>
 
-      {/* Add gardening tools inside */}
+      {/* Gardening tools */}
       <mesh position={[3, 0.5, -4]} rotation-y={Math.PI / 4} castShadow>
         <boxGeometry args={[0.1, 1.5, 0.1]} />
         <meshStandardMaterial color='#8B4513' />

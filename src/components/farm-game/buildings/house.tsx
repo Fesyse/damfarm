@@ -3,19 +3,19 @@
 export function House() {
   return (
     <group>
-      {/* Foundation */}
+      {/* Base */}
       <mesh position={[0, -0.1, 0]} receiveShadow>
         <boxGeometry args={[6.4, 0.1, 6.4]} />
         <meshStandardMaterial color='#555' />
       </mesh>
 
-      {/* Base with better texture */}
+      {/* Walls */}
       <mesh position={[0, 1.5, 0]} castShadow>
         <boxGeometry args={[6, 3, 6]} />
         <meshStandardMaterial color='#f0f0f0' roughness={0.8} />
       </mesh>
 
-      {/* Improved roof */}
+      {/* Roof */}
       <mesh position={[0, 4.1, 0]} rotation={[0, Math.PI / 4, 0]} castShadow>
         <coneGeometry args={[4.2, 2.2, 4]} />
         <meshStandardMaterial color='#8B4513' roughness={0.7} />
@@ -27,13 +27,13 @@ export function House() {
         <meshStandardMaterial color='#B22222' roughness={0.9} />
       </mesh>
 
-      {/* Chimney top */}
+      {/* Chimney cap */}
       <mesh position={[2, 5.6, 0]} castShadow>
         <boxGeometry args={[1, 0.2, 1]} />
         <meshStandardMaterial color='#8B0000' />
       </mesh>
 
-      {/* Enhanced door with frame */}
+      {/* Door */}
       <mesh position={[0, 1.5, 3.1]} castShadow>
         <boxGeometry args={[2, 3, 0.2]} />
         <meshStandardMaterial color='#4d2600' />

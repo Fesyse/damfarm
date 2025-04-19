@@ -43,7 +43,6 @@ export function Buildings({
     []
   )
 
-  // Update interaction detection with requestAnimationFrame instead of setInterval
   useEffect(() => {
     let animationFrameId: number
 
@@ -60,7 +59,6 @@ export function Buildings({
     }
   }, [playerPosition, setNearInteraction, findClosestInteraction])
 
-  // Define locations precisely
   const locations = {
     center: [0, 0, 0] as Position,
     house: {
@@ -104,7 +102,7 @@ export function Buildings({
         </Billboard>
       </group>
 
-      {/* Kiosk - rotation adjusted to face center */}
+      {/* Kiosk */}
       <group
         position={locations.kiosk.position}
         rotation-y={Math.atan2(
@@ -156,7 +154,7 @@ export function Buildings({
         </Billboard>
       </group>
 
-      {/* Barn - rotation adjusted to face center */}
+      {/* Barn */}
       <group
         position={locations.barn.position}
         rotation-y={Math.atan2(

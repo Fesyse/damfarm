@@ -1,12 +1,10 @@
 import { InteractionPoint } from "../types"
 
-// Calculate position in front of a building facing the center
 const calculateInteractionPoint = (
   x: number,
   z: number,
   distanceFromBuilding: number
 ): [number, number, number] => {
-  // Calculate angle from building to center
   const angle = Math.atan2(-x, -z)
 
   // Calculate position in front of the building using the angle
@@ -16,7 +14,6 @@ const calculateInteractionPoint = (
   return [interactionX, 0, interactionZ]
 }
 
-// Define interaction points outside to avoid recreating in every render
 export const INTERACTION_POINTS: InteractionPoint[] = [
   {
     type: "greenhouse",
@@ -26,7 +23,6 @@ export const INTERACTION_POINTS: InteractionPoint[] = [
   },
   {
     type: "kiosk",
-    // Calculate position in front of kiosk based on center-facing rotation
     position: calculateInteractionPoint(5, 15, 2),
     key: "E",
     action: "посетить Киоск",
@@ -39,7 +35,6 @@ export const INTERACTION_POINTS: InteractionPoint[] = [
   },
   {
     type: "stocks",
-    // Updated position for stock exchange
     position: calculateInteractionPoint(15, -8, 2),
     key: "E",
     action: "торговать акциями",
@@ -58,7 +53,6 @@ export const INTERACTION_POINTS: InteractionPoint[] = [
   },
   {
     type: "barn",
-    // Updated position for barn
     position: calculateInteractionPoint(15, 8, 3),
     key: "E",
     action: "ухаживать за животными",

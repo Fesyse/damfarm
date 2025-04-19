@@ -109,13 +109,13 @@ export function Barn() {
         </group>
       ))}
 
-      {/* Barn loft window (circular) */}
+      {/* Round window */}
       <mesh position={[0, 5, 5.1]} rotation={[Math.PI / 2, 0, 0]} castShadow>
         <cylinderGeometry args={[1, 1, 0.1, 16]} />
         <meshStandardMaterial color='#87CEEB' transparent opacity={0.7} />
       </mesh>
 
-      {/* Decorative elements - hay bales */}
+      {/* Hay bales */}
       {[-2.5, 2.5].map((x, i) => (
         <group key={`hay-${i}`} position={[x, 0.8, -3]}>
           <mesh castShadow>
@@ -125,7 +125,7 @@ export function Barn() {
         </group>
       ))}
 
-      {/* Animal feeding trough */}
+      {/* Feeding trough */}
       <mesh position={[-2, 0.5, 0]} castShadow>
         <boxGeometry args={[1, 0.5, 4]} />
         <meshStandardMaterial color='#A0522D' />
