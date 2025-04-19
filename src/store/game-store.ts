@@ -138,4 +138,43 @@ export const useGameStore = create<GameState>()((set, get) => ({
 		set(() => ({
 			is_paid_news,
 		})),
+
+	animals: [
+		{
+			id: 0,
+			type: "cow",
+			name: "Bessie",
+			price: 2000,
+			health: 100,
+			hunger: 50,
+			happiness: 70,
+			isStroked: false,
+			isFed: false,
+			product: "milk",
+			productAmount: 10,
+			amountCollected: 0,
+		},
+	],
+	setAnimals: (animals) => {
+		set(() => ({
+			animals,
+		}));
+	},
+	addNewAnimal: (animal) => {
+		set((state) => ({ animals: [...state.animals, animal] }));
+	},
+	strokeAnimal: (id: number) => {
+		let changed = false;
+		set((state) => ({
+			animals: state.animals.map((animal) => {
+				const isNewAnimal = animal.id === id && !animal.isStroked;
+				if (isNewAnimal) changed = true;
+
+				return isNewAnimal
+					? { ...animal, happiness: animal.happiness + 10, isStroked: true }
+					: animal;
+			}),
+		}));
+		return changed;
+	},
 }));

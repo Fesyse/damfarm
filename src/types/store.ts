@@ -50,6 +50,24 @@ export type ProductsType = {
 	eggs: number;
 	milk: number;
 	wool: number;
+	meat: number;
+};
+
+export type AnimalType = {
+	id: number;
+	type: "cow" | "chicken" | "sheep" | "pig" | "rabbit" | "horse";
+	name: string;
+	price: number;
+
+	health: number;
+	hunger: number;
+	happiness: number;
+
+	isStroked: boolean;
+	isFed: boolean;
+
+	product: keyof ProductsType;
+	productAmount: number;
 };
 
 export interface GameState {
@@ -82,4 +100,9 @@ export interface GameState {
 
 	is_paid_news: boolean;
 	setIsPaidNews: (is_paid_news: boolean) => void;
+
+	animals: AnimalType[];
+	strokeAnimal: (id: number) => boolean;
+	setAnimals: (animals: AnimalType[]) => void;
+	addNewAnimal: (animal: AnimalType) => void;
 }
