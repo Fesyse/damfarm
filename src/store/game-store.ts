@@ -9,6 +9,7 @@ import {
   GameState,
   ProductsType,
   SeedsType,
+  ShopItem,
   ToolsType,
 } from "@/types/store"
 import { create } from "zustand"
@@ -22,6 +23,49 @@ const resourceName = {
   tomato: "помидоров",
   strawberry: "клубнике",
 }
+
+const defaultShopItems: ShopItem[] = [
+  {
+    name: "Семена моркови",
+    icon: "🥕",
+    price: 10,
+    stock: 8,
+    type: "seed",
+    id: "carrotsSeed",
+  },
+  {
+    name: "Семена картофеля",
+    icon: "🥔",
+    price: 15,
+    stock: 8,
+    type: "seed",
+    id: "potatoesSeed",
+  },
+  {
+    name: "Семена пшеницы",
+    icon: "🌾",
+    price: 5,
+    stock: 8,
+    type: "seed",
+    id: "wheatSeed",
+  },
+  {
+    name: "Семена кукурузы",
+    icon: "🌽",
+    price: 20,
+    stock: 8,
+    type: "seed",
+    id: "cornSeed",
+  },
+  {
+    name: "Лейка",
+    icon: "💧",
+    price: 1000,
+    stock: 1,
+    type: "tool",
+    id: "wateringCan",
+  },
+]
 
 export const useGameStore = create<GameState>()(
   persist(
@@ -59,7 +103,20 @@ export const useGameStore = create<GameState>()(
             return newAnimal
           })
 
+          const newShopItems = defaultShopItems.map((item, i) => {
+            if (defaultShopItems[i].type === "tool") {
+              return {
+                ...item,
+                stock:
+                  item.stock -
+                  (state.tools[item.id as keyof ToolsType] ? 1 : 0),
+              }
+            }
+            return item
+          })
+
           return {
+            shopItems: newShopItems,
             animals: newAnimals,
             seasons:
               (state.days + 1) % 7 == 0 ? state.setSeason() : state.seasons,
@@ -85,6 +142,11 @@ export const useGameStore = create<GameState>()(
             [name]: value,
           },
         }))
+      },
+
+      shopItems: defaultShopItems,
+      setShopItems: (shopItems: ShopItem[]) => {
+        set(() => ({ shopItems }))
       },
 
       resources: {

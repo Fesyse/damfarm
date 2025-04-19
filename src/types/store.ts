@@ -76,6 +76,15 @@ export type AnimalType = {
   productAmount: number
 }
 
+export type ShopItem = {
+  name: string
+  icon: string
+  price: number
+  stock: number
+  type: "seed" | "tool"
+  id: keyof SeedsType | "wateringCan" | "shovel"
+}
+
 type AnimalError = string | undefined
 
 export interface GameState {
@@ -90,6 +99,9 @@ export interface GameState {
 
   resources: ResoursesType
   setResource: (name: keyof ResoursesType, value: number) => void
+
+  shopItems: ShopItem[]
+  setShopItems: (shopItems: ShopItem[]) => void
 
   plots: PlotsType[]
   setPlots: (plots: PlotsType[]) => void
