@@ -51,12 +51,11 @@ export const useGameStore = create<GameState>()(
               newAnimal.health > 50
             ) {
               newAnimal.productAmount += Math.floor(Math.random() * 5) // Increase product amount if animal is happy, not hungry, and healthy
-            } else {
-              newAnimal.productAmount -= Math.floor(Math.random() * 5) // Decrease product amount if animal is unhappy, hungry, or unhealthy
             }
 
             // Ensure product amount is not negative
-            newAnimal.productAmount = Math.max(0, newAnimal.productAmount)
+            newAnimal.productAmount =
+              animal.productAmount + newAnimal.productAmount
 
             return newAnimal
           })
