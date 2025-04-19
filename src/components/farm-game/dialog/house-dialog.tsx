@@ -1,34 +1,38 @@
-"use client"
+"use client";
 
 import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
   DialogClose,
-} from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { useGameStore } from "@/store/game-store"
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { useGameStore } from "@/store/game-store";
+import { useRouter } from "next/navigation";
 
 interface HouseDialogProps {
-  onSleep?: () => void
-  isTransitioning?: boolean
+  onSleep?: () => void;
+  isTransitioning?: boolean;
 }
 
 export function HouseDialog({
   onSleep,
   isTransitioning = false,
 }: HouseDialogProps) {
-  const gameStore = useGameStore(state => state)
-
+  const gameStore = useGameStore((state) => state);
+  const router = useRouter();
   const handleSleep = () => {
+    if (gameStore.days === 30) {
+      router.push("/future");
+    }
     // Call the onSleep handler if it exists, otherwise just advance the day
     if (onSleep) {
-      onSleep()
+      onSleep();
     } else {
-      gameStore.setNextDay()
+      gameStore.setNextDay();
     }
-  }
+  };
 
   return (
     <>
@@ -36,15 +40,15 @@ export function HouseDialog({
         <DialogTitle>Дом</DialogTitle>
         <DialogDescription>Ваше уютное жилище</DialogDescription>
       </DialogHeader>
-      <div className='grid grid-cols-1 gap-4'>
+      <div className="grid grid-cols-1 gap-4">
         <Card>
-          <CardHeader className='p-3 pb-0'>
-            <CardTitle className='text-sm'>Отдых</CardTitle>
+          <CardHeader className="p-3 pb-0">
+            <CardTitle className="text-sm">Отдых</CardTitle>
           </CardHeader>
-          <CardContent className='p-3'>
+          <CardContent className="p-3">
             <DialogClose asChild>
               <Button
-                className='w-full'
+                className="w-full"
                 onClick={handleSleep}
                 disabled={isTransitioning}
               >
@@ -55,5 +59,5 @@ export function HouseDialog({
         </Card>
       </div>
     </>
-  )
+  );
 }

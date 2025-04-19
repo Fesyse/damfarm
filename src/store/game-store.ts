@@ -31,7 +31,7 @@ export const useGameStore = create<GameState>()(
         set((state) => ({
           seasons:
             (state.days + 1) % 7 == 0 ? state.setSeason() : state.seasons,
-          days: state.days + 1,
+          days: 30,
         }));
       },
 
@@ -57,7 +57,7 @@ export const useGameStore = create<GameState>()(
 
       // resources
       resources: {
-        carrot: 0,
+        carrot: 10,
         potato: 0,
         wheat: 0,
         corn: 0,
@@ -68,7 +68,7 @@ export const useGameStore = create<GameState>()(
         set((state) => ({
           resources: {
             ...state.resources,
-            [name]: value,
+            [name]: state.resources[name] + value,
           },
         }));
       },
@@ -133,7 +133,9 @@ export const useGameStore = create<GameState>()(
         meat: 0,
       },
       setProducts: (name: keyof ProductsType, value: number) => {
-        set((state) => ({ products: { ...state.products, [name]: value } }));
+        set((state) => ({
+          products: { ...state.products, [name]: state.products[name] + value },
+        }));
       },
       // stocks
       stocks: {

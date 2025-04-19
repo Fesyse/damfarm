@@ -8,50 +8,50 @@ import { useGameStore } from "@/store/game-store";
 import { Environment } from "@react-three/drei";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-	Suspense,
-	useCallback,
-	useEffect,
-	useMemo,
-	useRef,
-	useState,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
 } from "react";
 import {
-	BarnDialog,
-	FishingDialog,
-	GreenhouseDialog,
-	HouseDialog,
-	KioskDialog,
-	MailDialog,
-	StocksDialog,
+  BarnDialog,
+  FishingDialog,
+  GreenhouseDialog,
+  HouseDialog,
+  KioskDialog,
+  MailDialog,
+  StocksDialog,
 } from "./dialog";
 
 import {
-	Dialog,
-	DialogContent,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Fish } from "@/types/fish";
 import { Sky } from "@react-three/drei";
 import type { CanvasProps } from "@react-three/fiber";
 import { Canvas } from "@react-three/fiber";
 import {
-	ArrowDown,
-	ArrowLeft,
-	ArrowRight,
-	ArrowUp,
-	CircleHelp,
-	Coins,
-	Flower,
-	Menu,
-	Snowflake,
-	Sun,
-	User,
-	Volume2,
-	VolumeX,
-	X,
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
+  CircleHelp,
+  Coins,
+  Flower,
+  Menu,
+  Snowflake,
+  Sun,
+  User,
+  Volume2,
+  VolumeX,
+  X,
 } from "lucide-react";
 import { toast } from "sonner";
 import { ScrollArea } from "../ui/scroll-area";
@@ -59,932 +59,939 @@ import { Player } from "./player";
 import { Position } from "./types";
 import { InteractionPoint } from "./types/interaction-point";
 import { GameWorld } from "./world/game-world";
+import { QuestDialog } from "./dialog/quests-dialog";
 
 // Mobile device detection
 function useIsMobile() {
-	const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-	useEffect(() => {
-		const checkMobile = () => {
-			setIsMobile(window.innerWidth <= 768);
-		};
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
 
-		checkMobile();
-		window.addEventListener("resize", checkMobile);
-		return () => window.removeEventListener("resize", checkMobile);
-	}, []);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
-	return isMobile;
+  return isMobile;
 }
 
 function SkyController({
-	isNight,
-	onTransitionComplete,
+  isNight,
+  onTransitionComplete,
 }: {
-	isNight: boolean;
-	onTransitionComplete: () => void;
+  isNight: boolean;
+  onTransitionComplete: () => void;
 }) {
-	const [sunPosition, setSunPosition] = useState<[number, number, number]>([
-		100, 20, 100,
-	]);
-	const [turbidity, setTurbidity] = useState(10);
-	const [rayleigh, setRayleigh] = useState(2);
-	const [mieCoefficient, setMieCoefficient] = useState(0.005);
-	const [mieDirectionalG, setMieDirectionalG] = useState(0.8);
-	const [animationCompleted, setAnimationCompleted] = useState(false);
-	const [shouldAnimate, setShouldAnimate] = useState(false);
-	const prevIsNightRef = useRef(isNight);
+  const [sunPosition, setSunPosition] = useState<[number, number, number]>([
+    100, 20, 100,
+  ]);
+  const [turbidity, setTurbidity] = useState(10);
+  const [rayleigh, setRayleigh] = useState(2);
+  const [mieCoefficient, setMieCoefficient] = useState(0.005);
+  const [mieDirectionalG, setMieDirectionalG] = useState(0.8);
+  const [animationCompleted, setAnimationCompleted] = useState(false);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+  const prevIsNightRef = useRef(isNight);
 
-	useEffect(() => {
-		if (prevIsNightRef.current !== isNight) {
-			setShouldAnimate(true);
-			setAnimationCompleted(false);
-		}
+  useEffect(() => {
+    if (prevIsNightRef.current !== isNight) {
+      setShouldAnimate(true);
+      setAnimationCompleted(false);
+    }
 
-		prevIsNightRef.current = isNight;
-	}, [isNight]);
+    prevIsNightRef.current = isNight;
+  }, [isNight]);
 
-	useEffect(() => {
-		if (!shouldAnimate) return;
+  useEffect(() => {
+    if (!shouldAnimate) return;
 
-		let animationId = 0;
-		let progress = 0;
-		const duration = 3; // seconds
-		const fps = 60;
-		const totalFrames = duration * fps;
+    let animationId = 0;
+    let progress = 0;
+    const duration = 3; // seconds
+    const fps = 60;
+    const totalFrames = duration * fps;
 
-		// Day position values
-		const dayPosition: [number, number, number] = [100, 20, 100];
-		const dayTurbidity = 10;
-		const dayRayleigh = 2;
-		const dayMieCoefficient = 0.005;
-		const dayMieDirectionalG = 0.8;
+    // Day position values
+    const dayPosition: [number, number, number] = [100, 20, 100];
+    const dayTurbidity = 10;
+    const dayRayleigh = 2;
+    const dayMieCoefficient = 0.005;
+    const dayMieDirectionalG = 0.8;
 
-		// Night position values - use higher sun position for a blue night sky instead of black
-		const nightPosition: [number, number, number] = [100, -5, 100];
-		const nightTurbidity = 20;
-		const nightRayleigh = 4; // Higher rayleigh for bluer night
-		const nightMieCoefficient = 0.003;
-		const nightMieDirectionalG = 0.7;
+    // Night position values - use higher sun position for a blue night sky instead of black
+    const nightPosition: [number, number, number] = [100, -5, 100];
+    const nightTurbidity = 20;
+    const nightRayleigh = 4; // Higher rayleigh for bluer night
+    const nightMieCoefficient = 0.003;
+    const nightMieDirectionalG = 0.7;
 
-		const startPosition = isNight ? dayPosition : nightPosition;
-		const endPosition = isNight ? nightPosition : dayPosition;
+    const startPosition = isNight ? dayPosition : nightPosition;
+    const endPosition = isNight ? nightPosition : dayPosition;
 
-		const startTurbidity = isNight ? dayTurbidity : nightTurbidity;
-		const endTurbidity = isNight ? nightTurbidity : dayTurbidity;
+    const startTurbidity = isNight ? dayTurbidity : nightTurbidity;
+    const endTurbidity = isNight ? nightTurbidity : dayTurbidity;
 
-		const startRayleigh = isNight ? dayRayleigh : nightRayleigh;
-		const endRayleigh = isNight ? nightRayleigh : dayRayleigh;
+    const startRayleigh = isNight ? dayRayleigh : nightRayleigh;
+    const endRayleigh = isNight ? nightRayleigh : dayRayleigh;
 
-		const startMieCoefficient = isNight
-			? dayMieCoefficient
-			: nightMieCoefficient;
-		const endMieCoefficient = isNight ? nightMieCoefficient : dayMieCoefficient;
+    const startMieCoefficient = isNight
+      ? dayMieCoefficient
+      : nightMieCoefficient;
+    const endMieCoefficient = isNight ? nightMieCoefficient : dayMieCoefficient;
 
-		const startMieDirectionalG = isNight
-			? dayMieDirectionalG
-			: nightMieDirectionalG;
-		const endMieDirectionalG = isNight
-			? nightMieDirectionalG
-			: dayMieDirectionalG;
+    const startMieDirectionalG = isNight
+      ? dayMieDirectionalG
+      : nightMieDirectionalG;
+    const endMieDirectionalG = isNight
+      ? nightMieDirectionalG
+      : dayMieDirectionalG;
 
-		const animate = () => {
-			progress += 1 / totalFrames;
+    const animate = () => {
+      progress += 1 / totalFrames;
 
-			if (progress >= 1) {
-				progress = 1;
-				cancelAnimationFrame(animationId);
+      if (progress >= 1) {
+        progress = 1;
+        cancelAnimationFrame(animationId);
 
-				// Only call onTransitionComplete once and reset animation flag
-				if (!animationCompleted) {
-					setAnimationCompleted(true);
-					setShouldAnimate(false);
-					onTransitionComplete();
-				}
-			}
+        // Only call onTransitionComplete once and reset animation flag
+        if (!animationCompleted) {
+          setAnimationCompleted(true);
+          setShouldAnimate(false);
+          onTransitionComplete();
+        }
+      }
 
-			// Apply easing (smooth transition)
-			const eased = easeInOutCubic(progress);
+      // Apply easing (smooth transition)
+      const eased = easeInOutCubic(progress);
 
-			// Interpolate values
-			const newX =
-				startPosition[0] + (endPosition[0] - startPosition[0]) * eased;
-			const newY =
-				startPosition[1] + (endPosition[1] - startPosition[1]) * eased;
-			const newZ =
-				startPosition[2] + (endPosition[2] - startPosition[2]) * eased;
+      // Interpolate values
+      const newX =
+        startPosition[0] + (endPosition[0] - startPosition[0]) * eased;
+      const newY =
+        startPosition[1] + (endPosition[1] - startPosition[1]) * eased;
+      const newZ =
+        startPosition[2] + (endPosition[2] - startPosition[2]) * eased;
 
-			const newTurbidity =
-				startTurbidity + (endTurbidity - startTurbidity) * eased;
-			const newRayleigh = startRayleigh + (endRayleigh - startRayleigh) * eased;
-			const newMieCoefficient =
-				startMieCoefficient + (endMieCoefficient - startMieCoefficient) * eased;
-			const newMieDirectionalG =
-				startMieDirectionalG +
-				(endMieDirectionalG - startMieDirectionalG) * eased;
+      const newTurbidity =
+        startTurbidity + (endTurbidity - startTurbidity) * eased;
+      const newRayleigh = startRayleigh + (endRayleigh - startRayleigh) * eased;
+      const newMieCoefficient =
+        startMieCoefficient + (endMieCoefficient - startMieCoefficient) * eased;
+      const newMieDirectionalG =
+        startMieDirectionalG +
+        (endMieDirectionalG - startMieDirectionalG) * eased;
 
-			setSunPosition([newX, newY, newZ]);
-			setTurbidity(newTurbidity);
-			setRayleigh(newRayleigh);
-			setMieCoefficient(newMieCoefficient);
-			setMieDirectionalG(newMieDirectionalG);
+      setSunPosition([newX, newY, newZ]);
+      setTurbidity(newTurbidity);
+      setRayleigh(newRayleigh);
+      setMieCoefficient(newMieCoefficient);
+      setMieDirectionalG(newMieDirectionalG);
 
-			if (progress < 1) {
-				animationId = requestAnimationFrame(animate);
-			}
-		};
+      if (progress < 1) {
+        animationId = requestAnimationFrame(animate);
+      }
+    };
 
-		animationId = requestAnimationFrame(animate);
+    animationId = requestAnimationFrame(animate);
 
-		return () => {
-			cancelAnimationFrame(animationId);
-		};
-	}, [isNight, onTransitionComplete, animationCompleted, shouldAnimate]);
+    return () => {
+      cancelAnimationFrame(animationId);
+    };
+  }, [isNight, onTransitionComplete, animationCompleted, shouldAnimate]);
 
-	const easeInOutCubic = (x: number): number => {
-		return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-	};
+  const easeInOutCubic = (x: number): number => {
+    return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  };
 
-	return (
-		<Sky
-			sunPosition={sunPosition}
-			turbidity={turbidity}
-			rayleigh={rayleigh}
-			mieCoefficient={mieCoefficient}
-			mieDirectionalG={mieDirectionalG}
-		/>
-	);
+  return (
+    <Sky
+      sunPosition={sunPosition}
+      turbidity={turbidity}
+      rayleigh={rayleigh}
+      mieCoefficient={mieCoefficient}
+      mieDirectionalG={mieDirectionalG}
+    />
+  );
 }
 
 export function FarmGame() {
-	const gameStore = useGameStore((state) => state);
+  const gameStore = useGameStore((state) => state);
 
-	const audioRef = useRef<HTMLAudioElement | null>(null);
-	const [isNight, setIsNight] = useState(false);
-	const [isTransitioning, setIsTransitioning] = useState(false);
-	const [isSleeping, setIsSleeping] = useState(false);
-	const [completedDayAdvance, setCompletedDayAdvance] = useState(false);
-	const hasMounted = useRef(false);
-	const [showUI, setShowUI] = useState(false);
-	const [showMainMenu, setShowMainMenu] = useState(false);
-	const [playerPosition, setPlayerPosition] = useState<Position>([0, 0, 0]);
-	const [nearInteraction, setNearInteraction] =
-		useState<InteractionPoint | null>(null);
-	const [showDialog, setShowDialog] = useState(false);
-	const [dialogType, setDialogType] = useState<string | null>(null);
-	const [inventory, setInventory] = useState<Fish[]>([]);
-	const [showInstructions, setShowInstructions] = useState(false);
-	const [isMuted, setIsMuted] = useState(true);
-	const [hasInteracted, setHasInteracted] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isNight, setIsNight] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isSleeping, setIsSleeping] = useState(false);
+  const [completedDayAdvance, setCompletedDayAdvance] = useState(false);
+  const hasMounted = useRef(false);
+  const [showUI, setShowUI] = useState(false);
+  const [showMainMenu, setShowMainMenu] = useState(false);
+  const [playerPosition, setPlayerPosition] = useState<Position>([0, 0, 0]);
+  const [nearInteraction, setNearInteraction] =
+    useState<InteractionPoint | null>(null);
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogType, setDialogType] = useState<string | null>(null);
+  const [inventory, setInventory] = useState<Fish[]>([]);
+  const [showInstructions, setShowInstructions] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
-	// Mobile control state
-	const isMobile = useIsMobile();
-	const [showMobileControls, setShowMobileControls] = useState(true);
-	const [touchStartPos, setTouchStartPos] = useState<{
-		x: number;
-		y: number;
-	} | null>(null);
-	const [joystickActive, setJoystickActive] = useState(false);
-	const [joystickPos, setJoystickPos] = useState({ x: 0, y: 0 });
-	const joystickAreaRef = useRef<HTMLDivElement>(null);
-	const isPressing = useRef({
-		up: false,
-		down: false,
-		left: false,
-		right: false,
-	});
+  // Mobile control state
+  const isMobile = useIsMobile();
+  const [showMobileControls, setShowMobileControls] = useState(true);
+  const [touchStartPos, setTouchStartPos] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
+  const [joystickActive, setJoystickActive] = useState(false);
+  const [joystickPos, setJoystickPos] = useState({ x: 0, y: 0 });
+  const joystickAreaRef = useRef<HTMLDivElement>(null);
+  const isPressing = useRef({
+    up: false,
+    down: false,
+    left: false,
+    right: false,
+  });
 
-	const simulateKeyDown = useCallback((key: string) => {
-		const event = new KeyboardEvent("keydown", { code: key });
-		window.dispatchEvent(event);
-	}, []);
+  const simulateKeyDown = useCallback((key: string) => {
+    const event = new KeyboardEvent("keydown", { code: key });
+    window.dispatchEvent(event);
+  }, []);
 
-	const simulateKeyUp = useCallback((key: string) => {
-		const event = new KeyboardEvent("keyup", { code: key });
-		window.dispatchEvent(event);
-	}, []);
+  const simulateKeyUp = useCallback((key: string) => {
+    const event = new KeyboardEvent("keyup", { code: key });
+    window.dispatchEvent(event);
+  }, []);
 
-	useEffect(() => {
-		if (!isMobile) return;
+  useEffect(() => {
+    if (!isMobile) return;
 
-		const joystickArea = joystickAreaRef.current;
-		if (!joystickArea) return;
+    const joystickArea = joystickAreaRef.current;
+    if (!joystickArea) return;
 
-		const handleTouchStart = (e: TouchEvent) => {
-			const touch = e.touches[0];
-			const rect = joystickArea.getBoundingClientRect();
-			setTouchStartPos({
-				x: touch.clientX - rect.left,
-				y: touch.clientY - rect.top,
-			});
-			setJoystickActive(true);
-			setJoystickPos({
-				x: touch.clientX - rect.left,
-				y: touch.clientY - rect.top,
-			});
-		};
+    const handleTouchStart = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      const rect = joystickArea.getBoundingClientRect();
+      setTouchStartPos({
+        x: touch.clientX - rect.left,
+        y: touch.clientY - rect.top,
+      });
+      setJoystickActive(true);
+      setJoystickPos({
+        x: touch.clientX - rect.left,
+        y: touch.clientY - rect.top,
+      });
+    };
 
-		const handleTouchMove = (e: TouchEvent) => {
-			if (!joystickActive || !touchStartPos) return;
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!joystickActive || !touchStartPos) return;
 
-			const touch = e.touches[0];
-			const rect = joystickArea.getBoundingClientRect();
-			const touchX = touch.clientX - rect.left;
-			const touchY = touch.clientY - rect.top;
+      const touch = e.touches[0];
+      const rect = joystickArea.getBoundingClientRect();
+      const touchX = touch.clientX - rect.left;
+      const touchY = touch.clientY - rect.top;
 
-			const deltaX = touchX - touchStartPos.x;
-			const deltaY = touchY - touchStartPos.y;
-			const distance = Math.min(
-				Math.sqrt(deltaX * deltaX + deltaY * deltaY),
-				50
-			);
-			const angle = Math.atan2(deltaY, deltaX);
+      const deltaX = touchX - touchStartPos.x;
+      const deltaY = touchY - touchStartPos.y;
+      const distance = Math.min(
+        Math.sqrt(deltaX * deltaX + deltaY * deltaY),
+        50
+      );
+      const angle = Math.atan2(deltaY, deltaX);
 
-			const limitedX = touchStartPos.x + distance * Math.cos(angle);
-			const limitedY = touchStartPos.y + distance * Math.sin(angle);
-			setJoystickPos({ x: limitedX, y: limitedY });
+      const limitedX = touchStartPos.x + distance * Math.cos(angle);
+      const limitedY = touchStartPos.y + distance * Math.sin(angle);
+      setJoystickPos({ x: limitedX, y: limitedY });
 
-			const threshold = 10;
-			if (isPressing.current.up) {
-				simulateKeyUp("KeyW");
-				isPressing.current.up = false;
-			}
-			if (isPressing.current.down) {
-				simulateKeyUp("KeyS");
-				isPressing.current.down = false;
-			}
-			if (isPressing.current.left) {
-				simulateKeyUp("KeyA");
-				isPressing.current.left = false;
-			}
-			if (isPressing.current.right) {
-				simulateKeyUp("KeyD");
-				isPressing.current.right = false;
-			}
+      const threshold = 10;
+      if (isPressing.current.up) {
+        simulateKeyUp("KeyW");
+        isPressing.current.up = false;
+      }
+      if (isPressing.current.down) {
+        simulateKeyUp("KeyS");
+        isPressing.current.down = false;
+      }
+      if (isPressing.current.left) {
+        simulateKeyUp("KeyA");
+        isPressing.current.left = false;
+      }
+      if (isPressing.current.right) {
+        simulateKeyUp("KeyD");
+        isPressing.current.right = false;
+      }
 
-			if (deltaY < -threshold) {
-				simulateKeyDown("KeyW");
-				isPressing.current.up = true;
-			}
-			if (deltaY > threshold) {
-				simulateKeyDown("KeyS");
-				isPressing.current.down = true;
-			}
-			if (deltaX < -threshold) {
-				simulateKeyDown("KeyA");
-				isPressing.current.left = true;
-			}
-			if (deltaX > threshold) {
-				simulateKeyDown("KeyD");
-				isPressing.current.right = true;
-			}
-		};
+      if (deltaY < -threshold) {
+        simulateKeyDown("KeyW");
+        isPressing.current.up = true;
+      }
+      if (deltaY > threshold) {
+        simulateKeyDown("KeyS");
+        isPressing.current.down = true;
+      }
+      if (deltaX < -threshold) {
+        simulateKeyDown("KeyA");
+        isPressing.current.left = true;
+      }
+      if (deltaX > threshold) {
+        simulateKeyDown("KeyD");
+        isPressing.current.right = true;
+      }
+    };
 
-		const handleTouchEnd = () => {
-			setJoystickActive(false);
-			setTouchStartPos(null);
+    const handleTouchEnd = () => {
+      setJoystickActive(false);
+      setTouchStartPos(null);
 
-			if (isPressing.current.up) {
-				simulateKeyUp("KeyW");
-				isPressing.current.up = false;
-			}
-			if (isPressing.current.down) {
-				simulateKeyUp("KeyS");
-				isPressing.current.down = false;
-			}
-			if (isPressing.current.left) {
-				simulateKeyUp("KeyA");
-				isPressing.current.left = false;
-			}
-			if (isPressing.current.right) {
-				simulateKeyUp("KeyD");
-				isPressing.current.right = false;
-			}
-		};
+      if (isPressing.current.up) {
+        simulateKeyUp("KeyW");
+        isPressing.current.up = false;
+      }
+      if (isPressing.current.down) {
+        simulateKeyUp("KeyS");
+        isPressing.current.down = false;
+      }
+      if (isPressing.current.left) {
+        simulateKeyUp("KeyA");
+        isPressing.current.left = false;
+      }
+      if (isPressing.current.right) {
+        simulateKeyUp("KeyD");
+        isPressing.current.right = false;
+      }
+    };
 
-		joystickArea.addEventListener("touchstart", handleTouchStart);
-		joystickArea.addEventListener("touchmove", handleTouchMove);
-		joystickArea.addEventListener("touchend", handleTouchEnd);
+    joystickArea.addEventListener("touchstart", handleTouchStart);
+    joystickArea.addEventListener("touchmove", handleTouchMove);
+    joystickArea.addEventListener("touchend", handleTouchEnd);
 
-		return () => {
-			joystickArea.removeEventListener("touchstart", handleTouchStart);
-			joystickArea.removeEventListener("touchmove", handleTouchMove);
-			joystickArea.removeEventListener("touchend", handleTouchEnd);
-		};
-	}, [isMobile, joystickActive, touchStartPos, simulateKeyDown, simulateKeyUp]);
+    return () => {
+      joystickArea.removeEventListener("touchstart", handleTouchStart);
+      joystickArea.removeEventListener("touchmove", handleTouchMove);
+      joystickArea.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [isMobile, joystickActive, touchStartPos, simulateKeyDown, simulateKeyUp]);
 
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			hasMounted.current = true;
-		}, 100);
-		return () => clearTimeout(timer);
-	}, []);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      hasMounted.current = true;
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
-	const canvasProps = useMemo<CanvasProps>(
-		() => ({
-			shadows: true,
-			dpr: [1, 2] as [number, number],
-			gl: {
-				antialias: true,
-				alpha: false,
-				powerPreference: "high-performance",
-			},
-			camera: { fov: 60, near: 0.1, far: 200 },
-		}),
-		[]
-	);
+  const canvasProps = useMemo<CanvasProps>(
+    () => ({
+      shadows: true,
+      dpr: [1, 2] as [number, number],
+      gl: {
+        antialias: true,
+        alpha: false,
+        powerPreference: "high-performance",
+      },
+      camera: { fov: 60, near: 0.1, far: 200 },
+    }),
+    []
+  );
 
-	useEffect(() => {
-		audioRef.current = new Audio("/audio/01.mp3");
-		audioRef.current.loop = true;
-		audioRef.current.volume = 0.3;
+  useEffect(() => {
+    audioRef.current = new Audio("/audio/01.mp3");
+    audioRef.current.loop = true;
+    audioRef.current.volume = 0.3;
 
-		return () => {
-			if (audioRef.current) {
-				audioRef.current.pause();
-				audioRef.current = null;
-			}
-		};
-	}, []);
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
 
-	useEffect(() => {
-		if (audioRef.current && hasInteracted) {
-			if (isMuted) {
-				audioRef.current.pause();
-			} else {
-				audioRef.current.play().catch(() => {});
-			}
-		}
-	}, [isMuted, hasInteracted]);
+  useEffect(() => {
+    if (audioRef.current && hasInteracted) {
+      if (isMuted) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play().catch(() => {});
+      }
+    }
+  }, [isMuted, hasInteracted]);
 
-	useEffect(() => {
-		const handleKeyPress = (e: KeyboardEvent) => {
-			e.preventDefault();
-			if (nearInteraction) {
-				if (
-					(e.code === "KeyE" && nearInteraction.key === "E") ||
-					(e.code === "KeyM" && nearInteraction.key === "M")
-				) {
-					setDialogType(nearInteraction.type);
-					setShowDialog(true);
-				}
-			}
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      e.preventDefault();
+      if (nearInteraction) {
+        if (
+          (e.code === "KeyE" && nearInteraction.key === "E") ||
+          (e.code === "KeyM" && nearInteraction.key === "M")
+        ) {
+          setDialogType(nearInteraction.type);
+          setShowDialog(true);
+        }
+      }
 
-			if (e.code === "KeyM") {
-				setDialogType("mail");
-				setShowDialog(true);
-			}
-			if (e.code === "KeyH") {
-				setShowInstructions((prev) => !prev);
-			}
-		};
+      if (e.code === "KeyM") {
+        setDialogType("mail");
+        setShowDialog(true);
+      }
+      if (e.code === "KeyR") {
+        setDialogType("quests");
+        setShowDialog(true);
+      }
 
-		window.addEventListener("keydown", handleKeyPress);
-		return () => window.removeEventListener("keydown", handleKeyPress);
-	}, [nearInteraction]);
+      if (e.code === "KeyH") {
+        setShowInstructions((prev) => !prev);
+      }
+    };
 
-	const getInventoryCount = useCallback(() => inventory.length, [inventory]);
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [nearInteraction]);
 
-	const handleFishCatch = useCallback((fish: Fish) => {
-		setInventory((prev) => [...prev, fish]);
-		toast.success("Рыба поймана!", {
-			description: `Вы поймали ${fish.name}!`,
-		});
-	}, []);
+  const getInventoryCount = useCallback(() => inventory.length, [inventory]);
 
-	const handleTransitionComplete = useCallback(() => {
-		if (!hasMounted.current) return;
+  const handleFishCatch = useCallback((fish: Fish) => {
+    setInventory((prev) => [...prev, fish]);
+    toast.success("Рыба поймана!", {
+      description: `Вы поймали ${fish.name}!`,
+    });
+  }, []);
 
-		setIsTransitioning(false);
+  const handleTransitionComplete = useCallback(() => {
+    if (!hasMounted.current) return;
 
-		if (!isNight && !completedDayAdvance && isSleeping) {
-			gameStore.setNextDay();
-			setCompletedDayAdvance(true);
-		}
+    setIsTransitioning(false);
 
-		if (!isNight) {
-			setIsSleeping(false);
-		}
-	}, [isNight, gameStore, completedDayAdvance, isSleeping]);
+    if (!isNight && !completedDayAdvance && isSleeping) {
+      gameStore.setNextDay();
+      setCompletedDayAdvance(true);
+    }
 
-	const handleSleep = useCallback(() => {
-		if (!isTransitioning && !isSleeping) {
-			setIsSleeping(true);
-			setIsTransitioning(true);
-			setCompletedDayAdvance(false);
-			setIsNight(true);
+    if (!isNight) {
+      setIsSleeping(false);
+    }
+  }, [isNight, gameStore, completedDayAdvance, isSleeping]);
 
-			setTimeout(() => {
-				setIsNight(false);
-			}, 3000);
-		}
-	}, [isTransitioning, isSleeping]);
+  const handleSleep = useCallback(() => {
+    if (!isTransitioning && !isSleeping) {
+      setIsSleeping(true);
+      setIsTransitioning(true);
+      setCompletedDayAdvance(false);
+      setIsNight(true);
 
-	const handleInteractionButtonClick = useCallback(() => {
-		if (nearInteraction) {
-			if (nearInteraction.key === "E" || nearInteraction.key === "M") {
-				setDialogType(nearInteraction.type);
-				setShowDialog(true);
-			}
-		}
-	}, [nearInteraction]);
+      setTimeout(() => {
+        setIsNight(false);
+      }, 3000);
+    }
+  }, [isTransitioning, isSleeping]);
 
-	return (
-		<div className="w-full h-screen relative">
-			<Canvas {...canvasProps}>
-				<Suspense fallback={null}>
-					<SkyController
-						isNight={isNight}
-						onTransitionComplete={handleTransitionComplete}
-					/>
-					<Environment preset={isNight ? "night" : "sunset"} />
-					<ambientLight intensity={isNight ? 0.3 : 0.5} />
-					<directionalLight
-						position={[10, 10, 10]}
-						intensity={isNight ? 0.4 : 1}
-						castShadow
-						shadow-mapSize-width={2048}
-						shadow-mapSize-height={2048}
-					/>
-					<GameWorld
-						setNearInteraction={setNearInteraction}
-						playerPosition={playerPosition}
-					/>
-					<Player setPlayerPosition={setPlayerPosition} />
-				</Suspense>
-			</Canvas>
+  const handleInteractionButtonClick = useCallback(() => {
+    if (nearInteraction) {
+      if (nearInteraction.key === "E" || nearInteraction.key === "M") {
+        setDialogType(nearInteraction.type);
+        setShowDialog(true);
+      }
+    }
+  }, [nearInteraction]);
 
-			{/* Menu */}
-			<Dialog open={showMainMenu} onOpenChange={setShowMainMenu}>
-				<DialogTrigger asChild>
-					<button
-						className={`absolute ${
-							isMobile ? "top-2 right-2" : "top-4 right-4"
-						} z-50 bg-white/80 p-2 rounded-full shadow-lg`}
-						onClick={() => setShowMainMenu((prev) => !prev)}
-					>
-						{showMainMenu ? (
-							<X size={isMobile ? 20 : 24} />
-						) : (
-							<Menu size={isMobile ? 20 : 24} />
-						)}
-					</button>
-				</DialogTrigger>
-				<DialogContent>
-					<DialogHeader>
-						<DialogTitle>Menu</DialogTitle>
-					</DialogHeader>
-					<Button onClick={() => setShowMainMenu(false)}>
-						Возобновить игру
-					</Button>
-					<Button variant="outline">Настройки</Button>
-					<Button
-						variant="destructive"
-						onClick={() => {
-							window.close();
-						}}
-					>
-						Выйти из игры
-					</Button>
-				</DialogContent>
-			</Dialog>
+  return (
+    <div className="w-full h-screen relative">
+      <Canvas {...canvasProps}>
+        <Suspense fallback={null}>
+          <SkyController
+            isNight={isNight}
+            onTransitionComplete={handleTransitionComplete}
+          />
+          <Environment preset={isNight ? "night" : "sunset"} />
+          <ambientLight intensity={isNight ? 0.3 : 0.5} />
+          <directionalLight
+            position={[10, 10, 10]}
+            intensity={isNight ? 0.4 : 1}
+            castShadow
+            shadow-mapSize-width={2048}
+            shadow-mapSize-height={2048}
+          />
+          <GameWorld
+            setNearInteraction={setNearInteraction}
+            playerPosition={playerPosition}
+          />
+          <Player setPlayerPosition={setPlayerPosition} />
+        </Suspense>
+      </Canvas>
 
-			{/* Sound Toggle Button */}
-			<button
-				onClick={() => {
-					setHasInteracted(true);
-					setIsMuted((prev) => !prev);
-				}}
-				className={`absolute ${
-					isMobile ? "top-2 left-2" : "top-4 left-4"
-				} bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2 rounded-xl shadow-lg z-50 border border-white/20 hover:from-white/80 hover:to-white/50 transition-all duration-200`}
-			>
-				{isMuted ? (
-					<VolumeX size={isMobile ? 14 : 16} className="text-gray-700" />
-				) : (
-					<Volume2 size={isMobile ? 14 : 16} className="text-gray-700" />
-				)}
-			</button>
+      {/* Menu */}
+      <Dialog open={showMainMenu} onOpenChange={setShowMainMenu}>
+        <DialogTrigger asChild>
+          <button
+            className={`absolute ${
+              isMobile ? "top-2 right-2" : "top-4 right-4"
+            } z-50 bg-white/80 p-2 rounded-full shadow-lg`}
+            onClick={() => setShowMainMenu((prev) => !prev)}
+          >
+            {showMainMenu ? (
+              <X size={isMobile ? 20 : 24} />
+            ) : (
+              <Menu size={isMobile ? 20 : 24} />
+            )}
+          </button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Menu</DialogTitle>
+          </DialogHeader>
+          <Button onClick={() => setShowMainMenu(false)}>
+            Возобновить игру
+          </Button>
+          <Button variant="outline">Настройки</Button>
+          <Button
+            variant="destructive"
+            onClick={() => {
+              window.close();
+            }}
+          >
+            Выйти из игры
+          </Button>
+        </DialogContent>
+      </Dialog>
 
-			{/* Game Instructions Toggle Button - Adjusted for mobile */}
-			<button
-				onClick={() => setShowInstructions(!showInstructions)}
-				className={`absolute ${
-					isMobile ? "top-2 left-12" : "top-4 left-16"
-				} bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2 rounded-xl shadow-lg z-50 border border-white/20 hover:from-white/80 hover:to-white/50 transition-all duration-200`}
-			>
-				<CircleHelp size={isMobile ? 14 : 16} className="text-gray-700" />
-			</button>
+      {/* Sound Toggle Button */}
+      <button
+        onClick={() => {
+          setHasInteracted(true);
+          setIsMuted((prev) => !prev);
+        }}
+        className={`absolute ${
+          isMobile ? "top-2 left-2" : "top-4 left-4"
+        } bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2 rounded-xl shadow-lg z-50 border border-white/20 hover:from-white/80 hover:to-white/50 transition-all duration-200`}
+      >
+        {isMuted ? (
+          <VolumeX size={isMobile ? 14 : 16} className="text-gray-700" />
+        ) : (
+          <Volume2 size={isMobile ? 14 : 16} className="text-gray-700" />
+        )}
+      </button>
 
-			{/* Player Position */}
-			{!isMobile && (
-				<div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-white/80 backdrop-blur-md p-2 rounded-lg shadow-lg z-40 flex items-center gap-2">
-					<User size={16} />
-					<span>
-						X: {playerPosition[0].toFixed(1)}, Z: {playerPosition[2].toFixed(1)}
-					</span>
-				</div>
-			)}
+      {/* Game Instructions Toggle Button - Adjusted for mobile */}
+      <button
+        onClick={() => setShowInstructions(!showInstructions)}
+        className={`absolute ${
+          isMobile ? "top-2 left-12" : "top-4 left-16"
+        } bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2 rounded-xl shadow-lg z-50 border border-white/20 hover:from-white/80 hover:to-white/50 transition-all duration-200`}
+      >
+        <CircleHelp size={isMobile ? 14 : 16} className="text-gray-700" />
+      </button>
 
-			{isMobile && showMobileControls && !showUI && (
-				<>
-					<div
-						ref={joystickAreaRef}
-						className="absolute bottom-36 left-1/2 -translate-x-1/2 w-32 h-32 bg-white/30 backdrop-blur-sm rounded-full z-50 touch-none"
-					>
-						{joystickActive && touchStartPos && (
-							<div
-								className="absolute w-16 h-16 bg-white/50 rounded-full -translate-x-1/2 -translate-y-1/2 border-2 border-white/70"
-								style={{
-									left: joystickPos.x,
-									top: joystickPos.y,
-								}}
-							/>
-						)}
-						{!joystickActive && (
-							<div className="absolute inset-0 flex items-center justify-center opacity-70">
-								<div className="grid grid-cols-3 grid-rows-3 w-full h-full aspect-square">
-									<div className="col-start-2 row-start-1 flex items-center justify-center">
-										<ArrowUp size={20} />
-									</div>
-									<div className="col-start-1 row-start-2 flex items-center justify-center">
-										<ArrowLeft size={20} />
-									</div>
-									<div className="col-start-3 row-start-2 flex items-center justify-center">
-										<ArrowRight size={20} />
-									</div>
-									<div className="col-start-2 row-start-3 flex items-center justify-center">
-										<ArrowDown size={20} />
-									</div>
-								</div>
-							</div>
-						)}
-					</div>
+      {/* Player Position */}
+      {!isMobile && (
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-white/80 backdrop-blur-md p-2 rounded-lg shadow-lg z-40 flex items-center gap-2">
+          <User size={16} />
+          <span>
+            X: {playerPosition[0].toFixed(1)}, Z: {playerPosition[2].toFixed(1)}
+          </span>
+        </div>
+      )}
 
-					{nearInteraction && (
-						<button
-							onClick={handleInteractionButtonClick}
-							className="absolute bottom-32 right-6 w-16 h-16 bg-white/70 backdrop-blur-md rounded-full z-50 flex items-center justify-center shadow-lg border-2 border-white/80 active:bg-white/90"
-						>
-							<span className="text-lg font-bold">{nearInteraction.key}</span>
-						</button>
-					)}
+      {isMobile && showMobileControls && !showUI && (
+        <>
+          <div
+            ref={joystickAreaRef}
+            className="absolute bottom-36 left-1/2 -translate-x-1/2 w-32 h-32 bg-white/30 backdrop-blur-sm rounded-full z-50 touch-none"
+          >
+            {joystickActive && touchStartPos && (
+              <div
+                className="absolute w-16 h-16 bg-white/50 rounded-full -translate-x-1/2 -translate-y-1/2 border-2 border-white/70"
+                style={{
+                  left: joystickPos.x,
+                  top: joystickPos.y,
+                }}
+              />
+            )}
+            {!joystickActive && (
+              <div className="absolute inset-0 flex items-center justify-center opacity-70">
+                <div className="grid grid-cols-3 grid-rows-3 w-full h-full aspect-square">
+                  <div className="col-start-2 row-start-1 flex items-center justify-center">
+                    <ArrowUp size={20} />
+                  </div>
+                  <div className="col-start-1 row-start-2 flex items-center justify-center">
+                    <ArrowLeft size={20} />
+                  </div>
+                  <div className="col-start-3 row-start-2 flex items-center justify-center">
+                    <ArrowRight size={20} />
+                  </div>
+                  <div className="col-start-2 row-start-3 flex items-center justify-center">
+                    <ArrowDown size={20} />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
 
-					<button
-						onClick={() => setShowMobileControls(!showMobileControls)}
-						className="absolute bottom-4 right-4 p-2 bg-white/70 backdrop-blur-sm rounded-lg z-50"
-					>
-						{showMobileControls ? "Hide Controls" : "Show Controls"}
-					</button>
-				</>
-			)}
+          {nearInteraction && (
+            <button
+              onClick={handleInteractionButtonClick}
+              className="absolute bottom-32 right-6 w-16 h-16 bg-white/70 backdrop-blur-md rounded-full z-50 flex items-center justify-center shadow-lg border-2 border-white/80 active:bg-white/90"
+            >
+              <span className="text-lg font-bold">{nearInteraction.key}</span>
+            </button>
+          )}
 
-			{isMobile && (
-				<button
-					onClick={() => setShowMobileControls(!showMobileControls)}
-					className="absolute top-2 left-1/2 -translate-x-1/2 p-2 bg-white/70 backdrop-blur-sm rounded-lg z-50 text-xs"
-				>
-					{showMobileControls ? "Hide Controls" : "Show Controls"}
-				</button>
-			)}
+          <button
+            onClick={() => setShowMobileControls(!showMobileControls)}
+            className="absolute bottom-4 right-4 p-2 bg-white/70 backdrop-blur-sm rounded-lg z-50"
+          >
+            {showMobileControls ? "Hide Controls" : "Show Controls"}
+          </button>
+        </>
+      )}
 
-			<AnimatePresence>
-				<motion.div
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
-					className="absolute bottom-0 left-0 right-0 p-4 z-40"
-				>
-					<div className="bg-white/80 backdrop-blur-md rounded-lg shadow-lg p-4  max-w-6xl mx-auto">
-						<div className="flex flex-col md:flex-row justify-between items-center">
-							<div className="flex items-center gap-4">
-								<div className="flex items-center gap-2 text-xl px-3 py-1 rounded-lg">
-									{SEASONS[gameStore.seasons] === "winter" ? (
-										<Snowflake className="h-7 w-7 text-blue-800" />
-									) : SEASONS[gameStore.seasons] === "spring" ? (
-										<Flower className="h-7 w-7 text-yellow-900" />
-									) : (
-										<Sun className="h-7 w-7 text-yellow-400" />
-									)}
-									<span className="font-medium">
-										{SEASONS[gameStore.seasons]} - День {gameStore.days}
-									</span>
-								</div>
-							</div>
-							<div className="flex items-center gap-4">
-								<Badge
-									variant="outline"
-									className="flex items-center gap-2 px-3 py-1"
-								>
-									<Coins className="h-4 w-4 text-yellow-500" />
-									<span className="text-lg font-bold">{gameStore.moneys}</span>
-								</Badge>
-								<Button
-									variant="outline"
-									size="sm"
-									onClick={() => setShowUI((prev) => !prev)}
-								>
-									Показать продукты
-								</Button>
-							</div>
-						</div>
-						{showUI && (
-							<motion.div
-								initial={{ opacity: 0, y: 20 }}
-								animate={{ opacity: 1, y: 0 }}
-								exit={{ opacity: 0, y: 20 }}
-								className="space-y-6 mt-4"
-							>
-								<ScrollArea className="max-md:max-h-[calc(100svh-15rem)] overflow-hidden">
-									{/* РАСТЕНИЯ */}
-									<div>
-										<h2 className="text-xl font-semibold mb-2">🌱 Растения</h2>
-										<div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-											{Object.entries(gameStore.resources).map(
-												([plant, count], i) => (
-													<Card key={i} className="bg-white/90">
-														<CardContent className="p-3 text-center flex flex-col items-center justify-center">
-															<div className="text-2xl mb-1">
-																{
-																	{
-																		carrot: "🥕",
-																		potato: "🥔",
-																		wheat: "🌾",
-																		corn: "🌽",
-																		tomato: "🍅",
-																		strawberry: "🍓",
-																	}[plant]
-																}
-															</div>
-															<div className="text-lg font-bold">{count}</div>
-															<div className="text-xs text-muted-foreground capitalize">
-																{plant}
-															</div>
-														</CardContent>
-													</Card>
-												)
-											)}
-										</div>
-									</div>
+      {isMobile && (
+        <button
+          onClick={() => setShowMobileControls(!showMobileControls)}
+          className="absolute top-2 left-1/2 -translate-x-1/2 p-2 bg-white/70 backdrop-blur-sm rounded-lg z-50 text-xs"
+        >
+          {showMobileControls ? "Hide Controls" : "Show Controls"}
+        </button>
+      )}
 
-									{/*  РЫБА */}
-									<div>
-										<h2 className="text-xl font-semibold mb-2">🐟 Рыба</h2>
-										<div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-											{Object.entries(gameStore.fishes).map(
-												([fish, count], i) => {
-													return (
-														<Card key={i} className={`bg-white/90 border-2 `}>
-															<CardContent className="p-3 text-center flex flex-col items-center justify-center">
-																<div className="text-2xl mb-1">{"🐟"}</div>
-																<div className="text-lg font-bold">{count}</div>
-																<div className="text-xs text-muted-foreground capitalize">
-																	{fish}
-																</div>
-															</CardContent>
-														</Card>
-													);
-												}
-											)}
-										</div>
-									</div>
+      <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="absolute bottom-0 left-0 right-0 p-4 z-40"
+        >
+          <div className="bg-white/80 backdrop-blur-md rounded-lg shadow-lg p-4  max-w-6xl mx-auto">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 text-xl px-3 py-1 rounded-lg">
+                  {SEASONS[gameStore.seasons] === "winter" ? (
+                    <Snowflake className="h-7 w-7 text-blue-800" />
+                  ) : SEASONS[gameStore.seasons] === "spring" ? (
+                    <Flower className="h-7 w-7 text-yellow-900" />
+                  ) : (
+                    <Sun className="h-7 w-7 text-yellow-400" />
+                  )}
+                  <span className="font-medium">
+                    {SEASONS[gameStore.seasons]} - День {gameStore.days}
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <Badge
+                  variant="outline"
+                  className="flex items-center gap-2 px-3 py-1"
+                >
+                  <Coins className="h-4 w-4 text-yellow-500" />
+                  <span className="text-lg font-bold">{gameStore.moneys}</span>
+                </Badge>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowUI((prev) => !prev)}
+                >
+                  Показать продукты
+                </Button>
+              </div>
+            </div>
+            {showUI && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                className="space-y-6 mt-4"
+              >
+                <ScrollArea className="max-md:max-h-[calc(100svh-15rem)] overflow-hidden">
+                  {/* РАСТЕНИЯ */}
+                  <div>
+                    <h2 className="text-xl font-semibold mb-2">🌱 Растения</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+                      {Object.entries(gameStore.resources).map(
+                        ([plant, count], i) => (
+                          <Card key={i} className="bg-white/90">
+                            <CardContent className="p-3 text-center flex flex-col items-center justify-center">
+                              <div className="text-2xl mb-1">
+                                {
+                                  {
+                                    carrot: "🥕",
+                                    potato: "🥔",
+                                    wheat: "🌾",
+                                    corn: "🌽",
+                                    tomato: "🍅",
+                                    strawberry: "🍓",
+                                  }[plant]
+                                }
+                              </div>
+                              <div className="text-lg font-bold">{count}</div>
+                              <div className="text-xs text-muted-foreground capitalize">
+                                {plant}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        )
+                      )}
+                    </div>
+                  </div>
 
-									{/*  ПРОДУКТЫ АМБАРА */}
-									<div>
-										<h2 className="text-xl font-semibold mb-2">🌱 Продукты</h2>
-										<div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-											{Object.entries(gameStore.products).map(
-												([product, count], i) => {
-													return (
-														<Card key={i} className={`bg-white/90 border-2 `}>
-															<CardContent className="p-3 text-center flex flex-col items-center justify-center">
-																<div className="text-2xl mb-1">
-																	{
-																		{
-																			eggs: "🥚",
-																			milk: "🥛",
-																			wool: "🧶",
-																			meat: "🍖",
-																		}[product]
-																	}
-																</div>
-																<div className="text-lg font-bold">{count}</div>
-																<div className="text-xs text-muted-foreground capitalize">
-																	{product}
-																</div>
-															</CardContent>
-														</Card>
-													);
-												}
-											)}
-										</div>
-									</div>
-								</ScrollArea>
-							</motion.div>
-						)}
-					</div>
-				</motion.div>
-			</AnimatePresence>
+                  {/*  РЫБА */}
+                  <div>
+                    <h2 className="text-xl font-semibold mb-2">🐟 Рыба</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+                      {Object.entries(gameStore.fishes).map(
+                        ([fish, count], i) => {
+                          return (
+                            <Card key={i} className={`bg-white/90 border-2 `}>
+                              <CardContent className="p-3 text-center flex flex-col items-center justify-center">
+                                <div className="text-2xl mb-1">{"🐟"}</div>
+                                <div className="text-lg font-bold">{count}</div>
+                                <div className="text-xs text-muted-foreground capitalize">
+                                  {fish}
+                                </div>
+                              </CardContent>
+                            </Card>
+                          );
+                        }
+                      )}
+                    </div>
+                  </div>
 
-			{/* Interaction Dialogs */}
-			<Dialog
-				open={showDialog}
-				onOpenChange={(open) => {
-					// Предотвращаем автоматическое закрытие диалога рыбалки
-					if (!open && dialogType === "fishing") {
-						return;
-					}
-					setShowDialog(open);
-					if (!open) {
-						setDialogType(null);
-					}
-				}}
-			>
-				<DialogContent
-					className={`${isMobile ? "w-[95%] p-4" : "sm:max-w-[600px]"}`}
-				>
-					{dialogType === "greenhouse" && <GreenhouseDialog />}
-					{dialogType === "fishing" && (
-						<>
-							<DialogHeader>
-								<DialogTitle>Рыбалка </DialogTitle>
-							</DialogHeader>
-							<FishingDialog
-								open={showDialog}
-								onOpenChange={setShowDialog}
-								onCatch={handleFishCatch}
-							/>
-						</>
-					)}
-					{dialogType === "stocks" && <StocksDialog />}
-					{dialogType === "mail" && <MailDialog />}
-					{dialogType === "kiosk" && <KioskDialog />}
-					{dialogType === "house" && (
-						<HouseDialog
-							onSleep={handleSleep}
-							isTransitioning={isTransitioning}
-						/>
-					)}
-					{dialogType === "barn" && <BarnDialog />}
-					<DialogFooter>
-						<Button onClick={() => setShowDialog(false)}>Закрыть</Button>
-					</DialogFooter>
-				</DialogContent>
-			</Dialog>
+                  {/*  ПРОДУКТЫ АМБАРА */}
+                  <div>
+                    <h2 className="text-xl font-semibold mb-2">🌱 Продукты</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+                      {Object.entries(gameStore.products).map(
+                        ([product, count], i) => {
+                          return (
+                            <Card key={i} className={`bg-white/90 border-2 `}>
+                              <CardContent className="p-3 text-center flex flex-col items-center justify-center">
+                                <div className="text-2xl mb-1">
+                                  {
+                                    {
+                                      eggs: "🥚",
+                                      milk: "🥛",
+                                      wool: "🧶",
+                                      meat: "🍖",
+                                    }[product]
+                                  }
+                                </div>
+                                <div className="text-lg font-bold">{count}</div>
+                                <div className="text-xs text-muted-foreground capitalize">
+                                  {product}
+                                </div>
+                              </CardContent>
+                            </Card>
+                          );
+                        }
+                      )}
+                    </div>
+                  </div>
+                </ScrollArea>
+              </motion.div>
+            )}
+          </div>
+        </motion.div>
+      </AnimatePresence>
 
-			{/* Game Instructions */}
-			<AnimatePresence>
-				{showInstructions && (
-					<motion.div
-						initial={{ opacity: 0, x: -20, scale: 0.95 }}
-						animate={{ opacity: 1, x: 0, scale: 1 }}
-						exit={{ opacity: 0, x: -20, scale: 0.95 }}
-						transition={{ duration: 0.2 }}
-						className={`absolute ${
-							isMobile ? "top-12 left-2" : "top-14 left-4"
-						} bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2.5 rounded-xl shadow-lg z-50 ${
-							isMobile ? "max-w-[200px]" : "max-w-[220px]"
-						} text-xs border border-white/20`}
-					>
-						<div className="font-medium mb-2 flex justify-between items-center border-b border-white/20 pb-1.5">
-							<span className="text-[11px] uppercase tracking-wider text-gray-700">
-								Управление
-							</span>
-							<button
-								onClick={() => setShowInstructions(false)}
-								className="text-gray-500 hover:text-gray-700 transition-colors p-0.5 rounded-full hover:bg-white/50"
-							>
-								<X size={12} />
-							</button>
-						</div>
-						<div className="space-y-1 text-[10px]">
-							<div className="grid grid-cols-2 gap-x-2 gap-y-1">
-								<p className="flex items-center gap-1.5">
-									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
-										WASD
-									</span>
-									<span className="text-gray-600">движение</span>
-								</p>
-								<p className="flex items-center gap-1.5">
-									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
-										E
-									</span>
-									<span className="text-gray-600">действие</span>
-								</p>
-								<p className="flex items-center gap-1.5">
-									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
-										M
-									</span>
-									<span className="text-gray-600">почта</span>
-								</p>
-								<p className="flex items-center gap-1.5">
-									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
-										ПКМ
-									</span>
-									<span className="text-gray-600">камера</span>
-								</p>
-								<p className="flex items-center gap-1.5">
-									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
-										↑↓
-									</span>
-									<span className="text-gray-600">высота</span>
-								</p>
-								<p className="flex items-center gap-1.5">
-									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
-										ESC
-									</span>
-									<span className="text-gray-600">меню</span>
-								</p>
-							</div>
-							{isMobile && (
-								<div className="mt-2 border-t border-white/20 pt-1.5">
-									<p className="text-[9px] mb-1 font-medium text-gray-600">
-										Для мобильных устройств:
-									</p>
-									<p className="text-[9px] text-gray-500">
-										• Виртуальный джойстик для движения
-									</p>
-									<p className="text-[9px] text-gray-500">
-										• Кнопка действия появляется при приближении к объектам
-									</p>
-								</div>
-							)}
-							<p className="text-[9px] text-gray-500 text-center mt-2 border-t border-white/20 pt-1.5">
-								Нажмите <span className="font-medium">H</span> чтобы скрыть
-								подсказки
-							</p>
-						</div>
-					</motion.div>
-				)}
-			</AnimatePresence>
+      {/* Interaction Dialogs */}
+      <Dialog
+        open={showDialog}
+        onOpenChange={(open) => {
+          // Предотвращаем автоматическое закрытие диалога рыбалки
+          if (!open && dialogType === "fishing") {
+            return;
+          }
+          setShowDialog(open);
+          if (!open) {
+            setDialogType(null);
+          }
+        }}
+      >
+        <DialogContent
+          className={`${isMobile ? "w-[95%] p-4" : "sm:max-w-[600px]"}`}
+        >
+          {dialogType === "greenhouse" && <GreenhouseDialog />}
+          {dialogType === "fishing" && (
+            <>
+              <DialogHeader>
+                <DialogTitle>Рыбалка </DialogTitle>
+              </DialogHeader>
+              <FishingDialog
+                open={showDialog}
+                onOpenChange={setShowDialog}
+                onCatch={handleFishCatch}
+              />
+            </>
+          )}
+          {dialogType === "stocks" && <StocksDialog />}
+          {dialogType === "mail" && <MailDialog />}
+          {dialogType === "kiosk" && <KioskDialog />}
+          {dialogType === "house" && (
+            <HouseDialog
+              onSleep={handleSleep}
+              isTransitioning={isTransitioning}
+            />
+          )}
+          {dialogType === "barn" && <BarnDialog />}
+          <DialogFooter>
+            <Button onClick={() => setShowDialog(false)}>Закрыть</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
-			{/* Interaction Prompt */}
-			<AnimatePresence mode="wait">
-				{nearInteraction && (
-					<motion.div
-						key={"interaction"}
-						initial={{ opacity: 0, y: 10 }}
-						animate={{ opacity: 1, y: 0 }}
-						exit={{ opacity: 0, y: 10 }}
-						transition={{ duration: 0.2 }}
-						className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md px-3 py-2 rounded-sm shadow-lg z-40 border border-white/20 ${
-							isMobile ? "text-sm" : ""
-						}`}
-					>
-						<div className="flex items-center gap-2">
-							<span className="bg-white/50 px-2 py-1 rounded text-[11px] font-bold text-gray-700">
-								{nearInteraction.key}
-							</span>
-							<span className="text-[11px] text-gray-600">
-								{nearInteraction.action}
-							</span>
-						</div>
-					</motion.div>
-				)}
-			</AnimatePresence>
+      {/* Game Instructions */}
+      <AnimatePresence>
+        {showInstructions && (
+          <motion.div
+            initial={{ opacity: 0, x: -20, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: -20, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className={`absolute ${
+              isMobile ? "top-12 left-2" : "top-14 left-4"
+            } bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2.5 rounded-xl shadow-lg z-50 ${
+              isMobile ? "max-w-[200px]" : "max-w-[220px]"
+            } text-xs border border-white/20`}
+          >
+            <div className="font-medium mb-2 flex justify-between items-center border-b border-white/20 pb-1.5">
+              <span className="text-[11px] uppercase tracking-wider text-gray-700">
+                Управление
+              </span>
+              <button
+                onClick={() => setShowInstructions(false)}
+                className="text-gray-500 hover:text-gray-700 transition-colors p-0.5 rounded-full hover:bg-white/50"
+              >
+                <X size={12} />
+              </button>
+            </div>
+            <div className="space-y-1 text-[10px]">
+              <div className="grid grid-cols-2 gap-x-2 gap-y-1">
+                <p className="flex items-center gap-1.5">
+                  <span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
+                    WASD
+                  </span>
+                  <span className="text-gray-600">движение</span>
+                </p>
+                <p className="flex items-center gap-1.5">
+                  <span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
+                    E
+                  </span>
+                  <span className="text-gray-600">действие</span>
+                </p>
+                <p className="flex items-center gap-1.5">
+                  <span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
+                    M
+                  </span>
+                  <span className="text-gray-600">почта</span>
+                </p>
+                <p className="flex items-center gap-1.5">
+                  <span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
+                    ПКМ
+                  </span>
+                  <span className="text-gray-600">камера</span>
+                </p>
+                <p className="flex items-center gap-1.5">
+                  <span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
+                    ↑↓
+                  </span>
+                  <span className="text-gray-600">высота</span>
+                </p>
+                <p className="flex items-center gap-1.5">
+                  <span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
+                    ESC
+                  </span>
+                  <span className="text-gray-600">меню</span>
+                </p>
+              </div>
+              {isMobile && (
+                <div className="mt-2 border-t border-white/20 pt-1.5">
+                  <p className="text-[9px] mb-1 font-medium text-gray-600">
+                    Для мобильных устройств:
+                  </p>
+                  <p className="text-[9px] text-gray-500">
+                    • Виртуальный джойстик для движения
+                  </p>
+                  <p className="text-[9px] text-gray-500">
+                    • Кнопка действия появляется при приближении к объектам
+                  </p>
+                </div>
+              )}
+              <p className="text-[9px] text-gray-500 text-center mt-2 border-t border-white/20 pt-1.5">
+                Нажмите <span className="font-medium">H</span> чтобы скрыть
+                подсказки
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-			{/* Interaction Dialogs */}
-			<Dialog
-				open={showDialog}
-				onOpenChange={(open) => {
-					// Предотвращаем автоматическое закрытие диалога рыбалки
-					if (!open && dialogType === "fishing") {
-						return;
-					}
-					setShowDialog(open);
-					if (!open) {
-						setDialogType(null);
-					}
-				}}
-			>
-				<DialogContent className="sm:max-w-[600px]">
-					{dialogType === "greenhouse" && <GreenhouseDialog />}
-					{dialogType === "fishing" && (
-						<>
-							<DialogHeader>
-								<DialogTitle>Рыбалка</DialogTitle>
-							</DialogHeader>
-							<FishingDialog
-								open={showDialog}
-								onOpenChange={setShowDialog}
-								onCatch={handleFishCatch}
-							/>
-						</>
-					)}
-					{dialogType === "stocks" && <StocksDialog />}
-					{dialogType === "mail" && <MailDialog />}
-					{dialogType === "kiosk" && <KioskDialog />}
-					{dialogType === "house" && (
-						<HouseDialog
-							onSleep={handleSleep}
-							isTransitioning={isTransitioning}
-						/>
-					)}
-					{dialogType === "barn" && <BarnDialog />}
-					<DialogFooter>
-						<Button onClick={() => setShowDialog(false)}>Закрыть</Button>
-					</DialogFooter>
-				</DialogContent>
-			</Dialog>
-		</div>
-	);
+      {/* Interaction Prompt */}
+      <AnimatePresence mode="wait">
+        {nearInteraction && (
+          <motion.div
+            key={"interaction"}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.2 }}
+            className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md px-3 py-2 rounded-sm shadow-lg z-40 border border-white/20 ${
+              isMobile ? "text-sm" : ""
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <span className="bg-white/50 px-2 py-1 rounded text-[11px] font-bold text-gray-700">
+                {nearInteraction.key}
+              </span>
+              <span className="text-[11px] text-gray-600">
+                {nearInteraction.action}
+              </span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Interaction Dialogs */}
+      <Dialog
+        open={showDialog}
+        onOpenChange={(open) => {
+          // Предотвращаем автоматическое закрытие диалога рыбалки
+          if (!open && dialogType === "fishing") {
+            return;
+          }
+          setShowDialog(open);
+          if (!open) {
+            setDialogType(null);
+          }
+        }}
+      >
+        <DialogContent className="sm:max-w-[600px]">
+          {dialogType === "greenhouse" && <GreenhouseDialog />}
+          {dialogType === "fishing" && (
+            <>
+              <DialogHeader>
+                <DialogTitle>Рыбалка</DialogTitle>
+              </DialogHeader>
+              <FishingDialog
+                open={showDialog}
+                onOpenChange={setShowDialog}
+                onCatch={handleFishCatch}
+              />
+            </>
+          )}
+          {dialogType === "stocks" && <StocksDialog />}
+          {dialogType === "mail" && <MailDialog />}
+          {dialogType === "quests" && <QuestDialog />}
+          {dialogType === "kiosk" && <KioskDialog />}
+          {dialogType === "house" && (
+            <HouseDialog
+              onSleep={handleSleep}
+              isTransitioning={isTransitioning}
+            />
+          )}
+          {dialogType === "barn" && <BarnDialog />}
+          <DialogFooter>
+            <Button onClick={() => setShowDialog(false)}>Закрыть</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
 }
