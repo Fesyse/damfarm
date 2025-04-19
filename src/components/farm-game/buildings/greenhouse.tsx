@@ -1,8 +1,13 @@
 "use client"
 
-export function Greenhouse() {
+type GreenhouseProps = {
+  position?: [number, number, number]
+  rotation?: [number, number, number]
+}
+
+export function Greenhouse({ position, rotation }: GreenhouseProps) {
   return (
-    <group>
+    <group position={position} rotation={rotation}>
       {/* Foundation */}
       <mesh position={[0, 0.1, 0]} receiveShadow castShadow>
         <boxGeometry args={[8.4, 0.2, 10.4]} />
