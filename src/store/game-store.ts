@@ -1,19 +1,19 @@
-import { create } from "zustand";
-import { GameState } from "@/@types/store";
-import { SEASONS } from "@/constants/seasons";
+import { create } from "zustand"
+import { GameState } from "@/types/store"
+import { SEASONS } from "@/constants/seasons"
 
 export const useGameStore = create<GameState>()((set, get) => ({
   days: 1,
   setNextDay: () => {
-    set((state) => ({
+    set(state => ({
       seasons: (state.days + 1) % 7 == 0 ? state.setSeason() : state.seasons,
       days: state.days + 1,
-    }));
+    }))
   },
 
   moneys: 2500,
-  setMoney: (moneys) =>
-    set((state) => ({
+  setMoney: moneys =>
+    set(state => ({
       moneys: state.moneys + moneys,
     })),
 
@@ -27,12 +27,12 @@ export const useGameStore = create<GameState>()((set, get) => ({
     strawberry: 0,
   },
   setResource: (name, value) => {
-    set((state) => ({
+    set(state => ({
       resources: {
         ...state.resources,
         [name]: value,
       },
-    }));
+    }))
   },
 
   // seeds
@@ -45,12 +45,12 @@ export const useGameStore = create<GameState>()((set, get) => ({
     strawberriesSeed: 0,
   },
   setSeed: (name, value) => {
-    set((state) => ({
+    set(state => ({
       seeds: {
         ...state.seeds,
         [name]: value,
       },
-    }));
+    }))
   },
 
   // stocks
@@ -62,22 +62,22 @@ export const useGameStore = create<GameState>()((set, get) => ({
     MediPlus: 0,
   },
   setStocks: (name, value) => {
-    set((state) => ({
+    set(state => ({
       stocks: {
         ...state.stocks,
-        [name]: state.stocks[name] + value ,
+        [name]: state.stocks[name] + value,
       },
-    }));
+    }))
   },
 
   seasons: 0,
   setSeason: () => {
-    return SEASONS.length - 1 === get().seasons ? 0 : get().seasons + 1;
+    return SEASONS.length - 1 === get().seasons ? 0 : get().seasons + 1
   },
 
   is_paid_news: false,
-  setIsPaidNews: (is_paid_news) =>
+  setIsPaidNews: is_paid_news =>
     set(() => ({
       is_paid_news,
     })),
-}));
+}))
