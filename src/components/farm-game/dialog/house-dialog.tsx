@@ -45,7 +45,7 @@ export function HouseDialog({
                 onClick={handleSleep}
                 disabled={isTransitioning}
               >
-                {isTransitioning ? "Сон..." : "Поспать (пропустить день)"}
+                {isTransitioning ? "Сон..." : "Поспать"} 🌗
               </Button>
             </DialogClose>
           </CardContent>

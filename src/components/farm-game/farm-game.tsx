@@ -667,7 +667,8 @@ export function FarmGame() {
                     <Sun className='h-7 w-7 text-yellow-400' />
                   )}
                   <span className='font-medium'>
-                    {SEASONS[gameStore.seasons]} - День {gameStore.days}
+                    {SEASONS[gameStore.seasons]} -{" "}
+                    {isTransitioning ? "Ночь" : "День"} {gameStore.days}
                   </span>
                 </div>
               </div>
