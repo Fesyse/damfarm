@@ -84,24 +84,6 @@ export const useGameStore = create<GameState>()(
 				}));
 			},
 
-<<<<<<< HEAD
-      resources: {
-        carrot: 10,
-        potato: 0,
-        wheat: 0,
-        corn: 0,
-        tomato: 0,
-        strawberry: 0,
-      },
-      setResource: (name, value) => {
-        set(state => ({
-          resources: {
-            ...state.resources,
-            [name]: state.resources[name] + value,
-          },
-        }))
-      },
-=======
 			resources: {
 				carrot: 0,
 				potato: 0,
@@ -114,7 +96,7 @@ export const useGameStore = create<GameState>()(
 				set((state) => ({
 					resources: {
 						...state.resources,
-						[name]: value,
+						[name]: state.resources[name] + value,
 					},
 				}));
 			},
@@ -125,7 +107,6 @@ export const useGameStore = create<GameState>()(
 					plots: [...plots],
 				}));
 			},
->>>>>>> 037d40160ca54fee528348a70a5154ffc3f95af7
 
 			seeds: {
 				carrotsSeed: {
@@ -172,7 +153,6 @@ export const useGameStore = create<GameState>()(
 				bream: 0,
 			},
 
-<<<<<<< HEAD
       setFishes: (name, value) => {
         set(state => ({
           fishes: {
@@ -192,25 +172,6 @@ export const useGameStore = create<GameState>()(
           products: { ...state.products, [name]: state.products[name] + value },
         }));
       },
-=======
-			setFishes: (name, value) => {
-				set((state) => ({
-					fishes: {
-						...state.fishes,
-						[name]: state.fishes[name] + value,
-					},
-				}));
-			},
-			products: {
-				eggs: 0,
-				milk: 0,
-				wool: 0,
-				meat: 0,
-			},
-			setProducts: (name: keyof ProductsType, value: number) => {
-				set((state) => ({ products: { ...state.products, [name]: value } }));
-			},
->>>>>>> 037d40160ca54fee528348a70a5154ffc3f95af7
 
 			stocks: {
 				TechNova: 0,
