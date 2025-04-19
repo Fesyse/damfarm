@@ -67,8 +67,33 @@ const availableAnimals = [
 ] as const
 export function BarnDialog() {
   const [tab, setTab] = useState<"animals" | "market">("animals")
-  const { animals, strokeAnimal } = useGameStore(state => state)
+  const { animals, strokeAnimal, feedAnimal } = useGameStore(state => state)
 
+  const strokeAnimalHandler = (id: number) => {
+    const changed = strokeAnimal(id)
+    if (changed) {
+      toast.success("Вы погладили животное!", {
+        description: (
+          <span className='text-foreground'>Возвращайтесь завтра!</span>
+        ),
+      })
+    } else {
+      toast.error("Вы уже гладили это животное сегодня!")
+    }
+  }
+
+  const feedAnimalHandler = (id: number) => {
+    const changed = feedAnimal(id)
+    if (changed) {
+      toast.success("Вы покормили животное!", {
+        description: (
+          <span className='text-foreground'>Возвращайтесь завтра!</span>
+        ),
+      })
+    } else {
+      toast.error("Вы уже кормили это животное сегодня!")
+    }
+  }
   return (
     <>
       <DialogHeader>
@@ -148,23 +173,12 @@ export function BarnDialog() {
                       <div className='flex items-center gap-2 pt-2'>
                         <TooltipProvider>
                           <Tooltip>
-                            <TooltipTrigger>
+                            <TooltipTrigger asChild>
                               <Button
                                 size='sm'
                                 variant='secondary'
                                 className='flex-1'
-                                onClick={() => {
-                                  const changed = strokeAnimal(animal.id)
-                                  if (changed) {
-                                    toast("Вы погладили животное!", {
-                                      description: "Возвращайтесь завтра!",
-                                    })
-                                  } else {
-                                    toast(
-                                      "Вы уже гладили это животное сегодня!"
-                                    )
-                                  }
-                                }}
+                                onClick={() => strokeAnimalHandler(animal.id)}
                               >
                                 <Hand />
                               </Button>
@@ -172,11 +186,12 @@ export function BarnDialog() {
                             <TooltipContent>Погладить</TooltipContent>
                           </Tooltip>
                           <Tooltip>
-                            <TooltipTrigger>
+                            <TooltipTrigger asChild>
                               <Button
                                 size='sm'
                                 variant='secondary'
                                 className='flex-1'
+                                onClick={() => feedAnimalHandler(animal.id)}
                               >
                                 <Carrot />
                               </Button>
