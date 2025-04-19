@@ -7,7 +7,7 @@ import { SEASONS } from "@/constants/seasons";
 import { useGameStore } from "@/store/game-store";
 import { Environment } from "@react-three/drei";
 import { AnimatePresence, motion } from "framer-motion";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import {
 	BarnDialog,
 	FishingDialog,
@@ -21,7 +21,16 @@ import {
 import { Fish } from "@/types/fish";
 import { Sky } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { CircleHelp, Coins, Menu, Sun, User, X } from "lucide-react";
+import {
+	CircleHelp,
+	Coins,
+	Menu,
+	Sun,
+	User,
+	Volume2,
+	VolumeX,
+	X,
+} from "lucide-react";
 import {
 	Dialog,
 	DialogContent,
@@ -35,6 +44,7 @@ import { Player } from "./player";
 import { Position } from "./types";
 import { InteractionPoint } from "./types/interaction-point";
 import { GameWorld } from "./world/game-world";
+
 export function FarmGame() {
 	const gameStore = useGameStore((state: any) => state);
 
@@ -56,6 +66,34 @@ export function FarmGame() {
 	const [inventory, setInventory] = useState<Fish[]>([]);
 	const { toast } = useToast();
 	const [showInstructions, setShowInstructions] = useState(false);
+	const [isMuted, setIsMuted] = useState(true);
+	const audioRef = useRef<HTMLAudioElement | null>(null);
+	const [hasInteracted, setHasInteracted] = useState(false);
+
+	useEffect(() => {
+		audioRef.current = new Audio("/audio/01.mp3");
+		audioRef.current.loop = true;
+		audioRef.current.volume = 0.3;
+
+		return () => {
+			if (audioRef.current) {
+				audioRef.current.pause();
+				audioRef.current = null;
+			}
+		};
+	}, []);
+
+	useEffect(() => {
+		if (audioRef.current && hasInteracted) {
+			if (isMuted) {
+				audioRef.current.pause();
+			} else {
+				audioRef.current.play().catch(() => {
+					// Игнорируем ошибку автовоспроизведения
+				});
+			}
+		}
+	}, [isMuted, hasInteracted]);
 
 	useEffect(() => {
 		const handleKeyPress = (e: KeyboardEvent) => {
@@ -113,104 +151,28 @@ export function FarmGame() {
 				{showUI ? <X size={24} /> : <Menu size={24} />}
 			</button>
 
-			{/* Interaction Prompt */}
-			<AnimatePresence mode="wait">
-				{nearInteraction && (
-					<motion.div
-						key={"interaction"}
-						initial={{ opacity: 0, y: 10 }}
-						animate={{ opacity: 1, y: 0 }}
-						exit={{ opacity: 0, y: 10 }}
-						transition={{ duration: 0.2 }}
-						className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md px-3 py-2 rounded-sm shadow-lg z-40 border border-white/20"
-					>
-						<div className="flex items-center gap-2">
-							<span className="bg-white/50 px-2 py-1 rounded text-[11px] font-bold text-gray-700">
-								{nearInteraction.key}
-							</span>
-							<span className="text-[11px] text-gray-600">
-								{nearInteraction.action}
-							</span>
-						</div>
-					</motion.div>
+			{/* Sound Toggle Button */}
+			<button
+				onClick={() => {
+					setHasInteracted(true);
+					setIsMuted(!isMuted);
+				}}
+				className="absolute top-4 left-4 bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2 rounded-xl shadow-lg z-50 border border-white/20 hover:from-white/80 hover:to-white/50 transition-all duration-200"
+			>
+				{isMuted ? (
+					<VolumeX size={16} className="text-gray-700" />
+				) : (
+					<Volume2 size={16} className="text-gray-700" />
 				)}
-			</AnimatePresence>
+			</button>
+
 			{/* Game Instructions Toggle Button */}
 			<button
 				onClick={() => setShowInstructions(!showInstructions)}
-				className="absolute top-4 left-4 bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2 rounded-xl shadow-lg z-50 border border-white/20 hover:from-white/80 hover:to-white/50 transition-all duration-200"
+				className="absolute top-4 left-16 bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2 rounded-xl shadow-lg z-50 border border-white/20 hover:from-white/80 hover:to-white/50 transition-all duration-200"
 			>
 				<CircleHelp size={16} className="text-gray-700" />
 			</button>
-
-			{/* Game Instructions */}
-			<AnimatePresence>
-				{showInstructions && (
-					<motion.div
-						initial={{ opacity: 0, x: -20, scale: 0.95 }}
-						animate={{ opacity: 1, x: 0, scale: 1 }}
-						exit={{ opacity: 0, x: -20, scale: 0.95 }}
-						transition={{ duration: 0.2 }}
-						className="absolute top-14 left-4 bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2.5 rounded-xl shadow-lg z-50 max-w-[220px] text-xs border border-white/20"
-					>
-						<div className="font-medium mb-2 flex justify-between items-center border-b border-white/20 pb-1.5">
-							<span className="text-[11px] uppercase tracking-wider text-gray-700">
-								Управление
-							</span>
-							<button
-								onClick={() => setShowInstructions(false)}
-								className="text-gray-500 hover:text-gray-700 transition-colors p-0.5 rounded-full hover:bg-white/50"
-							>
-								<X size={12} />
-							</button>
-						</div>
-						<div className="space-y-1 text-[10px]">
-							<div className="grid grid-cols-2 gap-x-2 gap-y-1">
-								<p className="flex items-center gap-1.5">
-									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
-										WASD
-									</span>
-									<span className="text-gray-600">движение</span>
-								</p>
-								<p className="flex items-center gap-1.5">
-									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
-										E
-									</span>
-									<span className="text-gray-600">действие</span>
-								</p>
-								<p className="flex items-center gap-1.5">
-									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
-										M
-									</span>
-									<span className="text-gray-600">почта</span>
-								</p>
-								<p className="flex items-center gap-1.5">
-									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
-										ПКМ
-									</span>
-									<span className="text-gray-600">камера</span>
-								</p>
-								<p className="flex items-center gap-1.5">
-									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
-										↑↓
-									</span>
-									<span className="text-gray-600">высота</span>
-								</p>
-								<p className="flex items-center gap-1.5">
-									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
-										ESC
-									</span>
-									<span className="text-gray-600">меню</span>
-								</p>
-							</div>
-							<p className="text-[9px] text-gray-500 text-center mt-2 border-t border-white/20 pt-1.5">
-								Нажмите <span className="font-medium">H</span> чтобы скрыть
-								подсказки
-							</p>
-						</div>
-					</motion.div>
-				)}
-			</AnimatePresence>
 
 			{/* Player Position */}
 			<div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-white/80 backdrop-blur-md p-2 rounded-lg shadow-lg z-40 flex items-center gap-2">
@@ -376,6 +338,98 @@ export function FarmGame() {
 					</DialogFooter>
 				</DialogContent>
 			</Dialog>
+
+			{/* Game Instructions */}
+			<AnimatePresence>
+				{showInstructions && (
+					<motion.div
+						initial={{ opacity: 0, x: -20, scale: 0.95 }}
+						animate={{ opacity: 1, x: 0, scale: 1 }}
+						exit={{ opacity: 0, x: -20, scale: 0.95 }}
+						transition={{ duration: 0.2 }}
+						className="absolute top-14 left-4 bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2.5 rounded-xl shadow-lg z-50 max-w-[220px] text-xs border border-white/20"
+					>
+						<div className="font-medium mb-2 flex justify-between items-center border-b border-white/20 pb-1.5">
+							<span className="text-[11px] uppercase tracking-wider text-gray-700">
+								Управление
+							</span>
+							<button
+								onClick={() => setShowInstructions(false)}
+								className="text-gray-500 hover:text-gray-700 transition-colors p-0.5 rounded-full hover:bg-white/50"
+							>
+								<X size={12} />
+							</button>
+						</div>
+						<div className="space-y-1 text-[10px]">
+							<div className="grid grid-cols-2 gap-x-2 gap-y-1">
+								<p className="flex items-center gap-1.5">
+									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
+										WASD
+									</span>
+									<span className="text-gray-600">движение</span>
+								</p>
+								<p className="flex items-center gap-1.5">
+									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
+										E
+									</span>
+									<span className="text-gray-600">действие</span>
+								</p>
+								<p className="flex items-center gap-1.5">
+									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
+										M
+									</span>
+									<span className="text-gray-600">почта</span>
+								</p>
+								<p className="flex items-center gap-1.5">
+									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
+										ПКМ
+									</span>
+									<span className="text-gray-600">камера</span>
+								</p>
+								<p className="flex items-center gap-1.5">
+									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
+										↑↓
+									</span>
+									<span className="text-gray-600">высота</span>
+								</p>
+								<p className="flex items-center gap-1.5">
+									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
+										ESC
+									</span>
+									<span className="text-gray-600">меню</span>
+								</p>
+							</div>
+							<p className="text-[9px] text-gray-500 text-center mt-2 border-t border-white/20 pt-1.5">
+								Нажмите <span className="font-medium">H</span> чтобы скрыть
+								подсказки
+							</p>
+						</div>
+					</motion.div>
+				)}
+			</AnimatePresence>
+
+			{/* Interaction Prompt */}
+			<AnimatePresence mode="wait">
+				{nearInteraction && (
+					<motion.div
+						key={"interaction"}
+						initial={{ opacity: 0, y: 10 }}
+						animate={{ opacity: 1, y: 0 }}
+						exit={{ opacity: 0, y: 10 }}
+						transition={{ duration: 0.2 }}
+						className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md px-3 py-2 rounded-sm shadow-lg z-40 border border-white/20"
+					>
+						<div className="flex items-center gap-2">
+							<span className="bg-white/50 px-2 py-1 rounded text-[11px] font-bold text-gray-700">
+								{nearInteraction.key}
+							</span>
+							<span className="text-[11px] text-gray-600">
+								{nearInteraction.action}
+							</span>
+						</div>
+					</motion.div>
+				)}
+			</AnimatePresence>
 
 			<Toast />
 		</div>
