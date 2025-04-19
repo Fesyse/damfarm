@@ -43,6 +43,6 @@ export interface GameState {
   seasons: number
   setSeason: () => number
 
-  is_paid_news: boolean
-  setIsPaidNews: (is_paid_news: boolean) => void
+  isPaidNews: boolean
+  setIsPaidNews: (isPaidNews: boolean) => void
 }
