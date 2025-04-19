@@ -15,7 +15,12 @@ import {
 	getPricesForPlants,
 } from "@/data/json-data";
 import { useGameStore } from "@/store/game-store";
-import { SeedsType } from "@/types/store";
+import {
+	FishType,
+	ProductsType,
+	ResoursesType,
+	SeedsType,
+} from "@/types/store";
 import {
 	Apple,
 	Coins,
@@ -127,8 +132,32 @@ export function KioskDialog() {
 		}
 	};
 
-	const handleSell = (item: { name: string; key: string; price: number }) => {
-		// Here you would update the inventory
+	const handleSell = (
+		item: { name: string; key: string; price: number },
+		type: "products" | "plants" | "fish"
+	) => {
+		if (type === "products") {
+			gameStore.setProducts(
+				item.key as keyof ProductsType,
+				(gameStore.products[item.key as keyof typeof gameStore.products] || 0) -
+					1
+			);
+
+			setMoney(item.price);
+		} else if (type === "plants") {
+			gameStore.setResource(
+				item.key as keyof ResoursesType,
+				(gameStore.resources[item.key as keyof typeof gameStore.resources] ||
+					0) - 1
+			);
+			setMoney(item.price);
+		} else if (type === "fish") {
+			gameStore.setFishes(
+				item.key as keyof FishType,
+				(gameStore.fishes[item.key as keyof typeof gameStore.fishes] || 0) - 1
+			);
+			setMoney(item.price);
+		}
 	};
 
 	return (
@@ -250,7 +279,7 @@ export function KioskDialog() {
 						<TabsContent value="plants" className="space-y-4">
 							<InventoryGrid
 								items={getPricesForPlants(gameStore.days)}
-								name="Растения"
+								name="plants"
 								onAction={handleSell}
 							/>
 						</TabsContent>
@@ -269,15 +298,17 @@ export function KioskDialog() {
 	);
 }
 
-// Component for Sell items in a grid
 function InventoryGrid({
 	items,
 	onAction,
 	name,
 }: {
 	items: { name: string; icon: string; price: number; key: string }[];
-	onAction: (item: { name: string; key: string; price: number }) => void;
-	name: string;
+	onAction: (
+		item: { name: string; key: string; price: number },
+		type: "products" | "plants" | "fish"
+	) => void;
+	name: "products" | "plants" | "fish";
 }) {
 	if (items.length === 0) {
 		return (
@@ -286,35 +317,47 @@ function InventoryGrid({
 			</div>
 		);
 	}
+	const gameStore = useGameStore((state) => state);
 
 	return (
 		<div className="grid grid-cols-2 gap-4">
-			{items.map(({ name, price, key }, i) => (
-				<div
-					key={i}
-					className="border rounded-lg p-4 bg-background flex flex-col h-full"
-				>
-					<div className="flex items-center gap-3 mb-3">
-						<span className="font-medium">{name}</span>
-					</div>
-					<div className="flex justify-between items-center mt-auto">
-						<div className="space-y-1">
-							<div className="font-semibold flex gap-1 items-center">
-								<Coins className="h-4 w-4 text-yellow-500" />
+			{items.map(({ name: itemName, price, key }, i) => {
+				const myItemsCount =
+					gameStore.resources[key as keyof typeof gameStore.resources] ??
+					gameStore.products[key as keyof typeof gameStore.products] ??
+					gameStore.fishes[key as keyof typeof gameStore.fishes];
 
-								{price}
-							</div>
+				return (
+					<div
+						key={i}
+						className="border rounded-lg p-4 bg-background flex flex-col h-full"
+					>
+						<div className="flex items-center gap-3 mb-3 justify-between w-full">
+							<span className="font-medium">{itemName}</span>
+							<span className="text-muted-foreground text-xs">
+								У меня: {myItemsCount}
+							</span>
 						</div>
-						<Button
-							size="sm"
-							variant="outline"
-							onClick={() => onAction({ key, name, price })}
-						>
-							Продать
-						</Button>
+						<div className="flex justify-between items-center mt-auto">
+							<div className="space-y-1">
+								<div className="font-semibold flex gap-1 items-center">
+									<Coins className="h-4 w-4 text-yellow-500" />
+
+									{price}
+								</div>
+							</div>
+							<Button
+								size="sm"
+								variant="outline"
+								disabled={myItemsCount <= 0}
+								onClick={() => onAction({ key, name: itemName, price }, name)}
+							>
+								Продать
+							</Button>
+						</div>
 					</div>
-				</div>
-			))}
+				);
+			})}
 		</div>
 	);
 }

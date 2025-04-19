@@ -100,6 +100,13 @@ export const useGameStore = create<GameState>()(
 					},
 				}));
 			},
+			plots: [],
+			setPlots: (plots) => {
+				set((state) => ({
+					...state,
+					plots: [...plots],
+				}));
+			},
 
 			seeds: {
 				carrotsSeed: {
@@ -128,8 +135,9 @@ export const useGameStore = create<GameState>()(
 				},
 			},
 			setSeeds: (seeds: SeedsType) => {
-				set(() => ({
-					seeds,
+				set((state) => ({
+					...state,
+					seeds: { ...seeds },
 				}));
 			},
 
