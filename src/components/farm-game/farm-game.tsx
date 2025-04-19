@@ -30,6 +30,10 @@ import { Sky } from "@react-three/drei"
 import { Canvas } from "@react-three/fiber"
 import type { CanvasProps } from "@react-three/fiber"
 import {
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
   CircleHelp,
   Coins,
   Menu,
@@ -52,6 +56,23 @@ import { Player } from "./player"
 import { Position } from "./types"
 import { InteractionPoint } from "./types/interaction-point"
 import { GameWorld } from "./world/game-world"
+
+// Mobile device detection
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
+  return isMobile
+}
 
 function SkyController({
   isNight,
@@ -198,24 +219,167 @@ export function FarmGame() {
   const [showUI, setShowUI] = useState(true)
   const [showMainMenu, setShowMainMenu] = useState(false)
   const [playerPosition, setPlayerPosition] = useState<Position>([0, 0, 0])
-  const [nearInteraction, setNearInteraction] =
-    useState<InteractionPoint | null>(null)
-  const [showDialog, setShowDialog] = useState(false)
-  const [dialogType, setDialogType] = useState<string | null>(null)
-  const [inventory, setInventory] = useState<Fish[]>([])
-  const { toast } = useToast()
-  const [showInstructions, setShowInstructions] = useState(false)
-  const [isMuted, setIsMuted] = useState(true)
-  const audioRef = useRef<HTMLAudioElement | null>(null)
-  const [hasInteracted, setHasInteracted] = useState(false)
-
-  // Day/Night transition states
   const [isNight, setIsNight] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
-  const [completedDayAdvance, setCompletedDayAdvance] = useState(false)
   const [isSleeping, setIsSleeping] = useState(false)
-
+  const [completedDayAdvance, setCompletedDayAdvance] = useState(false)
+  const [nearInteraction, setNearInteraction] = useState<
+    InteractionPoint | undefined
+  >(undefined)
+  const [dialogType, setDialogType] = useState<string | null>(null)
+  const [showDialog, setShowDialog] = useState(false)
+  const [isMuted, setIsMuted] = useState(false)
+  const [hasInteracted, setHasInteracted] = useState(false)
+  const [showInstructions, setShowInstructions] = useState(false)
+  const [inventory, setInventory] = useState<Fish[]>([])
+  const { toast } = useToast()
   const hasMounted = useRef(false)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+
+  // Mobile control state
+  const isMobile = useIsMobile()
+  const [showMobileControls, setShowMobileControls] = useState(true)
+  const [touchStartPos, setTouchStartPos] = useState<{
+    x: number
+    y: number
+  } | null>(null)
+  const [joystickActive, setJoystickActive] = useState(false)
+  const [joystickPos, setJoystickPos] = useState({ x: 0, y: 0 })
+  const joystickAreaRef = useRef<HTMLDivElement>(null)
+  const isPressing = useRef({
+    up: false,
+    down: false,
+    left: false,
+    right: false,
+  })
+
+  // Keyboard movement simulation functions for mobile
+  const simulateKeyDown = useCallback((key: string) => {
+    const event = new KeyboardEvent("keydown", { code: key })
+    window.dispatchEvent(event)
+  }, [])
+
+  const simulateKeyUp = useCallback((key: string) => {
+    const event = new KeyboardEvent("keyup", { code: key })
+    window.dispatchEvent(event)
+  }, [])
+
+  // Touch controls for mobile
+  useEffect(() => {
+    if (!isMobile) return
+
+    const joystickArea = joystickAreaRef.current
+    if (!joystickArea) return
+
+    const handleTouchStart = (e: TouchEvent) => {
+      const touch = e.touches[0]
+      const rect = joystickArea.getBoundingClientRect()
+      setTouchStartPos({
+        x: touch.clientX - rect.left,
+        y: touch.clientY - rect.top,
+      })
+      setJoystickActive(true)
+      setJoystickPos({
+        x: touch.clientX - rect.left,
+        y: touch.clientY - rect.top,
+      })
+    }
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!joystickActive || !touchStartPos) return
+
+      const touch = e.touches[0]
+      const rect = joystickArea.getBoundingClientRect()
+      const touchX = touch.clientX - rect.left
+      const touchY = touch.clientY - rect.top
+
+      // Calculate distance and angle from center
+      const deltaX = touchX - touchStartPos.x
+      const deltaY = touchY - touchStartPos.y
+      const distance = Math.min(
+        Math.sqrt(deltaX * deltaX + deltaY * deltaY),
+        50
+      )
+      const angle = Math.atan2(deltaY, deltaX)
+
+      // Set joystick position with maximum radius constraint
+      const limitedX = touchStartPos.x + distance * Math.cos(angle)
+      const limitedY = touchStartPos.y + distance * Math.sin(angle)
+      setJoystickPos({ x: limitedX, y: limitedY })
+
+      // Handle movement based on joystick position
+      const threshold = 10
+
+      // Reset all directions first
+      if (isPressing.current.up) {
+        simulateKeyUp("KeyW")
+        isPressing.current.up = false
+      }
+      if (isPressing.current.down) {
+        simulateKeyUp("KeyS")
+        isPressing.current.down = false
+      }
+      if (isPressing.current.left) {
+        simulateKeyUp("KeyA")
+        isPressing.current.left = false
+      }
+      if (isPressing.current.right) {
+        simulateKeyUp("KeyD")
+        isPressing.current.right = false
+      }
+
+      // Apply new directions
+      if (deltaY < -threshold) {
+        simulateKeyDown("KeyW")
+        isPressing.current.up = true
+      }
+      if (deltaY > threshold) {
+        simulateKeyDown("KeyS")
+        isPressing.current.down = true
+      }
+      if (deltaX < -threshold) {
+        simulateKeyDown("KeyA")
+        isPressing.current.left = true
+      }
+      if (deltaX > threshold) {
+        simulateKeyDown("KeyD")
+        isPressing.current.right = true
+      }
+    }
+
+    const handleTouchEnd = () => {
+      setJoystickActive(false)
+      setTouchStartPos(null)
+
+      // Reset all pressed keys
+      if (isPressing.current.up) {
+        simulateKeyUp("KeyW")
+        isPressing.current.up = false
+      }
+      if (isPressing.current.down) {
+        simulateKeyUp("KeyS")
+        isPressing.current.down = false
+      }
+      if (isPressing.current.left) {
+        simulateKeyUp("KeyA")
+        isPressing.current.left = false
+      }
+      if (isPressing.current.right) {
+        simulateKeyUp("KeyD")
+        isPressing.current.right = false
+      }
+    }
+
+    joystickArea.addEventListener("touchstart", handleTouchStart)
+    joystickArea.addEventListener("touchmove", handleTouchMove)
+    joystickArea.addEventListener("touchend", handleTouchEnd)
+
+    return () => {
+      joystickArea.removeEventListener("touchstart", handleTouchStart)
+      joystickArea.removeEventListener("touchmove", handleTouchMove)
+      joystickArea.removeEventListener("touchend", handleTouchEnd)
+    }
+  }, [isMobile, joystickActive, touchStartPos, simulateKeyDown, simulateKeyUp])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -329,6 +493,15 @@ export function FarmGame() {
     }
   }, [isTransitioning, isSleeping])
 
+  const handleInteractionButtonClick = useCallback(() => {
+    if (nearInteraction) {
+      if (nearInteraction.key === "E" || nearInteraction.key === "M") {
+        setDialogType(nearInteraction.type)
+        setShowDialog(true)
+      }
+    }
+  }, [nearInteraction])
+
   return (
     <div className='w-full h-screen relative'>
       <Canvas {...canvasProps}>
@@ -354,46 +527,115 @@ export function FarmGame() {
         </Suspense>
       </Canvas>
 
-      {/* UI Toggle Button */}
+      {/* UI Toggle Button - Adjusted position for mobile */}
       <button
-        className='absolute top-4 right-4 z-50 bg-white/80 p-2 rounded-full shadow-lg'
+        className={`absolute ${
+          isMobile ? "top-2 right-2" : "top-4 right-4"
+        } z-50 bg-white/80 p-2 rounded-full shadow-lg`}
         onClick={() => setShowUI(!showUI)}
       >
-        {showUI ? <X size={24} /> : <Menu size={24} />}
+        {showUI ? (
+          <X size={isMobile ? 20 : 24} />
+        ) : (
+          <Menu size={isMobile ? 20 : 24} />
+        )}
       </button>
 
-      {/* Sound Toggle Button */}
+      {/* Sound Toggle Button - Adjusted for mobile */}
       <button
         onClick={() => {
           setHasInteracted(true)
           setIsMuted(!isMuted)
         }}
-        className='absolute top-4 left-4 bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2 rounded-xl shadow-lg z-50 border border-white/20 hover:from-white/80 hover:to-white/50 transition-all duration-200'
+        className={`absolute ${
+          isMobile ? "top-2 left-2" : "top-4 left-4"
+        } bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2 rounded-xl shadow-lg z-50 border border-white/20 hover:from-white/80 hover:to-white/50 transition-all duration-200`}
       >
         {isMuted ? (
-          <VolumeX size={16} className='text-gray-700' />
+          <VolumeX size={isMobile ? 14 : 16} className='text-gray-700' />
         ) : (
-          <Volume2 size={16} className='text-gray-700' />
+          <Volume2 size={isMobile ? 14 : 16} className='text-gray-700' />
         )}
       </button>
 
-      {/* Game Instructions Toggle Button */}
+      {/* Game Instructions Toggle Button - Adjusted for mobile */}
       <button
         onClick={() => setShowInstructions(!showInstructions)}
-        className='absolute top-4 left-16 bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2 rounded-xl shadow-lg z-50 border border-white/20 hover:from-white/80 hover:to-white/50 transition-all duration-200'
+        className={`absolute ${
+          isMobile ? "top-2 left-12" : "top-4 left-16"
+        } bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2 rounded-xl shadow-lg z-50 border border-white/20 hover:from-white/80 hover:to-white/50 transition-all duration-200`}
       >
-        <CircleHelp size={16} className='text-gray-700' />
+        <CircleHelp size={isMobile ? 14 : 16} className='text-gray-700' />
       </button>
 
-      {/* Player Position */}
-      <div className='absolute top-4 left-1/2 transform -translate-x-1/2 bg-white/80 backdrop-blur-md p-2 rounded-lg shadow-lg z-40 flex items-center gap-2'>
-        <User size={16} />
-        <span>
-          X: {playerPosition[0].toFixed(1)}, Z: {playerPosition[2].toFixed(1)}
-        </span>
-      </div>
+      {/* Player Position - Hidden on mobile to save space */}
+      {!isMobile && (
+        <div className='absolute top-4 left-1/2 transform -translate-x-1/2 bg-white/80 backdrop-blur-md p-2 rounded-lg shadow-lg z-40 flex items-center gap-2'>
+          <User size={16} />
+          <span>
+            X: {playerPosition[0].toFixed(1)}, Z: {playerPosition[2].toFixed(1)}
+          </span>
+        </div>
+      )}
 
-      {/* Game UI */}
+      {/* Mobile touch controls */}
+      {isMobile && showMobileControls && (
+        <>
+          {/* Virtual joystick for movement */}
+          <div
+            ref={joystickAreaRef}
+            className='absolute bottom-32 left-6 w-32 h-32 bg-white/30 backdrop-blur-sm rounded-full z-50 touch-none'
+          >
+            {joystickActive && touchStartPos && (
+              <div
+                className='absolute w-16 h-16 bg-white/50 rounded-full -translate-x-1/2 -translate-y-1/2 border-2 border-white/70'
+                style={{
+                  left: joystickPos.x,
+                  top: joystickPos.y,
+                }}
+              />
+            )}
+            {!joystickActive && (
+              <div className='absolute inset-0 flex items-center justify-center opacity-70'>
+                <div className='grid grid-cols-3 grid-rows-3 w-full h-full'>
+                  <div className='col-start-2 row-start-1 flex justify-center'>
+                    <ArrowUp size={20} />
+                  </div>
+                  <div className='col-start-1 row-start-2 flex items-center'>
+                    <ArrowLeft size={20} />
+                  </div>
+                  <div className='col-start-3 row-start-2 flex items-center justify-end'>
+                    <ArrowRight size={20} />
+                  </div>
+                  <div className='col-start-2 row-start-3 flex justify-center'>
+                    <ArrowDown size={20} />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile action button - for interactions */}
+          {nearInteraction && (
+            <button
+              onClick={handleInteractionButtonClick}
+              className='absolute bottom-32 right-6 w-16 h-16 bg-white/70 backdrop-blur-md rounded-full z-50 flex items-center justify-center shadow-lg border-2 border-white/80 active:bg-white/90'
+            >
+              <span className='text-lg font-bold'>{nearInteraction.key}</span>
+            </button>
+          )}
+
+          {/* Mobile toggle for controls visibility */}
+          <button
+            onClick={() => setShowMobileControls(!showMobileControls)}
+            className='absolute bottom-4 right-4 p-2 bg-white/70 backdrop-blur-sm rounded-lg z-50'
+          >
+            {showMobileControls ? "Hide Controls" : "Show Controls"}
+          </button>
+        </>
+      )}
+
+      {/* Game UI - Adjusted layout for mobile */}
       <AnimatePresence>
         {showUI && (
           <motion.div
@@ -406,8 +648,16 @@ export function FarmGame() {
               <div className='flex justify-between items-center mb-4'>
                 <div className='flex items-center gap-4'>
                   <div className='flex items-center gap-2 bg-white/80 px-3 py-1 rounded-lg'>
-                    <Sun className='h-5 w-5 text-yellow-500' />
-                    <span className='font-medium'>
+                    <Sun
+                      className={`${
+                        isMobile ? "h-4 w-4" : "h-5 w-5"
+                      } text-yellow-500`}
+                    />
+                    <span
+                      className={`${
+                        isMobile ? "text-sm" : "text-base"
+                      } font-medium`}
+                    >
                       {SEASONS[gameStore.seasons]} - День {gameStore.days}
                     </span>
                   </div>
@@ -417,8 +667,16 @@ export function FarmGame() {
                     variant='outline'
                     className='flex items-center gap-2 px-3 py-1'
                   >
-                    <Coins className='h-4 w-4 text-yellow-500' />
-                    <span className='text-lg font-bold'>
+                    <Coins
+                      className={`${
+                        isMobile ? "h-3 w-3" : "h-4 w-4"
+                      } text-yellow-500`}
+                    />
+                    <span
+                      className={`${
+                        isMobile ? "text-base" : "text-lg"
+                      } font-bold`}
+                    >
                       {gameStore.moneys}
                     </span>
                   </Badge>
@@ -436,8 +694,16 @@ export function FarmGame() {
                 {Object.entries(gameStore.resources).map(
                   ([plant, count], i) => (
                     <Card key={i} className='bg-white/90'>
-                      <CardContent className='p-3 text-center flex flex-col items-center justify-center'>
-                        <div className='text-2xl mb-1'>
+                      <CardContent
+                        className={`p-3 text-center flex flex-col items-center justify-center ${
+                          isMobile ? "py-2" : ""
+                        }`}
+                      >
+                        <div
+                          className={`${
+                            isMobile ? "text-xl" : "text-2xl"
+                          } mb-1`}
+                        >
                           {
                             {
                               Марковка: "🥕",
@@ -449,7 +715,13 @@ export function FarmGame() {
                             }[plant]
                           }
                         </div>
-                        <div className='text-lg font-bold'>{count}</div>
+                        <div
+                          className={`${
+                            isMobile ? "text-base" : "text-lg"
+                          } font-bold`}
+                        >
+                          {count}
+                        </div>
                         <div className='text-xs text-muted-foreground capitalize'>
                           {plant}
                         </div>
@@ -463,7 +735,7 @@ export function FarmGame() {
         )}
       </AnimatePresence>
 
-      {/* Main Menu */}
+      {/* Main Menu - Adjusted for mobile */}
       <AnimatePresence>
         {showMainMenu && (
           <motion.div
@@ -476,7 +748,9 @@ export function FarmGame() {
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
-              className='bg-white rounded-lg p-6 max-w-md w-full'
+              className={`bg-white rounded-lg p-6 ${
+                isMobile ? "max-w-[90%]" : "max-w-md"
+              } w-full`}
             >
               <h2 className='text-2xl font-bold mb-6 text-center'>Ферма 3D</h2>
 
@@ -505,7 +779,7 @@ export function FarmGame() {
         )}
       </AnimatePresence>
 
-      {/* Interaction Dialogs */}
+      {/* Interaction Dialogs - Adjusted for mobile */}
       <Dialog
         open={showDialog}
         onOpenChange={open => {
@@ -519,7 +793,9 @@ export function FarmGame() {
           }
         }}
       >
-        <DialogContent className='sm:max-w-[600px]'>
+        <DialogContent
+          className={`${isMobile ? "w-[95%] p-4" : "sm:max-w-[600px]"}`}
+        >
           {dialogType === "greenhouse" && <GreenhouseDialog />}
           {dialogType === "fishing" && (
             <>
@@ -552,7 +828,7 @@ export function FarmGame() {
         </DialogContent>
       </Dialog>
 
-      {/* Game Instructions */}
+      {/* Game Instructions - Adjusted for mobile */}
       <AnimatePresence>
         {showInstructions && (
           <motion.div
@@ -560,7 +836,11 @@ export function FarmGame() {
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: -20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className='absolute top-14 left-4 bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2.5 rounded-xl shadow-lg z-50 max-w-[220px] text-xs border border-white/20'
+            className={`absolute ${
+              isMobile ? "top-12 left-2" : "top-14 left-4"
+            } bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md p-2.5 rounded-xl shadow-lg z-50 ${
+              isMobile ? "max-w-[200px]" : "max-w-[220px]"
+            } text-xs border border-white/20`}
           >
             <div className='font-medium mb-2 flex justify-between items-center border-b border-white/20 pb-1.5'>
               <span className='text-[11px] uppercase tracking-wider text-gray-700'>
@@ -612,6 +892,19 @@ export function FarmGame() {
                   <span className='text-gray-600'>меню</span>
                 </p>
               </div>
+              {isMobile && (
+                <div className='mt-2 border-t border-white/20 pt-1.5'>
+                  <p className='text-[9px] mb-1 font-medium text-gray-600'>
+                    Для мобильных устройств:
+                  </p>
+                  <p className='text-[9px] text-gray-500'>
+                    • Виртуальный джойстик для движения
+                  </p>
+                  <p className='text-[9px] text-gray-500'>
+                    • Кнопка действия появляется при приближении к объектам
+                  </p>
+                </div>
+              )}
               <p className='text-[9px] text-gray-500 text-center mt-2 border-t border-white/20 pt-1.5'>
                 Нажмите <span className='font-medium'>H</span> чтобы скрыть
                 подсказки
@@ -621,7 +914,7 @@ export function FarmGame() {
         )}
       </AnimatePresence>
 
-      {/* Interaction Prompt */}
+      {/* Interaction Prompt - Adjusted for mobile */}
       <AnimatePresence mode='wait'>
         {nearInteraction && (
           <motion.div
@@ -630,7 +923,9 @@ export function FarmGame() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
-            className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md px-3 py-2 rounded-sm shadow-lg z-40 border border-white/20'
+            className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-white/70 to-white/40 backdrop-blur-md px-3 py-2 rounded-sm shadow-lg z-40 border border-white/20 ${
+              isMobile ? "text-sm" : ""
+            }`}
           >
             <div className='flex items-center gap-2'>
               <span className='bg-white/50 px-2 py-1 rounded text-[11px] font-bold text-gray-700'>
