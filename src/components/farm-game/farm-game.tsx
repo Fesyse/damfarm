@@ -197,7 +197,7 @@ function SkyController({
 export function FarmGame() {
 	const gameStore = useGameStore((state) => state);
 
-	const [showUI, setShowUI] = useState(true);
+	const [showUI, setShowUI] = useState(false);
 	const [showMainMenu, setShowMainMenu] = useState(false);
 	const [playerPosition, setPlayerPosition] = useState<Position>([0, 0, 0]);
 	const [nearInteraction, setNearInteraction] =
