@@ -1,0 +1,19 @@
+import data from "@/data/money-work.json";
+
+export const getData = data;
+
+export const getNews = (day: number) => {
+  return data.days[day].news;
+};
+
+export const getStocks = (day: number) => {
+  return data.days[day].stocks;
+};
+
+export const getStocksHistory = (day: number) => {
+  let stocks = [];
+  for (let i = 1; i < day; i++) {
+    stocks.push(data.days[i].stocks);
+  }
+  return stocks;
+};

@@ -16,7 +16,7 @@ type SeedsType = {
   strawberriesSeed: number;
 };
 
-type StocksType = {
+export type StocksType = {
   TechNova: number;
   OilCorp: number;
   GreenFuture: number;
@@ -44,4 +44,7 @@ export interface GameState {
 
   seasons: number;
   setSeason: () => number;
+
+  is_paid_news: boolean;
+  setIsPaidNews: (is_paid_news: boolean) => void;
 }

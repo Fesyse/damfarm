@@ -1,0 +1,2104 @@
+{
+  "days": [
+    {
+      "day": 1,
+      "news": {
+        "stocks": [
+          {
+            "text": "OilCorp участвует в скандале по загрязнению.",
+            "type": "free",
+            "reliability": "controversial"
+          },
+          {
+            "text": "TechNova выпускает новый AI-чип.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus испытывает новый препарат.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Фейковые новости о болезни Моркови.",
+            "type": "free",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Ожидается рекордный урожай Кукурузы.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Нашествие насекомых угрожает урожаю Клубники.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Рост рыболовства в Норвегии увеличивает поставки Лосося.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 340 },
+        { "name": "OilCorp", "price": 546 },
+        { "name": "GreenFuture", "price": 300 },
+        { "name": "GameVerse", "price": 287 },
+        { "name": "MediPlus", "price": 768 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 30 },
+        { "name": "Картошка", "price": 25 },
+        { "name": "Пшеница", "price": 39 },
+        { "name": "Кукуруза", "price": 35 },
+        { "name": "Томат", "price": 53 },
+        { "name": "Клубника", "price": 61 },
+        { "name": "Семена Морковка", "price": 11 },
+        { "name": "Семена Картошка", "price": 10 },
+        { "name": "Семена Пшеница", "price": 11 },
+        { "name": "Семена Кукуруза", "price": 13 },
+        { "name": "Семена Томат", "price": 13 },
+        { "name": "Семена Клубника", "price": 17 },
+        { "name": "Лосось", "price": 150 },
+        { "name": "Тунец", "price": 200 },
+        { "name": "Судак", "price": 180 },
+        { "name": "Треска", "price": 140 },
+        { "name": "Скумбрия", "price": 120 },
+        { "name": "Сельдь", "price": 90 },
+        { "name": "Окунь", "price": 160 },
+        { "name": "Щука", "price": 170 },
+        { "name": "Карась", "price": 80 },
+        { "name": "Лещ", "price": 100 }
+      ]
+    },
+    {
+      "day": 2,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova слухи о слиянии с Azurix.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "GreenFuture получила грант ЕС.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus скрывает побочные эффекты.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Правительство субсидирует семена Томатов.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Крупный фермер закупил все семена Клубники.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Землетрясение повлияло на урожай Кукурузы.",
+            "type": "free",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Ураган в Тихом океане повлиял на поставки Тунца.",
+            "type": "paid",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 368 },
+        { "name": "OilCorp", "price": 567 },
+        { "name": "GreenFuture", "price": 314 },
+        { "name": "GameVerse", "price": 267 },
+        { "name": "MediPlus", "price": 783 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 27 },
+        { "name": "Картошка", "price": 29 },
+        { "name": "Пшеница", "price": 44 },
+        { "name": "Кукуруза", "price": 32 },
+        { "name": "Томат", "price": 58 },
+        { "name": "Клубника", "price": 64 },
+        { "name": "Семена Морковка", "price": 13 },
+        { "name": "Семена Картошка", "price": 13 },
+        { "name": "Семена Пшеница", "price": 10 },
+        { "name": "Семена Кукуруза", "price": 12 },
+        { "name": "Семена Томат", "price": 15 },
+        { "name": "Семена Клубника", "price": 16 },
+        { "name": "Лосось", "price": 155 },
+        { "name": "Тунец", "price": 195 },
+        { "name": "Судак", "price": 175 },
+        { "name": "Треска", "price": 135 },
+        { "name": "Скумбрия", "price": 125 },
+        { "name": "Сельдь", "price": 85 },
+        { "name": "Окунь", "price": 165 },
+        { "name": "Щука", "price": 165 },
+        { "name": "Карась", "price": 75 },
+        { "name": "Лещ", "price": 95 }
+      ]
+    },
+    {
+      "day": 3,
+      "news": {
+        "stocks": [
+          {
+            "text": "GameVerse анонсировала новую VR игру.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp пытается замять дело о загрязнении.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "MediPlus получила одобрение FDA.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Засуха угрожает урожаю Пшеницы.",
+            "type": "free",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Импорт Моркови из Китая увеличился.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Проблемы с логистикой влияют на поставки Лосося.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Новый вид червей уничтожает посевы Картошки.",
+            "type": "paid",
+            "reliability": "controversial"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 375 },
+        { "name": "OilCorp", "price": 550 },
+        { "name": "GreenFuture", "price": 320 },
+        { "name": "GameVerse", "price": 300 },
+        { "name": "MediPlus", "price": 800 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 32 },
+        { "name": "Картошка", "price": 35 },
+        { "name": "Пшеница", "price": 50 },
+        { "name": "Кукуруза", "price": 30 },
+        { "name": "Томат", "price": 60 },
+        { "name": "Клубника", "price": 70 },
+        { "name": "Семена Морковка", "price": 15 },
+        { "name": "Семена Картошка", "price": 12 },
+        { "name": "Семена Пшеница", "price": 13 },
+        { "name": "Семена Кукуруза", "price": 15 },
+        { "name": "Семена Томат", "price": 12 },
+        { "name": "Семена Клубника", "price": 14 },
+        { "name": "Лосось", "price": 160 },
+        { "name": "Тунец", "price": 200 },
+        { "name": "Судак", "price": 180 },
+        { "name": "Треска", "price": 140 },
+        { "name": "Скумбрия", "price": 130 },
+        { "name": "Сельдь", "price": 90 },
+        { "name": "Окунь", "price": 170 },
+        { "name": "Щука", "price": 170 },
+        { "name": "Карась", "price": 80 },
+        { "name": "Лещ", "price": 100 }
+      ]
+    },
+    {
+      "day": 4,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova опровергает слухи о слиянии.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture инвестирует в солнечную энергию.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GameVerse переносит релиз игры.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Дожди улучшили прогноз урожая Томатов.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Фермеры жалуются на нехватку удобрений для Кукурузы.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Браконьеры уменьшили популяцию Судака в реках.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Экспорт Трески в Японию увеличился.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 380 },
+        { "name": "OilCorp", "price": 540 },
+        { "name": "GreenFuture", "price": 330 },
+        { "name": "GameVerse", "price": 290 },
+        { "name": "MediPlus", "price": 810 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 35 },
+        { "name": "Картошка", "price": 30 },
+        { "name": "Пшеница", "price": 55 },
+        { "name": "Кукуруза", "price": 35 },
+        { "name": "Томат", "price": 55 },
+        { "name": "Клубника", "price": 75 },
+        { "name": "Семена Морковка", "price": 10 },
+        { "name": "Семена Картошка", "price": 15 },
+        { "name": "Семена Пшеница", "price": 15 },
+        { "name": "Семена Кукуруза", "price": 10 },
+        { "name": "Семена Томат", "price": 15 },
+        { "name": "Семена Клубника", "price": 15 },
+        { "name": "Лосось", "price": 165 },
+        { "name": "Тунец", "price": 205 },
+        { "name": "Судак", "price": 185 },
+        { "name": "Треска", "price": 145 },
+        { "name": "Скумбрия", "price": 135 },
+        { "name": "Сельдь", "price": 95 },
+        { "name": "Окунь", "price": 175 },
+        { "name": "Щука", "price": 175 },
+        { "name": "Карась", "price": 85 },
+        { "name": "Лещ", "price": 105 }
+      ]
+    },
+    {
+      "day": 5,
+      "news": {
+        "stocks": [
+          {
+            "text": "OilCorp выплачивает штрафы за загрязнение.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus запускает программу лояльности.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture разрабатывает ветряные турбины.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Новый сорт Моркови устойчив к болезням.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Заморозки повредили урожай Клубники.",
+            "type": "free",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Дефицит воды влияет на выращивание Томатов.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Шторм в Атлантике повлиял на вылов Скумбрии.",
+            "type": "paid",
+            "reliability": "controversial"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 385 },
+        { "name": "OilCorp", "price": 530 },
+        { "name": "GreenFuture", "price": 340 },
+        { "name": "GameVerse", "price": 285 },
+        { "name": "MediPlus", "price": 820 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 40 },
+        { "name": "Картошка", "price": 25 },
+        { "name": "Пшеница", "price": 60 },
+        { "name": "Кукуруза", "price": 40 },
+        { "name": "Томат", "price": 60 },
+        { "name": "Клубника", "price": 80 },
+        { "name": "Семена Морковка", "price": 12 },
+        { "name": "Семена Картошка", "price": 13 },
+        { "name": "Семена Пшеница", "price": 14 },
+        { "name": "Семена Кукуруза", "price": 11 },
+        { "name": "Семена Томат", "price": 16 },
+        { "name": "Семена Клубника", "price": 12 },
+        { "name": "Лосось", "price": 170 },
+        { "name": "Тунец", "price": 210 },
+        { "name": "Судак", "price": 190 },
+        { "name": "Треска", "price": 150 },
+        { "name": "Скумбрия", "price": 140 },
+        { "name": "Сельдь", "price": 100 },
+        { "name": "Окунь", "price": 180 },
+        { "name": "Щука", "price": 180 },
+        { "name": "Карась", "price": 90 },
+        { "name": "Лещ", "price": 110 }
+      ]
+    },
+    {
+      "day": 6,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova разрабатывает новое поколение чипов для майнинга.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp инвестирует в возобновляемые источники энергии.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GameVerse увольняет часть сотрудников из-за переноса релиза игры.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Фермеры переходят на выращивание органической Картошки.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Нехватка рабочей силы влияет на сбор урожая Пшеницы.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Правительство снижает квоты на вылов Сельди.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Загрязнение моря угрожает популяции Окуня.",
+            "type": "paid",
+            "reliability": "controversial"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 390 },
+        { "name": "OilCorp", "price": 535 },
+        { "name": "GreenFuture", "price": 345 },
+        { "name": "GameVerse", "price": 280 },
+        { "name": "MediPlus", "price": 825 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 45 },
+        { "name": "Картошка", "price": 30 },
+        { "name": "Пшеница", "price": 65 },
+        { "name": "Кукуруза", "price": 45 },
+        { "name": "Томат", "price": 65 },
+        { "name": "Клубника", "price": 85 },
+        { "name": "Семена Морковка", "price": 13 },
+        { "name": "Семена Картошка", "price": 14 },
+        { "name": "Семена Пшеница", "price": 15 },
+        { "name": "Семена Кукуруза", "price": 12 },
+        { "name": "Семена Томат", "price": 17 },
+        { "name": "Семена Клубника", "price": 13 },
+        { "name": "Лосось", "price": 175 },
+        { "name": "Тунец", "price": 215 },
+        { "name": "Судак", "price": 195 },
+        { "name": "Треска", "price": 155 },
+        { "name": "Скумбрия", "price": 145 },
+        { "name": "Сельдь", "price": 105 },
+        { "name": "Окунь", "price": 185 },
+        { "name": "Щука", "price": 185 },
+        { "name": "Карась", "price": 95 },
+        { "name": "Лещ", "price": 115 }
+      ]
+    },
+    {
+      "day": 7,
+      "news": {
+        "stocks": [
+          {
+            "text": "MediPlus объявила о положительных результатах клинических испытаний нового препарата.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture планирует расширение производства солнечных панелей.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova сталкивается с проблемами в производстве новых чипов.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Повышенный спрос на органическую Морковь.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Увеличение экспортных пошлин на Кукурузу.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Засуха в регионе влияет на урожайность Щуки.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Новые правила регулирования вылова Карася.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 385 },
+        { "name": "OilCorp", "price": 540 },
+        { "name": "GreenFuture", "price": 350 },
+        { "name": "GameVerse", "price": 275 },
+        { "name": "MediPlus", "price": 830 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 50 },
+        { "name": "Картошка", "price": 35 },
+        { "name": "Пшеница", "price": 70 },
+        { "name": "Кукуруза", "price": 50 },
+        { "name": "Томат", "price": 70 },
+        { "name": "Клубника", "price": 90 },
+        { "name": "Семена Морковка", "price": 14 },
+        { "name": "Семена Картошка", "price": 15 },
+        { "name": "Семена Пшеница", "price": 16 },
+        { "name": "Семена Кукуруза", "price": 13 },
+        { "name": "Семена Томат", "price": 18 },
+        { "name": "Семена Клубника", "price": 14 },
+        { "name": "Лосось", "price": 180 },
+        { "name": "Тунец", "price": 220 },
+        { "name": "Судак", "price": 200 },
+        { "name": "Треска", "price": 160 },
+        { "name": "Скумбрия", "price": 150 },
+        { "name": "Сельдь", "price": 110 },
+        { "name": "Окунь", "price": 190 },
+        { "name": "Щука", "price": 190 },
+        { "name": "Карась", "price": 100 },
+        { "name": "Лещ", "price": 120 }
+      ]
+    },
+    {
+      "day": 8,
+      "news": {
+        "stocks": [
+          {
+            "text": "Слухи о банкротстве GameVerse.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "OilCorp уличили в уклонении от налогов.",
+            "type": "free",
+            "reliability": "controversial"
+          },
+          {
+            "text": "TechNova представила прототип нового квантового компьютера.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Экспорт Моркови в Европу вырос.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Дефицит воды привел к снижению урожая Кукурузы.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Лосось стал более доступным из-за новых технологий.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Ученые предупреждают о сокращении популяции Леща.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 390 },
+        { "name": "OilCorp", "price": 530 },
+        { "name": "GreenFuture", "price": 355 },
+        { "name": "GameVerse", "price": 270 },
+        { "name": "MediPlus", "price": 835 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 55 },
+        { "name": "Картошка", "price": 40 },
+        { "name": "Пшеница", "price": 75 },
+        { "name": "Кукуруза", "price": 55 },
+        { "name": "Томат", "price": 75 },
+        { "name": "Клубника", "price": 95 },
+        { "name": "Семена Морковка", "price": 15 },
+        { "name": "Семена Картошка", "price": 16 },
+        { "name": "Семена Пшеница", "price": 17 },
+        { "name": "Семена Кукуруза", "price": 14 },
+        { "name": "Семена Томат", "price": 19 },
+        { "name": "Семена Клубника", "price": 15 },
+        { "name": "Лосось", "price": 185 },
+        { "name": "Тунец", "price": 225 },
+        { "name": "Судак", "price": 205 },
+        { "name": "Треска", "price": 165 },
+        { "name": "Скумбрия", "price": 155 },
+        { "name": "Сельдь", "price": 115 },
+        { "name": "Окунь", "price": 195 },
+        { "name": "Щука", "price": 195 },
+        { "name": "Карась", "price": 105 },
+        { "name": "Лещ", "price": 125 }
+      ]
+    },
+    {
+      "day": 9,
+      "news": {
+        "stocks": [
+          {
+            "text": "MediPlus запускает новую программу исследований в области генной инженерии.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture объявляет о новом прорыве в технологии хранения энергии.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova заключает партнерство с крупной телекоммуникационной компанией.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Власти вводят ограничения на использование пестицидов при выращивании Картошки.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Неблагоприятные погодные условия снизили урожайность Пшеницы.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Вспышка заболевания среди популяции Тунца привела к снижению улова.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Государственная поддержка стимулирует выращивание Моркови.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 395 },
+        { "name": "OilCorp", "price": 525 },
+        { "name": "GreenFuture", "price": 360 },
+        { "name": "GameVerse", "price": 265 },
+        { "name": "MediPlus", "price": 840 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 60 },
+        { "name": "Картошка", "price": 45 },
+        { "name": "Пшеница", "price": 80 },
+        { "name": "Кукуруза", "price": 60 },
+        { "name": "Томат", "price": 80 },
+        { "name": "Клубника", "price": 100 },
+        { "name": "Семена Морковка", "price": 16 },
+        { "name": "Семена Картошка", "price": 17 },
+        { "name": "Семена Пшеница", "price": 18 },
+        { "name": "Семена Кукуруза", "price": 15 },
+        { "name": "Семена Томат", "price": 20 },
+        { "name": "Семена Клубника", "price": 16 },
+        { "name": "Лосось", "price": 190 },
+        { "name": "Тунец", "price": 230 },
+        { "name": "Судак", "price": 210 },
+        { "name": "Треска", "price": 170 },
+        { "name": "Скумбрия", "price": 160 },
+        { "name": "Сельдь", "price": 120 },
+        { "name": "Окунь", "price": 200 },
+        { "name": "Щука", "price": 200 },
+        { "name": "Карась", "price": 110 },
+        { "name": "Лещ", "price": 130 }
+      ]
+    },
+    {
+      "day": 10,
+      "news": {
+        "stocks": [
+          {
+            "text": "GameVerse официально объявила о банкротстве.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp меняет руководство после скандалов.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova ищет новые рынки сбыта для своей продукции.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Цены на Томаты бьют рекорды из-за неурожая в соседних странах.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Клубника становится деликатесом из-за болезней растений.",
+            "type": "free",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Судак становится популярным среди потребителей благодаря новым рецептам.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Обнаружена утечка нефти, повлиявшая на популяцию Трески.",
+            "type": "paid",
+            "reliability": "controversial"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 400 },
+        { "name": "OilCorp", "price": 520 },
+        { "name": "GreenFuture", "price": 365 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 845 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 65 },
+        { "name": "Картошка", "price": 50 },
+        { "name": "Пшеница", "price": 85 },
+        { "name": "Кукуруза", "price": 65 },
+        { "name": "Томат", "price": 85 },
+        { "name": "Клубника", "price": 105 },
+        { "name": "Семена Морковка", "price": 17 },
+        { "name": "Семена Картошка", "price": 18 },
+        { "name": "Семена Пшеница", "price": 19 },
+        { "name": "Семена Кукуруза", "price": 16 },
+        { "name": "Семена Томат", "price": 21 },
+        { "name": "Семена Клубника", "price": 17 },
+        { "name": "Лосось", "price": 195 },
+        { "name": "Тунец", "price": 235 },
+        { "name": "Судак", "price": 215 },
+        { "name": "Треска", "price": 175 },
+        { "name": "Скумбрия", "price": 165 },
+        { "name": "Сельдь", "price": 125 },
+        { "name": "Окунь", "price": 205 },
+        { "name": "Щука", "price": 205 },
+        { "name": "Карась", "price": 115 },
+        { "name": "Лещ", "price": 135 }
+      ]
+    },
+    {
+      "day": 11,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova выпустила обновление для своего AI-чипа.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp начала программу по восстановлению окружающей среды.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture представила новую технологию переработки отходов.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Власти субсидируют фермеров, выращивающих Клубнику.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Резкое увеличение цен на Тунца из-за проблем с поставками.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Сельдь стала популярной в азиатских странах.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Изменение климата влияет на размножение Щуки.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 405 },
+        { "name": "OilCorp", "price": 525 },
+        { "name": "GreenFuture", "price": 370 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 850 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 70 },
+        { "name": "Картошка", "price": 55 },
+        { "name": "Пшеница", "price": 90 },
+        { "name": "Кукуруза", "price": 70 },
+        { "name": "Томат", "price": 90 },
+        { "name": "Клубника", "price": 110 },
+        { "name": "Семена Морковка", "price": 18 },
+        { "name": "Семена Картошка", "price": 19 },
+        { "name": "Семена Пшеница", "price": 20 },
+        { "name": "Семена Кукуруза", "price": 17 },
+        { "name": "Семена Томат", "price": 22 },
+        { "name": "Семена Клубника", "price": 18 },
+        { "name": "Лосось", "price": 200 },
+        { "name": "Тунец", "price": 240 },
+        { "name": "Судак", "price": 220 },
+        { "name": "Треска", "price": 180 },
+        { "name": "Скумбрия", "price": 170 },
+        { "name": "Сельдь", "price": 130 },
+        { "name": "Окунь", "price": 210 },
+        { "name": "Щука", "price": 210 },
+        { "name": "Карась", "price": 120 },
+        { "name": "Лещ", "price": 140 }
+      ]
+    },
+    {
+      "day": 12,
+      "news": {
+        "stocks": [
+          {
+            "text": "MediPlus запускает образовательные программы для врачей.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture получила крупный заказ от правительства на поставку солнечных панелей.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp расширяет свою деятельность на рынке возобновляемой энергетики.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Власти вводят новые стандарты качества для Пшеницы.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "На рынке появились поддельные семена Моркови.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Лосось стал более доступным благодаря новым технологиям аквакультуры.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Спрос на органическую Картошку растет среди потребителей.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 410 },
+        { "name": "OilCorp", "price": 530 },
+        { "name": "GreenFuture", "price": 375 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 855 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 75 },
+        { "name": "Картошка", "price": 60 },
+        { "name": "Пшеница", "price": 95 },
+        { "name": "Кукуруза", "price": 75 },
+        { "name": "Томат", "price": 95 },
+        { "name": "Клубника", "price": 115 },
+        { "name": "Семена Морковка", "price": 19 },
+        { "name": "Семена Картошка", "price": 20 },
+        { "name": "Семена Пшеница", "price": 21 },
+        { "name": "Семена Кукуруза", "price": 18 },
+        { "name": "Семена Томат", "price": 23 },
+        { "name": "Семена Клубника", "price": 19 },
+        { "name": "Лосось", "price": 205 },
+        { "name": "Тунец", "price": 245 },
+        { "name": "Судак", "price": 225 },
+        { "name": "Треска", "price": 185 },
+        { "name": "Скумбрия", "price": 175 },
+        { "name": "Сельдь", "price": 135 },
+        { "name": "Окунь", "price": 215 },
+        { "name": "Щука", "price": 215 },
+        { "name": "Карась", "price": 125 },
+        { "name": "Лещ", "price": 145 }
+      ]
+    },
+    {
+      "day": 13,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova начинает разработку новых аккумуляторов для электромобилей.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp столкнулась с обвинениями в несоблюдении экологических норм.",
+            "type": "free",
+            "reliability": "controversial"
+          },
+          {
+            "text": "MediPlus объявила об успешном завершении клинических испытаний.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Власти увеличивают поддержку местных производителей Томатов.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Погодные условия благоприятны для выращивания Клубники.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Повышенный спрос на органического Лосося из-за заботы о здоровье.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Снижение популяции Окуня в реках из-за загрязнения воды.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 415 },
+        { "name": "OilCorp", "price": 525 },
+        { "name": "GreenFuture", "price": 380 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 860 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 80 },
+        { "name": "Картошка", "price": 65 },
+        { "name": "Пшеница", "price": 100 },
+        { "name": "Кукуруза", "price": 80 },
+        { "name": "Томат", "price": 100 },
+        { "name": "Клубника", "price": 120 },
+        { "name": "Семена Морковка", "price": 20 },
+        { "name": "Семена Картошка", "price": 21 },
+        { "name": "Семена Пшеница", "price": 22 },
+        { "name": "Семена Кукуруза", "price": 19 },
+        { "name": "Семена Томат", "price": 24 },
+        { "name": "Семена Клубника", "price": 20 },
+        { "name": "Лосось", "price": 210 },
+        { "name": "Тунец", "price": 250 },
+        { "name": "Судак", "price": 230 },
+        { "name": "Треска", "price": 190 },
+        { "name": "Скумбрия", "price": 180 },
+        { "name": "Сельдь", "price": 140 },
+        { "name": "Окунь", "price": 220 },
+        { "name": "Щука", "price": 220 },
+        { "name": "Карась", "price": 130 },
+        { "name": "Лещ", "price": 150 }
+      ]
+    },
+    {
+      "day": 14,
+      "news": {
+        "stocks": [
+          {
+            "text": "GreenFuture планирует запуск нового завода по производству ветряных турбин.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus запустила программу по поддержке медицинских исследований.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova выпустила новый смартфон с использованием передовых AI технологий.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Правительство увеличивает субсидии на выращивание экологически чистой Картошки.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "На рынке появилось большое количество импортной Моркови, что привело к снижению цен.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Цены на Пшеницу выросли из-за засухи в регионе.",
+            "type": "free",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Влияние загрязнения на популяцию Леща привлекает внимание экологов.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 420 },
+        { "name": "OilCorp", "price": 530 },
+        { "name": "GreenFuture", "price": 385 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 865 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 85 },
+        { "name": "Картошка", "price": 70 },
+        { "name": "Пшеница", "price": 105 },
+        { "name": "Кукуруза", "price": 85 },
+        { "name": "Томат", "price": 105 },
+        { "name": "Клубника", "price": 125 },
+        { "name": "Семена Морковка", "price": 21 },
+        { "name": "Семена Картошка", "price": 22 },
+        { "name": "Семена Пшеница", "price": 23 },
+        { "name": "Семена Кукуруза", "price": 20 },
+        { "name": "Семена Томат", "price": 25 },
+        { "name": "Семена Клубника", "price": 21 },
+        { "name": "Лосось", "price": 215 },
+        { "name": "Тунец", "price": 255 },
+        { "name": "Судак", "price": 235 },
+        { "name": "Треска", "price": 195 },
+        { "name": "Скумбрия", "price": 185 },
+        { "name": "Сельдь", "price": 145 },
+        { "name": "Окунь", "price": 225 },
+        { "name": "Щука", "price": 225 },
+        { "name": "Карась", "price": 135 },
+        { "name": "Лещ", "price": 155 }
+      ]
+    },
+    {
+      "day": 15,
+      "news": {
+        "stocks": [
+          {
+            "text": "OilCorp разработала новую технологию переработки нефтяных отходов.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova сотрудничает с международным исследовательским центром.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture привлекает инвестиции для расширения производства.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Снижение цен на Сельдь из-за перенасыщения рынка.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Морковь становится все более популярной среди здорового питания.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Ученые выявили, что изменение климата может повлиять на поставки Трески.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Государство выделяет средства на развитие аквакультуры по выращиванию Щуки.",
+            "type": "paid",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 425 },
+        { "name": "OilCorp", "price": 535 },
+        { "name": "GreenFuture", "price": 390 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 870 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 90 },
+        { "name": "Картошка", "price": 75 },
+        { "name": "Пшеница", "price": 110 },
+        { "name": "Кукуруза", "price": 90 },
+        { "name": "Томат", "price": 110 },
+        { "name": "Клубника", "price": 130 },
+        { "name": "Семена Морковка", "price": 22 },
+        { "name": "Семена Картошка", "price": 23 },
+        { "name": "Семена Пшеница", "price": 24 },
+        { "name": "Семена Кукуруза", "price": 21 },
+        { "name": "Семена Томат", "price": 26 },
+        { "name": "Семена Клубника", "price": 22 },
+        { "name": "Лосось", "price": 220 },
+        { "name": "Тунец", "price": 260 },
+        { "name": "Судак", "price": 240 },
+        { "name": "Треска", "price": 200 },
+        { "name": "Скумбрия", "price": 190 },
+        { "name": "Сельдь", "price": 150 },
+        { "name": "Окунь", "price": 230 },
+        { "name": "Щука", "price": 230 },
+        { "name": "Карась", "price": 140 },
+        { "name": "Лещ", "price": 160 }
+      ]
+    },
+    {
+      "day": 16,
+      "news": {
+        "stocks": [
+          {
+            "text": "GreenFuture разработала новую технологию утилизации углекислого газа.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova объявила о выпуске новой модели робота-ассистента.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp инвестирует в строительство электрозаправок для автомобилей.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Сельхозпроизводители переходят на экологичное выращивание Томатов.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Засуха угрожает урожаю Судака в водоемах.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Правительство планирует ввести программу поддержки для рыболовства Лосося.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Повышенный спрос на Картошку из-за праздничного сезона.",
+            "type": "paid",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 430 },
+        { "name": "OilCorp", "price": 540 },
+        { "name": "GreenFuture", "price": 395 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 875 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 95 },
+        { "name": "Картошка", "price": 80 },
+        { "name": "Пшеница", "price": 115 },
+        { "name": "Кукуруза", "price": 95 },
+        { "name": "Томат", "price": 115 },
+        { "name": "Клубника", "price": 135 },
+        { "name": "Семена Морковка", "price": 23 },
+        { "name": "Семена Картошка", "price": 24 },
+        { "name": "Семена Пшеница", "price": 25 },
+        { "name": "Семена Кукуруза", "price": 22 },
+        { "name": "Семена Томат", "price": 27 },
+        { "name": "Семена Клубника", "price": 23 },
+        { "name": "Лосось", "price": 225 },
+        { "name": "Тунец", "price": 265 },
+        { "name": "Судак", "price": 245 },
+        { "name": "Треска", "price": 205 },
+        { "name": "Скумбрия", "price": 195 },
+        { "name": "Сельдь", "price": 155 },
+        { "name": "Окунь", "price": 235 },
+        { "name": "Щука", "price": 235 },
+        { "name": "Карась", "price": 145 },
+        { "name": "Лещ", "price": 165 }
+      ]
+    },
+    {
+      "day": 17,
+      "news": {
+        "stocks": [
+          {
+            "text": "MediPlus разрабатывает новые методы лечения рака.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture открыла новую электростанцию на солнечных батареях.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova выпустила новый ноутбук с уникальными функциями.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Разлив нефти негативно повлиял на популяцию Леща.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Урожай Моркови в этом году бьет все рекорды.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Из-за высоких цен на Тунца потребители переключаются на другие виды рыбы.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Правительство поддерживает фермеров, выращивающих Клубнику.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 435 },
+        { "name": "OilCorp", "price": 545 },
+        { "name": "GreenFuture", "price": 400 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 880 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 100 },
+        { "name": "Картошка", "price": 85 },
+        { "name": "Пшеница", "price": 120 },
+        { "name": "Кукуруза", "price": 100 },
+        { "name": "Томат", "price": 120 },
+        { "name": "Клубника", "price": 140 },
+        { "name": "Семена Морковка", "price": 24 },
+        { "name": "Семена Картошка", "price": 25 },
+        { "name": "Семена Пшеница", "price": 26 },
+        { "name": "Семена Кукуруза", "price": 23 },
+        { "name": "Семена Томат", "price": 28 },
+        { "name": "Семена Клубника", "price": 24 },
+        { "name": "Лосось", "price": 230 },
+        { "name": "Тунец", "price": 270 },
+        { "name": "Судак", "price": 250 },
+        { "name": "Треска", "price": 210 },
+        { "name": "Скумбрия", "price": 200 },
+        { "name": "Сельдь", "price": 160 },
+        { "name": "Окунь", "price": 240 },
+        { "name": "Щука", "price": 240 },
+        { "name": "Карась", "price": 150 },
+        { "name": "Лещ", "price": 170 }
+      ]
+    },
+    {
+      "day": 18,
+      "news": {
+        "stocks": [
+          {
+            "text": "GreenFuture объявила о сотрудничестве с известным фондом охраны природы.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus планирует разработку новых вакцин против распространенных заболеваний.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova запускает новую программу обучения для IT специалистов.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Высокий урожай Картошки привел к снижению цен на рынке.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Нехватка рабочей силы сказывается на сборе урожая Пшеницы.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Власти планируют ввести новые ограничения на вылов Скумбрии.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Окунь стал более доступным благодаря развитию аквакультуры.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 440 },
+        { "name": "OilCorp", "price": 550 },
+        { "name": "GreenFuture", "price": 405 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 885 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 105 },
+        { "name": "Картошка", "price": 90 },
+        { "name": "Пшеница", "price": 125 },
+        { "name": "Кукуруза", "price": 105 },
+        { "name": "Томат", "price": 125 },
+        { "name": "Клубника", "price": 145 },
+        { "name": "Семена Морковка", "price": 25 },
+        { "name": "Семена Картошка", "price": 26 },
+        { "name": "Семена Пшеница", "price": 27 },
+        { "name": "Семена Кукуруза", "price": 24 },
+        { "name": "Семена Томат", "price": 29 },
+        { "name": "Семена Клубника", "price": 25 },
+        { "name": "Лосось", "price": 235 },
+        { "name": "Тунец", "price": 275 },
+        { "name": "Судак", "price": 255 },
+        { "name": "Треска", "price": 215 },
+        { "name": "Скумбрия", "price": 205 },
+        { "name": "Сельдь", "price": 165 },
+        { "name": "Окунь", "price": 245 },
+        { "name": "Щука", "price": 245 },
+        { "name": "Карась", "price": 155 },
+        { "name": "Лещ", "price": 175 }
+      ]
+    },
+    {
+      "day": 19,
+      "news": {
+        "stocks": [
+          {
+            "text": "MediPlus ищет новые возможности для расширения бизнеса за рубежом.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture анонсировала разработку новых экологически чистых удобрений.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova сотрудничает с производителями электромобилей для разработки новых технологий.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Томаты становятся все более дорогими из-за неурожая.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Фермеры жалуются на нашествие вредителей на Клубнику.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Популярность органического Лосося растет с каждым днем.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Правительство вводит программу поддержки для развития производства Моркови.",
+            "type": "paid",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 445 },
+        { "name": "OilCorp", "price": 555 },
+        { "name": "GreenFuture", "price": 410 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 890 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 110 },
+        { "name": "Картошка", "price": 95 },
+        { "name": "Пшеница", "price": 130 },
+        { "name": "Кукуруза", "price": 110 },
+        { "name": "Томат", "price": 130 },
+        { "name": "Клубника", "price": 150 },
+        { "name": "Семена Морковка", "price": 26 },
+        { "name": "Семена Картошка", "price": 27 },
+        { "name": "Семена Пшеница", "price": 28 },
+        { "name": "Семена Кукуруза", "price": 25 },
+        { "name": "Семена Томат", "price": 30 },
+        { "name": "Семена Клубника", "price": 26 },
+        { "name": "Лосось", "price": 240 },
+        { "name": "Тунец", "price": 280 },
+        { "name": "Судак", "price": 260 },
+        { "name": "Треска", "price": 220 },
+        { "name": "Скумбрия", "price": 210 },
+        { "name": "Сельдь", "price": 170 },
+        { "name": "Окунь", "price": 250 },
+        { "name": "Щука", "price": 250 },
+        { "name": "Карась", "price": 160 },
+        { "name": "Лещ", "price": 180 }
+      ]
+    },
+    {
+      "day": 20,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova разрабатывает новое поколение AI для беспилотных автомобилей.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp планирует расширить свою деятельность в области биотоплива.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus объявила о прорыве в лечении генетических заболеваний.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Картофель стал основным продуктом питания из-за роста цен на другие продукты.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Фермеры жалуются на низкий урожай Пшеницы из-за засухи.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Регулирование рыболовства влияет на доступность Скумбрии.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Окунь становится популярным выбором среди потребителей благодаря полезным свойствам.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 450 },
+        { "name": "OilCorp", "price": 560 },
+        { "name": "GreenFuture", "price": 415 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 895 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 115 },
+        { "name": "Картошка", "price": 100 },
+        { "name": "Пшеница", "price": 135 },
+        { "name": "Кукуруза", "price": 115 },
+        { "name": "Томат", "price": 135 },
+        { "name": "Клубника", "price": 155 },
+        { "name": "Семена Морковка", "price": 27 },
+        { "name": "Семена Картошка", "price": 28 },
+        { "name": "Семена Пшеница", "price": 29 },
+        { "name": "Семена Кукуруза", "price": 26 },
+        { "name": "Семена Томат", "price": 31 },
+        { "name": "Семена Клубника", "price": 27 },
+        { "name": "Лосось", "price": 245 },
+        { "name": "Тунец", "price": 285 },
+        { "name": "Судак", "price": 265 },
+        { "name": "Треска", "price": 225 },
+        { "name": "Скумбрия", "price": 215 },
+        { "name": "Сельдь", "price": 175 },
+        { "name": "Окунь", "price": 255 },
+        { "name": "Щука", "price": 255 },
+        { "name": "Карась", "price": 165 },
+        { "name": "Лещ", "price": 185 }
+      ]
+    },
+    {
+      "day": 21,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova выпускает новый AI чип с повышенной производительностью.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp запускает программу по очистке загрязненных территорий.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus разрабатывает лекарство от редкого генетического заболевания.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Власти ограничивают экспорт Моркови, чтобы обеспечить внутренний рынок.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Фермеры страдают от нашествия насекомых, что угрожает урожаю Кукурузы.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Ученые выяснили, что Судак содержит важные питательные вещества.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Загрязнение водоемов угрожает популяции Карася.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 455 },
+        { "name": "OilCorp", "price": 565 },
+        { "name": "GreenFuture", "price": 420 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 900 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 120 },
+        { "name": "Картошка", "price": 105 },
+        { "name": "Пшеница", "price": 140 },
+        { "name": "Кукуруза", "price": 120 },
+        { "name": "Томат", "price": 140 },
+        { "name": "Клубника", "price": 160 },
+        { "name": "Семена Морковка", "price": 28 },
+        { "name": "Семена Картошка", "price": 29 },
+        { "name": "Семена Пшеница", "price": 30 },
+        { "name": "Семена Кукуруза", "price": 27 },
+        { "name": "Семена Томат", "price": 32 },
+        { "name": "Семена Клубника", "price": 28 },
+        { "name": "Лосось", "price": 250 },
+        { "name": "Тунец", "price": 290 },
+        { "name": "Судак", "price": 270 },
+        { "name": "Треска", "price": 230 },
+        { "name": "Скумбрия", "price": 220 },
+        { "name": "Сельдь", "price": 180 },
+        { "name": "Окунь", "price": 260 },
+        { "name": "Щука", "price": 260 },
+        { "name": "Карась", "price": 170 },
+        { "name": "Лещ", "price": 190 }
+      ]
+    },
+    {
+      "day": 22,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova разрабатывает систему умного дома на базе AI.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp финансирует научные исследования в области возобновляемой энергии.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus расширяет свою сеть медицинских центров по всей стране.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Рынок наводнили поддельные семена Томатов, фермеры несут убытки.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Спрос на Клубнику продолжает расти, цены бьют рекорды.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Правительство субсидирует рыболовство Лосося, чтобы поддержать отрасль.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Загрязнение водоемов угрожает популяции Трески.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 460 },
+        { "name": "OilCorp", "price": 570 },
+        { "name": "GreenFuture", "price": 425 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 905 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 125 },
+        { "name": "Картошка", "price": 110 },
+        { "name": "Пшеница", "price": 145 },
+        { "name": "Кукуруза", "price": 125 },
+        { "name": "Томат", "price": 145 },
+        { "name": "Клубника", "price": 165 },
+        { "name": "Семена Морковка", "price": 29 },
+        { "name": "Семена Картошка", "price": 30 },
+        { "name": "Семена Пшеница", "price": 31 },
+        { "name": "Семена Кукуруза", "price": 28 },
+        { "name": "Семена Томат", "price": 33 },
+        { "name": "Семена Клубника", "price": 29 },
+        { "name": "Лосось", "price": 255 },
+        { "name": "Тунец", "price": 295 },
+        { "name": "Судак", "price": 275 },
+        { "name": "Треска", "price": 235 },
+        { "name": "Скумбрия", "price": 225 },
+        { "name": "Сельдь", "price": 185 },
+        { "name": "Окунь", "price": 265 },
+        { "name": "Щука", "price": 265 },
+        { "name": "Карась", "price": 175 },
+        { "name": "Лещ", "price": 195 }
+      ]
+    },
+    {
+      "day": 23,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova анонсирует новый смартфон с поддержкой 6G сети.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp разрабатывает новые технологии добычи нефти на шельфе.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus представляет новый метод диагностики сердечно-сосудистых заболеваний.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Резкий скачок цен на Пшеницу из-за неурожая в основных регионах.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Повышенный спрос на морковь связан с популяризацией здорового образа жизни.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Власти вводят ограничения на вылов Тунца в связи с уменьшением популяции.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Новые технологии в аквакультуре позволяют снизить цены на Щуку.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 465 },
+        { "name": "OilCorp", "price": 575 },
+        { "name": "GreenFuture", "price": 430 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 910 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 130 },
+        { "name": "Картошка", "price": 115 },
+        { "name": "Пшеница", "price": 150 },
+        { "name": "Кукуруза", "price": 130 },
+        { "name": "Томат", "price": 150 },
+        { "name": "Клубника", "price": 170 },
+        { "name": "Семена Морковка", "price": 30 },
+        { "name": "Семена Картошка", "price": 31 },
+        { "name": "Семена Пшеница", "price": 32 },
+        { "name": "Семена Кукуруза", "price": 29 },
+        { "name": "Семена Томат", "price": 34 },
+        { "name": "Семена Клубника", "price": 30 },
+        { "name": "Лосось", "price": 260 },
+        { "name": "Тунец", "price": 300 },
+        { "name": "Судак", "price": 280 },
+        { "name": "Треска", "price": 240 },
+        { "name": "Скумбрия", "price": 230 },
+        { "name": "Сельдь", "price": 190 },
+        { "name": "Окунь", "price": 270 },
+        { "name": "Щука", "price": 270 },
+        { "name": "Карась", "price": 180 },
+        { "name": "Лещ", "price": 200 }
+      ]
+    },
+    {
+      "day": 24,
+      "news": {
+        "stocks": [
+          {
+            "text": "MediPlus разрабатывает новые методы лечения болезни Альцгеймера.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture инвестирует в разработку новых ветряных электростанций в океане.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova представила новую операционную систему на основе искусственного интеллекта.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Повышение цен на Клубнику из-за неблагоприятных погодных условий.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Спрос на органический Тунец превышает предложение, что ведет к росту цен.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Власти планируют усилить контроль за использованием пестицидов при выращивании Моркови.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Научные исследования подтверждают, что употребление Сельди полезно для здоровья.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 470 },
+        { "name": "OilCorp", "price": 580 },
+        { "name": "GreenFuture", "price": 435 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 915 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 135 },
+        { "name": "Картошка", "price": 120 },
+        { "name": "Пшеница", "price": 155 },
+        { "name": "Кукуруза", "price": 135 },
+        { "name": "Томат", "price": 155 },
+        { "name": "Клубника", "price": 175 },
+        { "name": "Семена Морковка", "price": 31 },
+        { "name": "Семена Картошка", "price": 32 },
+        { "name": "Семена Пшеница", "price": 33 },
+        { "name": "Семена Кукуруза", "price": 30 },
+        { "name": "Семена Томат", "price": 35 },
+        { "name": "Семена Клубника", "price": 31 },
+        { "name": "Лосось", "price": 265 },
+        { "name": "Тунец", "price": 305 },
+        { "name": "Судак", "price": 285 },
+        { "name": "Треска", "price": 245 },
+        { "name": "Скумбрия", "price": 235 },
+        { "name": "Сельдь", "price": 195 },
+        { "name": "Окунь", "price": 275 },
+        { "name": "Щука", "price": 275 },
+        { "name": "Карась", "price": 185 },
+        { "name": "Лещ", "price": 205 }
+      ]
+    },
+    {
+      "day": 25,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova запускает производство роботов для сельского хозяйства.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp снижает выбросы углекислого газа на своих предприятиях.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus разработала новые технологии для точной диагностики заболеваний.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Государственная программа поддержки направлена на развитие органического земледелия в области Томатов.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Засуха привела к снижению урожая Судака в некоторых регионах.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Правительство планирует увеличение квот на вылов Лосося для поддержки рыболовства.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Праздничный спрос приводит к росту цен на Картошку.",
+            "type": "paid",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 475 },
+        { "name": "OilCorp", "price": 585 },
+        { "name": "GreenFuture", "price": 440 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 920 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 140 },
+        { "name": "Картошка", "price": 125 },
+        { "name": "Пшеница", "price": 160 },
+        { "name": "Кукуруза", "price": 140 },
+        { "name": "Томат", "price": 160 },
+        { "name": "Клубника", "price": 180 },
+        { "name": "Семена Морковка", "price": 32 },
+        { "name": "Семена Картошка", "price": 33 },
+        { "name": "Семена Пшеница", "price": 34 },
+        { "name": "Семена Кукуруза", "price": 31 },
+        { "name": "Семена Томат", "price": 36 },
+        { "name": "Семена Клубника", "price": 32 },
+        { "name": "Лосось", "price": 270 },
+        { "name": "Тунец", "price": 310 },
+        { "name": "Судак", "price": 290 },
+        { "name": "Треска", "price": 250 },
+        { "name": "Скумбрия", "price": 240 },
+        { "name": "Сельдь", "price": 200 },
+        { "name": "Окунь", "price": 280 },
+        { "name": "Щука", "price": 280 },
+        { "name": "Карась", "price": 190 },
+        { "name": "Лещ", "price": 210 }
+      ]
+    },
+    {
+      "day": 26,
+      "news": {
+        "stocks": [
+          {
+            "text": "GreenFuture запускает программу по поддержке экологических проектов.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus планирует разработку нового препарата для лечения диабета.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova выпустила новую линейку товаров для умного дома.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Разлив нефти угрожает популяции Леща.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Высокий урожай Моркови приводит к снижению цен на рынке.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Высокие цены на Тунца заставляют потребителей переключаться на другие виды рыбы.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Правительство оказывает поддержку фермерам, выращивающим Клубнику.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 480 },
+        { "name": "OilCorp", "price": 590 },
+        { "name": "GreenFuture", "price": 445 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 925 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 145 },
+        { "name": "Картошка", "price": 130 },
+        { "name": "Пшеница", "price": 165 },
+        { "name": "Кукуруза", "price": 145 },
+        { "name": "Томат", "price": 165 },
+        { "name": "Клубника", "price": 185 },
+        { "name": "Семена Морковка", "price": 33 },
+        { "name": "Семена Картошка", "price": 34 },
+        { "name": "Семена Пшеница", "price": 35 },
+        { "name": "Семена Кукуруза", "price": 32 },
+        { "name": "Семена Томат", "price": 37 },
+        { "name": "Семена Клубника", "price": 33 },
+        { "name": "Лосось", "price": 275 },
+        { "name": "Тунец", "price": 315 },
+        { "name": "Судак", "price": 295 },
+        { "name": "Треска", "price": 255 },
+        { "name": "Скумбрия", "price": 245 },
+        { "name": "Сельдь", "price": 205 },
+        { "name": "Окунь", "price": 285 },
+        { "name": "Щука", "price": 285 },
+        { "name": "Карась", "price": 195 },
+        { "name": "Лещ", "price": 215 }
+      ]
+    },
+    {
+      "day": 27,
+      "news": {
+        "stocks": [
+          {
+            "text": "GreenFuture объявила о сотрудничестве с местным фондом защиты окружающей среды.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus начала разработку новых вакцин против распространенных заболеваний.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova запускает новую программу обучения для IT-специалистов.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Высокий урожай Картошки привел к снижению цен на рынке.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Нехватка рабочей силы негативно влияет на сбор урожая Пшеницы.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Власти вводят новые ограничения на вылов Скумбрии.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Окунь стал более доступным благодаря развитию технологий аквакультуры.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 485 },
+        { "name": "OilCorp", "price": 595 },
+        { "name": "GreenFuture", "price": 450 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 930 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 150 },
+        { "name": "Картошка", "price": 135 },
+        { "name": "Пшеница", "price": 170 },
+        { "name": "Кукуруза", "price": 150 },
+        { "name": "Томат", "price": 170 },
+        { "name": "Клубника", "price": 190 },
+        { "name": "Семена Морковка", "price": 34 },
+        { "name": "Семена Картошка", "price": 35 },
+        { "name": "Семена Пшеница", "price": 36 },
+        { "name": "Семена Кукуруза", "price": 33 },
+        { "name": "Семена Томат", "price": 38 },
+        { "name": "Семена Клубника", "price": 34 },
+        { "name": "Лосось", "price": 280 },
+        { "name": "Тунец", "price": 320 },
+        { "name": "Судак", "price": 300 },
+        { "name": "Треска", "price": 260 },
+        { "name": "Скумбрия", "price": 250 },
+        { "name": "Сельдь", "price": 210 },
+        { "name": "Окунь", "price": 290 },
+        { "name": "Щука", "price": 290 },
+        { "name": "Карась", "price": 200 },
+        { "name": "Лещ", "price": 220 }
+      ]
+    },
+    {
+      "day": 28,
+      "news": {
+        "stocks": [
+          {
+            "text": "MediPlus рассматривает новые возможности для расширения бизнеса за рубежом.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture анонсировала разработку новых экологически чистых удобрений.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova сотрудничает с производителями электромобилей для разработки новых технологий.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Цены на Томаты растут из-за неурожая.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Фермеры жалуются на вредителей на Клубнике.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Популярность органического Лосося растет.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Правительство вводит программу поддержки для производства Моркови.",
+            "type": "paid",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 490 },
+        { "name": "OilCorp", "price": 600 },
+        { "name": "GreenFuture", "price": 455 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 935 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 155 },
+        { "name": "Картошка", "price": 140 },
+        { "name": "Пшеница", "price": 175 },
+        { "name": "Кукуруза", "price": 155 },
+        { "name": "Томат", "price": 175 },
+        { "name": "Клубника", "price": 195 },
+        { "name": "Семена Морковка", "price": 35 },
+        { "name": "Семена Картошка", "price": 36 },
+        { "name": "Семена Пшеница", "price": 37 },
+        { "name": "Семена Кукуруза", "price": 34 },
+        { "name": "Семена Томат", "price": 39 },
+        { "name": "Семена Клубника", "price": 35 },
+        { "name": "Лосось", "price": 285 },
+        { "name": "Тунец", "price": 325 },
+        { "name": "Судак", "price": 305 },
+        { "name": "Треска", "price": 265 },
+        { "name": "Скумбрия", "price": 255 },
+        { "name": "Сельдь", "price": 215 },
+        { "name": "Окунь", "price": 295 },
+        { "name": "Щука", "price": 295 },
+        { "name": "Карась", "price": 205 },
+        { "name": "Лещ", "price": 225 }
+      ]
+    }
+  ]
+}

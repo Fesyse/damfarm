@@ -35,14 +35,6 @@ export function HouseDialog() {
             </DialogClose>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="p-3 pb-0">
-            <CardTitle className="text-sm">Прочитать почту</CardTitle>
-          </CardHeader>
-          <CardContent className="p-3">
-            <Button className="w-full">Почта</Button>
-          </CardContent>
-        </Card>
       </div>
     </>
   );

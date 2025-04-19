@@ -11,10 +11,10 @@ export const useGameStore = create<GameState>()((set, get) => ({
     }));
   },
 
-  moneys: 0,
+  moneys: 2500,
   setMoney: (moneys) =>
-    set(() => ({
-      moneys,
+    set((state) => ({
+      moneys: state.moneys + moneys,
     })),
 
   // resources
@@ -65,7 +65,7 @@ export const useGameStore = create<GameState>()((set, get) => ({
     set((state) => ({
       stocks: {
         ...state.stocks,
-        [name]: value,
+        [name]: state.stocks[name] + value ,
       },
     }));
   },
@@ -74,4 +74,10 @@ export const useGameStore = create<GameState>()((set, get) => ({
   setSeason: () => {
     return SEASONS.length - 1 === get().seasons ? 0 : get().seasons + 1;
   },
+
+  is_paid_news: false,
+  setIsPaidNews: (is_paid_news) =>
+    set(() => ({
+      is_paid_news,
+    })),
 }));

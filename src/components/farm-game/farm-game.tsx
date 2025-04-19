@@ -22,11 +22,11 @@ import {
   StocksDialog,
 } from "./dialog";
 import { useGameStore } from "@/store/game-store";
-import { stat } from "fs";
 import { SEASONS } from "@/constants/seasons";
 
 export function FarmGame() {
   const gameStore = useGameStore((state) => state);
+
   const [showUI, setShowUI] = useState(true);
   const [showMainMenu, setShowMainMenu] = useState(false);
   const [playerPosition, setPlayerPosition] = useState<Position>([0, 0, 0]);
@@ -58,7 +58,10 @@ export function FarmGame() {
         }
       }
 
-      // Hide instructions when H is pressed
+      if (e.code === "KeyM") {
+        setDialogType("mail");
+        setShowDialog(true);
+      }
       if (e.code === "KeyH") {
         setShowInstructions((prev) => !prev);
       }
@@ -176,7 +179,9 @@ export function FarmGame() {
                     className="flex items-center gap-2 px-3 py-1"
                   >
                     <Coins className="h-4 w-4 text-yellow-500" />
-                    <span className="text-lg font-bold">{gameStore.moneys}</span>
+                    <span className="text-lg font-bold">
+                      {gameStore.moneys}
+                    </span>
                   </Badge>
                   <Button
                     variant="outline"
