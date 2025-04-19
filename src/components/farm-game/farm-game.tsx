@@ -1,12 +1,12 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { SEASONS } from "@/constants/seasons"
-import { useGameStore } from "@/store/game-store"
-import { Environment } from "@react-three/drei"
-import { AnimatePresence, motion } from "framer-motion"
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { SEASONS } from "@/constants/seasons";
+import { useGameStore } from "@/store/game-store";
+import { Environment } from "@react-three/drei";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Suspense,
   useEffect,
@@ -14,7 +14,7 @@ import {
   useState,
   useMemo,
   useCallback,
-} from "react"
+} from "react";
 import {
   BarnDialog,
   FishingDialog,
@@ -25,14 +25,16 @@ import {
   StocksDialog,
 } from "./dialog";
 
-import { Fish } from "@/types/fish"
-import { Sky } from "@react-three/drei"
-import { Canvas } from "@react-three/fiber"
-import type { CanvasProps } from "@react-three/fiber"
+import { Fish } from "@/types/fish";
+import { Sky } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import type { CanvasProps } from "@react-three/fiber";
 import {
   CircleHelp,
   Coins,
+  Flower,
   Menu,
+  Snowflake,
   Sun,
   User,
   Volume2,
@@ -45,141 +47,141 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Toast } from "@/components/ui/toast"
-import { useToast } from "@/components/ui/use-toast"
-import { Player } from "./player"
-import { Position } from "./types"
-import { InteractionPoint } from "./types/interaction-point"
-import { GameWorld } from "./world/game-world"
+} from "@/components/ui/dialog";
+import { Toast } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/use-toast";
+import { Player } from "./player";
+import { Position } from "./types";
+import { InteractionPoint } from "./types/interaction-point";
+import { GameWorld } from "./world/game-world";
 
 function SkyController({
   isNight,
   onTransitionComplete,
 }: {
-  isNight: boolean
-  onTransitionComplete: () => void
+  isNight: boolean;
+  onTransitionComplete: () => void;
 }) {
   const [sunPosition, setSunPosition] = useState<[number, number, number]>([
     100, 20, 100,
-  ])
-  const [turbidity, setTurbidity] = useState(10)
-  const [rayleigh, setRayleigh] = useState(2)
-  const [mieCoefficient, setMieCoefficient] = useState(0.005)
-  const [mieDirectionalG, setMieDirectionalG] = useState(0.8)
-  const [animationCompleted, setAnimationCompleted] = useState(false)
-  const [shouldAnimate, setShouldAnimate] = useState(false)
-  const prevIsNightRef = useRef(isNight)
+  ]);
+  const [turbidity, setTurbidity] = useState(10);
+  const [rayleigh, setRayleigh] = useState(2);
+  const [mieCoefficient, setMieCoefficient] = useState(0.005);
+  const [mieDirectionalG, setMieDirectionalG] = useState(0.8);
+  const [animationCompleted, setAnimationCompleted] = useState(false);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+  const prevIsNightRef = useRef(isNight);
 
   useEffect(() => {
     if (prevIsNightRef.current !== isNight) {
-      setShouldAnimate(true)
-      setAnimationCompleted(false)
+      setShouldAnimate(true);
+      setAnimationCompleted(false);
     }
 
-    prevIsNightRef.current = isNight
-  }, [isNight])
+    prevIsNightRef.current = isNight;
+  }, [isNight]);
 
   useEffect(() => {
-    if (!shouldAnimate) return
+    if (!shouldAnimate) return;
 
-    let animationId = 0
-    let progress = 0
-    const duration = 3 // seconds
-    const fps = 60
-    const totalFrames = duration * fps
+    let animationId = 0;
+    let progress = 0;
+    const duration = 3; // seconds
+    const fps = 60;
+    const totalFrames = duration * fps;
 
     // Day position values
-    const dayPosition: [number, number, number] = [100, 20, 100]
-    const dayTurbidity = 10
-    const dayRayleigh = 2
-    const dayMieCoefficient = 0.005
-    const dayMieDirectionalG = 0.8
+    const dayPosition: [number, number, number] = [100, 20, 100];
+    const dayTurbidity = 10;
+    const dayRayleigh = 2;
+    const dayMieCoefficient = 0.005;
+    const dayMieDirectionalG = 0.8;
 
     // Night position values - use higher sun position for a blue night sky instead of black
-    const nightPosition: [number, number, number] = [100, -5, 100]
-    const nightTurbidity = 20
-    const nightRayleigh = 4 // Higher rayleigh for bluer night
-    const nightMieCoefficient = 0.003
-    const nightMieDirectionalG = 0.7
+    const nightPosition: [number, number, number] = [100, -5, 100];
+    const nightTurbidity = 20;
+    const nightRayleigh = 4; // Higher rayleigh for bluer night
+    const nightMieCoefficient = 0.003;
+    const nightMieDirectionalG = 0.7;
 
-    const startPosition = isNight ? dayPosition : nightPosition
-    const endPosition = isNight ? nightPosition : dayPosition
+    const startPosition = isNight ? dayPosition : nightPosition;
+    const endPosition = isNight ? nightPosition : dayPosition;
 
-    const startTurbidity = isNight ? dayTurbidity : nightTurbidity
-    const endTurbidity = isNight ? nightTurbidity : dayTurbidity
+    const startTurbidity = isNight ? dayTurbidity : nightTurbidity;
+    const endTurbidity = isNight ? nightTurbidity : dayTurbidity;
 
-    const startRayleigh = isNight ? dayRayleigh : nightRayleigh
-    const endRayleigh = isNight ? nightRayleigh : dayRayleigh
+    const startRayleigh = isNight ? dayRayleigh : nightRayleigh;
+    const endRayleigh = isNight ? nightRayleigh : dayRayleigh;
 
     const startMieCoefficient = isNight
       ? dayMieCoefficient
-      : nightMieCoefficient
-    const endMieCoefficient = isNight ? nightMieCoefficient : dayMieCoefficient
+      : nightMieCoefficient;
+    const endMieCoefficient = isNight ? nightMieCoefficient : dayMieCoefficient;
 
     const startMieDirectionalG = isNight
       ? dayMieDirectionalG
-      : nightMieDirectionalG
+      : nightMieDirectionalG;
     const endMieDirectionalG = isNight
       ? nightMieDirectionalG
-      : dayMieDirectionalG
+      : dayMieDirectionalG;
 
     const animate = () => {
-      progress += 1 / totalFrames
+      progress += 1 / totalFrames;
 
       if (progress >= 1) {
-        progress = 1
-        cancelAnimationFrame(animationId)
+        progress = 1;
+        cancelAnimationFrame(animationId);
 
         // Only call onTransitionComplete once and reset animation flag
         if (!animationCompleted) {
-          setAnimationCompleted(true)
-          setShouldAnimate(false)
-          onTransitionComplete()
+          setAnimationCompleted(true);
+          setShouldAnimate(false);
+          onTransitionComplete();
         }
       }
 
       // Apply easing (smooth transition)
-      const eased = easeInOutCubic(progress)
+      const eased = easeInOutCubic(progress);
 
       // Interpolate values
       const newX =
-        startPosition[0] + (endPosition[0] - startPosition[0]) * eased
+        startPosition[0] + (endPosition[0] - startPosition[0]) * eased;
       const newY =
-        startPosition[1] + (endPosition[1] - startPosition[1]) * eased
+        startPosition[1] + (endPosition[1] - startPosition[1]) * eased;
       const newZ =
-        startPosition[2] + (endPosition[2] - startPosition[2]) * eased
+        startPosition[2] + (endPosition[2] - startPosition[2]) * eased;
 
       const newTurbidity =
-        startTurbidity + (endTurbidity - startTurbidity) * eased
-      const newRayleigh = startRayleigh + (endRayleigh - startRayleigh) * eased
+        startTurbidity + (endTurbidity - startTurbidity) * eased;
+      const newRayleigh = startRayleigh + (endRayleigh - startRayleigh) * eased;
       const newMieCoefficient =
-        startMieCoefficient + (endMieCoefficient - startMieCoefficient) * eased
+        startMieCoefficient + (endMieCoefficient - startMieCoefficient) * eased;
       const newMieDirectionalG =
         startMieDirectionalG +
-        (endMieDirectionalG - startMieDirectionalG) * eased
+        (endMieDirectionalG - startMieDirectionalG) * eased;
 
-      setSunPosition([newX, newY, newZ])
-      setTurbidity(newTurbidity)
-      setRayleigh(newRayleigh)
-      setMieCoefficient(newMieCoefficient)
-      setMieDirectionalG(newMieDirectionalG)
+      setSunPosition([newX, newY, newZ]);
+      setTurbidity(newTurbidity);
+      setRayleigh(newRayleigh);
+      setMieCoefficient(newMieCoefficient);
+      setMieDirectionalG(newMieDirectionalG);
 
       if (progress < 1) {
-        animationId = requestAnimationFrame(animate)
+        animationId = requestAnimationFrame(animate);
       }
-    }
+    };
 
-    animationId = requestAnimationFrame(animate)
+    animationId = requestAnimationFrame(animate);
 
     return () => {
-      cancelAnimationFrame(animationId)
-    }
-  }, [isNight, onTransitionComplete, animationCompleted, shouldAnimate])
+      cancelAnimationFrame(animationId);
+    };
+  }, [isNight, onTransitionComplete, animationCompleted, shouldAnimate]);
 
   const easeInOutCubic = (x: number): number => {
-    return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2
-  }
+    return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  };
 
   return (
     <Sky
@@ -189,7 +191,7 @@ function SkyController({
       mieCoefficient={mieCoefficient}
       mieDirectionalG={mieDirectionalG}
     />
-  )
+  );
 }
 
 export function FarmGame() {
@@ -199,30 +201,30 @@ export function FarmGame() {
   const [showMainMenu, setShowMainMenu] = useState(false);
   const [playerPosition, setPlayerPosition] = useState<Position>([0, 0, 0]);
   const [nearInteraction, setNearInteraction] =
-    useState<InteractionPoint | null>(null)
-  const [showDialog, setShowDialog] = useState(false)
-  const [dialogType, setDialogType] = useState<string | null>(null)
-  const [inventory, setInventory] = useState<Fish[]>([])
-  const { toast } = useToast()
-  const [showInstructions, setShowInstructions] = useState(false)
-  const [isMuted, setIsMuted] = useState(true)
-  const audioRef = useRef<HTMLAudioElement | null>(null)
-  const [hasInteracted, setHasInteracted] = useState(false)
+    useState<InteractionPoint | null>(null);
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogType, setDialogType] = useState<string | null>(null);
+  const [inventory, setInventory] = useState<Fish[]>([]);
+  const { toast } = useToast();
+  const [showInstructions, setShowInstructions] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   // Day/Night transition states
-  const [isNight, setIsNight] = useState(false)
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const [completedDayAdvance, setCompletedDayAdvance] = useState(false)
-  const [isSleeping, setIsSleeping] = useState(false)
+  const [isNight, setIsNight] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [completedDayAdvance, setCompletedDayAdvance] = useState(false);
+  const [isSleeping, setIsSleeping] = useState(false);
 
-  const hasMounted = useRef(false)
+  const hasMounted = useRef(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      hasMounted.current = true
-    }, 100)
-    return () => clearTimeout(timer)
-  }, [])
+      hasMounted.current = true;
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Optimize the 3D rendering settings
   const canvasProps = useMemo<CanvasProps>(
@@ -237,7 +239,7 @@ export function FarmGame() {
       camera: { fov: 60, near: 0.1, far: 200 },
     }),
     []
-  )
+  );
 
   useEffect(() => {
     audioRef.current = new Audio("/audio/01.mp3");
@@ -257,7 +259,7 @@ export function FarmGame() {
       if (isMuted) {
         audioRef.current.pause();
       } else {
-        audioRef.current.play().catch(() => {})
+        audioRef.current.play().catch(() => {});
       }
     }
   }, [isMuted, hasInteracted]);
@@ -288,49 +290,49 @@ export function FarmGame() {
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, [nearInteraction]);
 
-  const getInventoryCount = useCallback(() => inventory.length, [inventory])
+  const getInventoryCount = useCallback(() => inventory.length, [inventory]);
 
   const handleFishCatch = useCallback(
     (fish: Fish) => {
-      setInventory(prev => [...prev, fish])
+      setInventory((prev) => [...prev, fish]);
       toast({
         title: "Рыба поймана!",
         description: `Вы поймали ${fish.name}!`,
-      })
+      });
     },
     [toast]
-  )
+  );
 
   const handleTransitionComplete = useCallback(() => {
-    if (!hasMounted.current) return
+    if (!hasMounted.current) return;
 
-    setIsTransitioning(false)
+    setIsTransitioning(false);
 
     if (!isNight && !completedDayAdvance && isSleeping) {
-      gameStore.setNextDay()
-      setCompletedDayAdvance(true)
+      gameStore.setNextDay();
+      setCompletedDayAdvance(true);
     }
 
     if (!isNight) {
-      setIsSleeping(false)
+      setIsSleeping(false);
     }
-  }, [isNight, gameStore, completedDayAdvance, isSleeping])
+  }, [isNight, gameStore, completedDayAdvance, isSleeping]);
 
   const handleSleep = useCallback(() => {
     if (!isTransitioning && !isSleeping) {
-      setIsSleeping(true)
-      setIsTransitioning(true)
-      setCompletedDayAdvance(false)
-      setIsNight(true)
+      setIsSleeping(true);
+      setIsTransitioning(true);
+      setCompletedDayAdvance(false);
+      setIsNight(true);
 
       setTimeout(() => {
-        setIsNight(false)
-      }, 3000)
+        setIsNight(false);
+      }, 3000);
     }
-  }, [isTransitioning, isSleeping])
+  }, [isTransitioning, isSleeping]);
 
   return (
-    <div className='w-full h-screen relative'>
+    <div className="w-full h-screen relative">
       <Canvas {...canvasProps}>
         <Suspense fallback={null}>
           <SkyController
@@ -357,7 +359,7 @@ export function FarmGame() {
       {/* UI Toggle Button */}
       <button
         className="absolute top-4 right-4 z-50 bg-white/80 p-2 rounded-full shadow-lg"
-        onClick={() => setShowUI(!showUI)}
+        onClick={() => setShowMainMenu(true)}
       >
         {showUI ? <X size={24} /> : <Menu size={24} />}
       </button>
@@ -400,11 +402,17 @@ export function FarmGame() {
           animate={{ opacity: 1, y: 0 }}
           className="absolute bottom-0 left-0 right-0 p-4 z-40"
         >
-          <div className="bg-white/80 backdrop-blur-md rounded-lg shadow-lg p-4 max-w-6xl mx-auto">
+          <div className="bg-white/80 backdrop-blur-md rounded-lg shadow-lg p-4  max-w-6xl mx-auto">
             <div className="flex justify-between items-center mb-4">
               <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2 bg-white/80 px-3 py-1 rounded-lg">
-                  <Sun className="h-5 w-5 text-yellow-500" />
+                <div className="flex items-center gap-2 text-xl px-3 py-1 rounded-lg">
+                  {SEASONS[gameStore.seasons] === "winter" ? (
+                    <Snowflake className="h-7 w-7 text-blue-800" />
+                  ) : SEASONS[gameStore.seasons] === "spring" ? (
+                    <Flower className="h-7 w-7 text-yellow-900" />
+                  ) : (
+                    <Sun className="h-7 w-7 text-yellow-400" />
+                  )}
                   <span className="font-medium">
                     {SEASONS[gameStore.seasons]} - День {gameStore.days}
                   </span>
@@ -421,9 +429,9 @@ export function FarmGame() {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => setShowMainMenu(true)}
+                  onClick={() => setShowUI((prev) => !prev)}
                 >
-                  Меню
+                  Показать продукты
                 </Button>
               </div>
             </div>
