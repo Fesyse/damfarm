@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import { useEffect, useCallback } from "react"
-import { Billboard, Text } from "@react-three/drei"
-import { Position, InteractionPoint } from "../types"
-import { INTERACTION_POINTS } from "../constants"
-import { Greenhouse } from "./greenhouse"
-import { Kiosk } from "./kiosk"
-import { House } from "./house"
-import { StockExchange } from "./stock-exchange"
-import { Mailbox } from "./mailbox"
-import { Barn } from "./barn"
-import { FishingPond } from "../world/fishing-pond"
+import { useEffect, useCallback } from "react";
+import { Billboard, Text } from "@react-three/drei";
+import { Position, InteractionPoint } from "../types";
+import { INTERACTION_POINTS } from "../constants";
+import { Greenhouse } from "./greenhouse";
+import { Kiosk } from "./kiosk";
+import { House } from "./house";
+import { StockExchange } from "./stock-exchange";
+import { Mailbox } from "./mailbox";
+import { Barn } from "./barn";
+import { FishingPond } from "../world/fishing-pond";
 
 interface BuildingsProps {
-  setNearInteraction: (point: InteractionPoint | null) => void
-  playerPosition: Position
+  setNearInteraction: (point: InteractionPoint | null) => void;
+  playerPosition: Position;
 }
 
 export function Buildings({
@@ -24,40 +24,40 @@ export function Buildings({
   // Use useCallback for finding the closest interaction point
   const findClosestInteraction = useCallback(
     (playerPos: Position): InteractionPoint | null => {
-      let closestPoint: InteractionPoint | null = null
-      let minDistance = 5
+      let closestPoint: InteractionPoint | null = null;
+      let minDistance = 5;
 
-      INTERACTION_POINTS.forEach(point => {
-        const dx = point.position[0] - playerPos[0]
-        const dz = point.position[2] - playerPos[2]
-        const distance = Math.sqrt(dx * dx + dz * dz)
+      INTERACTION_POINTS.forEach((point) => {
+        const dx = point.position[0] - playerPos[0];
+        const dz = point.position[2] - playerPos[2];
+        const distance = Math.sqrt(dx * dx + dz * dz);
 
         if (distance < minDistance) {
-          minDistance = distance
-          closestPoint = point
+          minDistance = distance;
+          closestPoint = point;
         }
-      })
+      });
 
-      return closestPoint
+      return closestPoint;
     },
     []
-  )
+  );
 
   useEffect(() => {
-    let animationFrameId: number
+    let animationFrameId: number;
 
     const updateInteraction = () => {
-      const closestPoint = findClosestInteraction(playerPosition)
-      setNearInteraction(closestPoint)
-      animationFrameId = requestAnimationFrame(updateInteraction)
-    }
+      const closestPoint = findClosestInteraction(playerPosition);
+      setNearInteraction(closestPoint);
+      animationFrameId = requestAnimationFrame(updateInteraction);
+    };
 
-    animationFrameId = requestAnimationFrame(updateInteraction)
+    animationFrameId = requestAnimationFrame(updateInteraction);
 
     return () => {
-      cancelAnimationFrame(animationFrameId)
-    }
-  }, [playerPosition, setNearInteraction, findClosestInteraction])
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [playerPosition, setNearInteraction, findClosestInteraction]);
 
   const locations = {
     center: [0, 0, 0] as Position,
@@ -88,7 +88,7 @@ export function Buildings({
       position: [15, 0, 8] as Position,
       door: [15, 0, 12] as Position,
     },
-  }
+  };
 
   return (
     <group>
@@ -96,7 +96,7 @@ export function Buildings({
       <group position={locations.greenhouse.position} rotation-y={Math.PI / 6}>
         <Greenhouse />
         <Billboard position={[0, 10, 0]}>
-          <Text fontSize={1} color='black'>
+          <Text fontSize={1} color="black">
             Теплица
           </Text>
         </Billboard>
@@ -112,7 +112,7 @@ export function Buildings({
       >
         <Kiosk />
         <Billboard position={[0, 6, 0]}>
-          <Text fontSize={1} color='black'>
+          <Text fontSize={1} color="black">
             Киоск
           </Text>
         </Billboard>
@@ -122,7 +122,7 @@ export function Buildings({
       <group position={locations.house.position}>
         <House />
         <Billboard position={[0, 6.5, 0]}>
-          <Text fontSize={1} color='black'>
+          <Text fontSize={1} color="black">
             Дом
           </Text>
         </Billboard>
@@ -138,7 +138,7 @@ export function Buildings({
       >
         <StockExchange />
         <Billboard position={[0, 5.5, 0]}>
-          <Text fontSize={1} color='black'>
+          <Text fontSize={1} color="black">
             Биржа
           </Text>
         </Billboard>
@@ -148,7 +148,7 @@ export function Buildings({
       <group position={locations.fishingPond.position}>
         <FishingPond />
         <Billboard position={[0, 4, 0]}>
-          <Text fontSize={1} color='black'>
+          <Text fontSize={1} color="black">
             Пруд
           </Text>
         </Billboard>
@@ -164,11 +164,11 @@ export function Buildings({
       >
         <Barn />
         <Billboard position={[0, 11.5, 0]}>
-          <Text fontSize={1} color='black'>
+          <Text fontSize={1} color="black">
             Амбар
           </Text>
         </Billboard>
       </group>
     </group>
-  )
+  );
 }

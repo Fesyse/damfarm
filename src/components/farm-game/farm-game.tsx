@@ -14,6 +14,7 @@ import { Position, InteractionPoint } from "./types"
 import { GameWorld } from "./world"
 import { Player } from "./player"
 import {
+ BarnDialog,
   FishingDialog,
   GreenhouseDialog,
   HouseDialog,
