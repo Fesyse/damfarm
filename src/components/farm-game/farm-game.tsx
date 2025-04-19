@@ -33,8 +33,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Toast } from "@/components/ui/toast"
-import { useToast } from "@/components/ui/use-toast"
 import { Fish } from "@/types/fish"
 import { Sky } from "@react-three/drei"
 import type { CanvasProps } from "@react-three/fiber"
@@ -59,6 +57,7 @@ import { Player } from "./player"
 import { Position } from "./types"
 import { InteractionPoint } from "./types/interaction-point"
 import { GameWorld } from "./world/game-world"
+import { toast } from "sonner"
 
 // Mobile device detection
 function useIsMobile() {
@@ -219,25 +218,23 @@ function SkyController({
 export function FarmGame() {
   const gameStore = useGameStore(state => state)
 
-  const [showUI, setShowUI] = useState(false)
-  const [showMainMenu, setShowMainMenu] = useState(false)
-  const [playerPosition, setPlayerPosition] = useState<Position>([0, 0, 0])
+  const audioRef = useRef<HTMLAudioElement | null>(null)
   const [isNight, setIsNight] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [isSleeping, setIsSleeping] = useState(false)
   const [completedDayAdvance, setCompletedDayAdvance] = useState(false)
-  const [nearInteraction, setNearInteraction] = useState<
-    InteractionPoint | undefined
-  >(undefined)
-  const [dialogType, setDialogType] = useState<string | null>(null)
-  const [showDialog, setShowDialog] = useState(false)
-  const [isMuted, setIsMuted] = useState(false)
-  const [hasInteracted, setHasInteracted] = useState(false)
-  const [showInstructions, setShowInstructions] = useState(false)
-  const [inventory, setInventory] = useState<Fish[]>([])
-  const { toast } = useToast()
   const hasMounted = useRef(false)
-  const audioRef = useRef<HTMLAudioElement | null>(null)
+  const [showUI, setShowUI] = useState(false)
+  const [showMainMenu, setShowMainMenu] = useState(false)
+  const [playerPosition, setPlayerPosition] = useState<Position>([0, 0, 0])
+  const [nearInteraction, setNearInteraction] =
+    useState<InteractionPoint | null>(null)
+  const [showDialog, setShowDialog] = useState(false)
+  const [dialogType, setDialogType] = useState<string | null>(null)
+  const [inventory, setInventory] = useState<Fish[]>([])
+  const [showInstructions, setShowInstructions] = useState(false)
+  const [isMuted, setIsMuted] = useState(true)
+  const [hasInteracted, setHasInteracted] = useState(false)
 
   // Mobile control state
   const isMobile = useIsMobile()
@@ -457,16 +454,12 @@ export function FarmGame() {
 
   const getInventoryCount = useCallback(() => inventory.length, [inventory])
 
-  const handleFishCatch = useCallback(
-    (fish: Fish) => {
-      setInventory(prev => [...prev, fish])
-      toast({
-        title: "Рыба поймана!",
-        description: `Вы поймали ${fish.name}!`,
-      })
-    },
-    [toast]
-  )
+  const handleFishCatch = useCallback((fish: Fish) => {
+    setInventory(prev => [...prev, fish])
+    toast.success("Рыба поймана!", {
+      description: `Вы поймали ${fish.name}!`,
+    })
+  }, [])
 
   const handleTransitionComplete = useCallback(() => {
     if (!hasMounted.current) return
