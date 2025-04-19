@@ -1,0 +1,176 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sky -->
+  <rect width="1200" height="800" fill="#87CEEB" />
+  
+  <!-- Distant mountains -->
+  <polygon points="0,300 200,200 400,250 600,180 800,240 1000,190 1200,280 1200,800 0,800" fill="#8B5A2B" opacity="0.6" />
+
+  <!-- Minecraft farm grid - 16x16 blocks -->
+  <g id="minecraft-farm">
+    <!-- Dirt blocks background -->
+    <g id="dirt-blocks">
+      <defs>
+        <pattern id="dirt-pattern" patternUnits="userSpaceOnUse" width="64" height="64">
+          <rect width="64" height="64" fill="#8B4513" />
+          <rect width="64" height="4" fill="#654321" />
+          <rect width="4" height="64" fill="#654321" />
+          <rect x="16" y="16" width="8" height="8" fill="#5D4037" opacity="0.3" />
+          <rect x="40" y="32" width="8" height="8" fill="#5D4037" opacity="0.3" />
+          <rect x="24" y="48" width="8" height="8" fill="#5D4037" opacity="0.3" />
+        </pattern>
+      </defs>
+      <rect x="0" y="400" width="1200" height="400" fill="url(#dirt-pattern)" />
+    </g>
+
+    <!-- Water channels -->
+    <g id="water-channels">
+      <rect x="320" y="400" width="64" height="400" fill="#1E88E5" />
+      <rect x="832" y="400" width="64" height="400" fill="#1E88E5" />
+      <rect x="320" y="400" width="64" height="8" fill="#64B5F6" />
+      <rect x="832" y="400" width="64" height="8" fill="#64B5F6" />
+    </g>
+
+    <!-- Crops - wheat with varied growth -->
+    <g id="wheat-crops">
+      <defs>
+        <pattern id="wheat-pattern" patternUnits="userSpaceOnUse" width="128" height="128">
+          <rect width="128" height="128" fill="#8B4513" />
+          <!-- Row 1 -->
+          <rect x="16" y="0" width="4" height="30" fill="#DAA520" />
+          <rect x="12" y="8" width="12" height="3" fill="#F0E68C" />
+          
+          <rect x="48" y="0" width="4" height="58" fill="#DAA520" />
+          <rect x="44" y="20" width="12" height="4" fill="#F0E68C" />
+          
+          <rect x="80" y="0" width="4" height="42" fill="#DAA520" />
+          <rect x="76" y="14" width="12" height="3" fill="#F0E68C" />
+          
+          <rect x="112" y="0" width="0" height="0" fill="#DAA520" /> <!-- Empty spot -->
+          
+          <!-- Row 2 -->
+          <rect x="16" y="64" width="0" height="0" fill="#DAA520" /> <!-- Empty spot -->
+          
+          <rect x="48" y="64" width="4" height="20" fill="#DAA520" /> <!-- Just sprouting -->
+          
+          <rect x="80" y="64" width="4" height="58" fill="#DAA520" />
+          <rect x="76" y="84" width="12" height="4" fill="#F0E68C" />
+          
+          <rect x="112" y="64" width="4" height="40" fill="#DAA520" />
+          <rect x="108" y="76" width="12" height="3" fill="#F0E68C" />
+        </pattern>
+      </defs>
+      <rect x="0" y="400" width="320" height="400" fill="url(#wheat-pattern)" />
+    </g>
+
+    <!-- Crops - carrots with varied growth -->
+    <g id="carrot-crops">
+      <defs>
+        <pattern id="carrot-pattern" patternUnits="userSpaceOnUse" width="128" height="128">
+          <rect width="128" height="128" fill="#8B4513" />
+          
+          <!-- Row 1 -->
+          <rect x="16" y="0" width="4" height="32" fill="#228B22" />
+          <ellipse cx="18" cy="34" rx="5" ry="8" fill="#FF8C00" />
+          
+          <rect x="48" y="0" width="0" height="0" fill="#228B22" /> <!-- Empty spot -->
+          
+          <rect x="80" y="0" width="4" height="40" fill="#228B22" />
+          <ellipse cx="82" cy="42" rx="6" ry="10" fill="#FF8C00" />
+          
+          <rect x="112" y="0" width="4" height="25" fill="#228B22" /> <!-- Just leaves, no carrot yet -->
+          
+          <!-- Row 2 -->
+          <rect x="16" y="64" width="4" height="40" fill="#228B22" />
+          <ellipse cx="18" cy="106" rx="6" ry="10" fill="#FF8C00" />
+          
+          <rect x="48" y="64" width="4" height="36" fill="#228B22" />
+          <ellipse cx="50" cy="102" rx="5" ry="8" fill="#FF8C00" />
+          
+          <rect x="80" y="64" width="0" height="0" fill="#228B22" /> <!-- Empty spot -->
+          
+          <rect x="112" y="64" width="4" height="15" fill="#228B22" /> <!-- Just sprouting -->
+        </pattern>
+      </defs>
+      <rect x="384" y="400" width="448" height="400" fill="url(#carrot-pattern)" />
+    </g>
+
+    <!-- Crops - potatoes with varied growth -->
+    <g id="potato-crops">
+      <defs>
+        <pattern id="potato-pattern" patternUnits="userSpaceOnUse" width="128" height="128">
+          <rect width="128" height="128" fill="#8B4513" />
+          
+          <!-- Row 1 -->
+          <rect x="16" y="0" width="4" height="44" fill="#228B22" />
+          <ellipse cx="18" cy="52" rx="8" ry="6" fill="#A0522D" />
+          
+          <rect x="48" y="0" width="0" height="0" fill="#228B22" /> <!-- Empty spot -->
+          
+          <rect x="80" y="0" width="4" height="32" fill="#228B22" /> <!-- Just leaves, no potato yet -->
+          
+          <rect x="112" y="0" width="4" height="44" fill="#228B22" />
+          <ellipse cx="114" cy="54" rx="8" ry="6" fill="#A0522D" />
+          
+          <!-- Row 2 -->
+          <rect x="16" y="64" width="4" height="20" fill="#228B22" /> <!-- Just sprouting -->
+          
+          <rect x="48" y="64" width="4" height="44" fill="#228B22" />
+          <ellipse cx="50" cy="116" rx="8" ry="6" fill="#A0522D" />
+          
+          <rect x="80" y="64" width="4" height="44" fill="#228B22" />
+          <ellipse cx="82" cy="116" rx="8" ry="6" fill="#A0522D" />
+          
+          <rect x="112" y="64" width="0" height="0" fill="#228B22" /> <!-- Empty spot -->
+        </pattern>
+      </defs>
+      <rect x="896" y="400" width="304" height="400" fill="url(#potato-pattern)" />
+    </g>
+
+    <!-- Fences -->
+    <g id="fences">
+      <defs>
+        <pattern id="fence-pattern" patternUnits="userSpaceOnUse" width="64" height="64">
+          <rect x="28" y="0" width="8" height="64" fill="#8B4513" />
+          <rect x="12" y="16" width="40" height="6" fill="#8B4513" />
+          <rect x="12" y="42" width="40" height="6" fill="#8B4513" />
+        </pattern>
+      </defs>
+      <rect x="0" y="336" width="1200" height="64" fill="url(#fence-pattern)" />
+    </g>
+  </g>
+
+  <!-- Improved Minecraft-style clouds -->
+  <g id="minecraft-clouds">
+    <!-- First cloud group -->
+    <rect x="100" y="100" width="64" height="64" fill="#FFFFFF" />
+    <rect x="164" y="100" width="64" height="64" fill="#FFFFFF" />
+    <rect x="228" y="100" width="64" height="64" fill="#FFFFFF" />
+    <rect x="292" y="100" width="64" height="64" fill="#FFFFFF" />
+    <rect x="164" y="36" width="64" height="64" fill="#FFFFFF" />
+    <rect x="228" y="36" width="64" height="64" fill="#FFFFFF" />
+    
+    <!-- Second cloud group -->
+    <rect x="500" y="140" width="64" height="64" fill="#FFFFFF" />
+    <rect x="564" y="140" width="64" height="64" fill="#FFFFFF" />
+    <rect x="628" y="140" width="64" height="64" fill="#FFFFFF" />
+    <rect x="564" y="76" width="64" height="64" fill="#FFFFFF" />
+    <rect x="500" y="76" width="64" height="64" fill="#FFFFFF" opacity="0.7" />
+    <rect x="628" y="76" width="64" height="64" fill="#FFFFFF" opacity="0.7" />
+    
+    <!-- Third cloud group -->
+    <rect x="800" y="180" width="64" height="64" fill="#FFFFFF" />
+    <rect x="864" y="180" width="64" height="64" fill="#FFFFFF" />
+    <rect x="928" y="180" width="64" height="64" fill="#FFFFFF" />
+    <rect x="992" y="180" width="64" height="64" fill="#FFFFFF" />
+    <rect x="864" y="116" width="64" height="64" fill="#FFFFFF" />
+    <rect x="928" y="116" width="64" height="64" fill="#FFFFFF" />
+  </g>
+
+  <!-- Sun -->
+  <g id="minecraft-sun">
+    <rect x="900" y="100" width="64" height="64" fill="#FFEB3B" />
+    <rect x="964" y="100" width="64" height="64" fill="#FFEB3B" />
+    <rect x="900" y="36" width="64" height="64" fill="#FFEB3B" />
+    <rect x="964" y="36" width="64" height="64" fill="#FFEB3B" />
+  </g>
+</svg> 
