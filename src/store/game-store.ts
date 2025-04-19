@@ -1,7 +1,20 @@
+import {
+  animalFeedResource,
+  animalFeedResourceAmount,
+} from "@/components/farm-game/dialog"
 import { SEASONS } from "@/constants/seasons"
 import { GameState, ProductsType, SeedsType, ToolsType } from "@/types/store"
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
+
+const resourceName = {
+  wheat: "пшеницы",
+  carrot: "моркови",
+  potato: "картофеля",
+  corn: "кукурузы",
+  tomato: "помидоров",
+  strawberry: "клубнике",
+}
 
 export const useGameStore = create<GameState>()(
   persist(
@@ -183,18 +196,32 @@ export const useGameStore = create<GameState>()(
         return changed
       },
       feedAnimal: (id: number) => {
-        let changed = false
+        let error
         set(state => ({
           animals: state.animals.map(animal => {
-            const isNewAnimal = animal.id === id && !animal.isFed
-            if (isNewAnimal) changed = true
+            const isNewAnimal = animal.id === id
+            if (isNewAnimal && animal.isFed) {
+              error = "Вы уже кормили это животное сегодня!"
+              return animal
+            }
 
-            return isNewAnimal
-              ? { ...animal, hunger: animal.hunger + 10, isFed: true }
-              : animal
+            const resource = animalFeedResource[animal.type]
+            const resourceAmount = animalFeedResourceAmount[animal.type]
+
+            if (isNewAnimal && state.resources[resource] >= resourceAmount) {
+              error = "Вы покормили животное!"
+              return { ...animal, hunger: animal.hunger + 10, isFed: true }
+            }
+
+            if (isNewAnimal && state.resources[resource] < resourceAmount) {
+              error = `Недостаточно ${resourceName[resource]}`
+            }
+
+            return animal
           }),
         }))
-        return changed
+
+        return error
       },
     }),
     {

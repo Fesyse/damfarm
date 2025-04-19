@@ -1,4 +1,4 @@
-type ResoursesType = {
+export type ResoursesType = {
   carrot: number
   potato: number
   wheat: number
@@ -57,7 +57,6 @@ export type AnimalType = {
   id: number
   type: "cow" | "chicken" | "sheep" | "pig" | "rabbit" | "horse"
   name: string
-  price: number
 
   health: number
   hunger: number
@@ -66,8 +65,6 @@ export type AnimalType = {
   isStroked: boolean
   isFed: boolean
 
-  feedResource: keyof ResoursesType
-  feedResourceAmount: number
   product: keyof ProductsType
   productAmount: number
 }
@@ -105,7 +102,7 @@ export interface GameState {
 
   animals: AnimalType[]
   strokeAnimal: (id: number) => boolean
-  feedAnimal: (id: number) => boolean
+  feedAnimal: (id: number) => string | undefined
   setAnimals: (animals: AnimalType[]) => void
   addNewAnimal: (animal: AnimalType) => void
 }

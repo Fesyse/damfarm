@@ -25,6 +25,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { toast } from "sonner"
+import { AnimalType, ResoursesType } from "@/types/store"
 
 const animalEmoji = {
   cow: "🐄",
@@ -51,6 +52,36 @@ const animalName = {
   horse: "Лошадь",
 }
 
+export const animalFeedResource: Record<
+  AnimalType["type"],
+  keyof ResoursesType
+> = {
+  cow: "wheat",
+  chicken: "wheat",
+  sheep: "wheat",
+  pig: "carrot",
+  rabbit: "carrot",
+  horse: "carrot",
+}
+
+const resourceName = {
+  wheat: "пшеницей",
+  carrot: "морковью",
+  potato: "картофелем",
+  corn: "кукурузой",
+  tomato: "помидорами",
+  strawberry: "клубниками",
+}
+
+export const animalFeedResourceAmount: Record<AnimalType["type"], number> = {
+  cow: 2,
+  chicken: 1,
+  sheep: 2,
+  pig: 2,
+  rabbit: 1,
+  horse: 2,
+}
+
 const productEmoji = {
   milk: "🥛",
   eggs: "🥚",
@@ -65,6 +96,7 @@ const availableAnimals = [
   { type: "rabbit", price: 400, description: "Дает мясо и мех" },
   { type: "horse", price: 3000, description: "Ускоряет передвижение" },
 ] as const
+
 export function BarnDialog() {
   const [tab, setTab] = useState<"animals" | "market">("animals")
   const { animals, strokeAnimal, feedAnimal } = useGameStore(state => state)
@@ -83,15 +115,15 @@ export function BarnDialog() {
   }
 
   const feedAnimalHandler = (id: number) => {
-    const changed = feedAnimal(id)
-    if (changed) {
+    const error = feedAnimal(id)
+    if (!error) {
       toast.success("Вы покормили животное!", {
         description: (
           <span className='text-foreground'>Возвращайтесь завтра!</span>
         ),
       })
     } else {
-      toast.error("Вы уже кормили это животное сегодня!")
+      toast.error(error ?? "Вы уже кормили это животное сегодня!")
     }
   }
   return (
@@ -185,7 +217,7 @@ export function BarnDialog() {
                             </TooltipTrigger>
                             <TooltipContent>Погладить</TooltipContent>
                           </Tooltip>
-                          <Tooltip>
+                          <Tooltip delayDuration={0}>
                             <TooltipTrigger asChild>
                               <Button
                                 size='sm'
@@ -196,7 +228,11 @@ export function BarnDialog() {
                                 <Carrot />
                               </Button>
                             </TooltipTrigger>
-                            <TooltipContent>Покормить</TooltipContent>
+                            <TooltipContent>
+                              Покормить{" "}
+                              {resourceName[animalFeedResource[animal.type]]}{" "}
+                              {animalFeedResourceAmount[animal.type]} штук(и)
+                            </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
                         {animal.product && animal.productAmount > 0 && (
