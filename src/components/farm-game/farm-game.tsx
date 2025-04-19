@@ -508,7 +508,10 @@ export function FarmGame() {
             setNearInteraction={setNearInteraction}
             playerPosition={playerPosition}
           />
-          <Player setPlayerPosition={setPlayerPosition} />
+          <Player
+            isDialogOpen={showDialog}
+            setPlayerPosition={setPlayerPosition}
+          />
         </Suspense>
       </Canvas>
 
