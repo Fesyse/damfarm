@@ -14,12 +14,12 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useGameStore } from "@/store/game-store"
-import { getStocks, getStocksHistory } from "@/data/json-data"
-import { StocksType } from "@/types/store"
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useGameStore } from "@/store/game-store";
+import { getStocks, getStocksHistory } from "@/data/json-data";
+import { StocksType } from "@/types/store";
 
 // Generate random price history for demo
 const generatePriceHistory = (

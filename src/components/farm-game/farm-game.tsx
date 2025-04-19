@@ -9,11 +9,11 @@ import { Environment } from "@react-three/drei"
 import { AnimatePresence, motion } from "framer-motion"
 import {
   Suspense,
+  useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
-  useMemo,
-  useCallback,
 } from "react"
 import {
   BarnDialog,
@@ -25,10 +25,20 @@ import {
   StocksDialog,
 } from "./dialog"
 
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Toast } from "@/components/ui/toast"
+import { useToast } from "@/components/ui/use-toast"
 import { Fish } from "@/types/fish"
 import { Sky } from "@react-three/drei"
-import { Canvas } from "@react-three/fiber"
 import type { CanvasProps } from "@react-three/fiber"
+import { Canvas } from "@react-three/fiber"
 import {
   ArrowDown,
   ArrowLeft,
@@ -36,22 +46,15 @@ import {
   ArrowUp,
   CircleHelp,
   Coins,
+  Flower,
   Menu,
+  Snowflake,
   Sun,
   User,
   Volume2,
   VolumeX,
   X,
 } from "lucide-react"
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
-import { Toast } from "@/components/ui/toast"
-import { useToast } from "@/components/ui/use-toast"
 import { Player } from "./player"
 import { Position } from "./types"
 import { InteractionPoint } from "./types/interaction-point"
@@ -216,7 +219,7 @@ function SkyController({
 export function FarmGame() {
   const gameStore = useGameStore(state => state)
 
-  const [showUI, setShowUI] = useState(true)
+  const [showUI, setShowUI] = useState(false)
   const [showMainMenu, setShowMainMenu] = useState(false)
   const [playerPosition, setPlayerPosition] = useState<Position>([0, 0, 0])
   const [isNight, setIsNight] = useState(false)
@@ -527,25 +530,46 @@ export function FarmGame() {
         </Suspense>
       </Canvas>
 
-      {/* UI Toggle Button - Adjusted position for mobile */}
-      <button
-        className={`absolute ${
-          isMobile ? "top-2 right-2" : "top-4 right-4"
-        } z-50 bg-white/80 p-2 rounded-full shadow-lg`}
-        onClick={() => setShowUI(!showUI)}
-      >
-        {showUI ? (
-          <X size={isMobile ? 20 : 24} />
-        ) : (
-          <Menu size={isMobile ? 20 : 24} />
-        )}
-      </button>
+      {/* Menu */}
+      <Dialog open={showMainMenu} onOpenChange={setShowMainMenu}>
+        <DialogTrigger asChild>
+          <button
+            className={`absolute ${
+              isMobile ? "top-2 right-2" : "top-4 right-4"
+            } z-50 bg-white/80 p-2 rounded-full shadow-lg`}
+            onClick={() => setShowMainMenu(prev => !prev)}
+          >
+            {showMainMenu ? (
+              <X size={isMobile ? 20 : 24} />
+            ) : (
+              <Menu size={isMobile ? 20 : 24} />
+            )}
+          </button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Menu</DialogTitle>
+          </DialogHeader>
+          <Button onClick={() => setShowMainMenu(false)}>
+            Возобновить игру
+          </Button>
+          <Button variant='outline'>Настройки</Button>
+          <Button
+            variant='destructive'
+            onClick={() => {
+              window.close()
+            }}
+          >
+            Выйти из игры
+          </Button>
+        </DialogContent>
+      </Dialog>
 
-      {/* Sound Toggle Button - Adjusted for mobile */}
+      {/* Sound Toggle Button */}
       <button
         onClick={() => {
           setHasInteracted(true)
-          setIsMuted(!isMuted)
+          setIsMuted(prev => !prev)
         }}
         className={`absolute ${
           isMobile ? "top-2 left-2" : "top-4 left-4"
@@ -568,7 +592,7 @@ export function FarmGame() {
         <CircleHelp size={isMobile ? 14 : 16} className='text-gray-700' />
       </button>
 
-      {/* Player Position - Hidden on mobile to save space */}
+      {/* Player Position */}
       {!isMobile && (
         <div className='absolute top-4 left-1/2 transform -translate-x-1/2 bg-white/80 backdrop-blur-md p-2 rounded-lg shadow-lg z-40 flex items-center gap-2'>
           <User size={16} />
@@ -635,151 +659,142 @@ export function FarmGame() {
         </>
       )}
 
-      {/* Game UI - Adjusted layout for mobile */}
+      {/* Game UI */}
       <AnimatePresence>
-        {showUI && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className='absolute bottom-0 left-0 right-0 p-4 z-40'
-          >
-            <div className='bg-white/80 backdrop-blur-md rounded-lg shadow-lg p-4 max-w-6xl mx-auto'>
-              <div className='flex justify-between items-center mb-4'>
-                <div className='flex items-center gap-4'>
-                  <div className='flex items-center gap-2 bg-white/80 px-3 py-1 rounded-lg'>
-                    <Sun
-                      className={`${
-                        isMobile ? "h-4 w-4" : "h-5 w-5"
-                      } text-yellow-500`}
-                    />
-                    <span
-                      className={`${
-                        isMobile ? "text-sm" : "text-base"
-                      } font-medium`}
-                    >
-                      {SEASONS[gameStore.seasons]} - День {gameStore.days}
-                    </span>
-                  </div>
-                </div>
-                <div className='flex items-center gap-4'>
-                  <Badge
-                    variant='outline'
-                    className='flex items-center gap-2 px-3 py-1'
-                  >
-                    <Coins
-                      className={`${
-                        isMobile ? "h-3 w-3" : "h-4 w-4"
-                      } text-yellow-500`}
-                    />
-                    <span
-                      className={`${
-                        isMobile ? "text-base" : "text-lg"
-                      } font-bold`}
-                    >
-                      {gameStore.moneys}
-                    </span>
-                  </Badge>
-                  <Button
-                    variant='outline'
-                    size='sm'
-                    onClick={() => setShowMainMenu(true)}
-                  >
-                    Меню
-                  </Button>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className='absolute bottom-0 left-0 right-0 p-4 z-40'
+        >
+          <div className='bg-white/80 backdrop-blur-md rounded-lg shadow-lg p-4  max-w-6xl mx-auto'>
+            <div className='flex justify-between items-center'>
+              <div className='flex items-center gap-4'>
+                <div className='flex items-center gap-2 text-xl px-3 py-1 rounded-lg'>
+                  {SEASONS[gameStore.seasons] === "winter" ? (
+                    <Snowflake className='h-7 w-7 text-blue-800' />
+                  ) : SEASONS[gameStore.seasons] === "spring" ? (
+                    <Flower className='h-7 w-7 text-yellow-900' />
+                  ) : (
+                    <Sun className='h-7 w-7 text-yellow-400' />
+                  )}
+                  <span className='font-medium'>
+                    {SEASONS[gameStore.seasons]} - День {gameStore.days}
+                  </span>
                 </div>
               </div>
-
-              <div className='grid grid-cols-2 md:grid-cols-6 gap-4'>
-                {Object.entries(gameStore.resources).map(
-                  ([plant, count], i) => (
-                    <Card key={i} className='bg-white/90'>
-                      <CardContent
-                        className={`p-3 text-center flex flex-col items-center justify-center ${
-                          isMobile ? "py-2" : ""
-                        }`}
-                      >
-                        <div
-                          className={`${
-                            isMobile ? "text-xl" : "text-2xl"
-                          } mb-1`}
-                        >
-                          {
-                            {
-                              Марковка: "🥕",
-                              Картошка: "🥔",
-                              Пшеница: "🌾",
-                              Кукуруза: "🌽",
-                              Томаты: "🍅",
-                              Клубника: "🍓",
-                            }[plant]
-                          }
-                        </div>
-                        <div
-                          className={`${
-                            isMobile ? "text-base" : "text-lg"
-                          } font-bold`}
-                        >
-                          {count}
-                        </div>
-                        <div className='text-xs text-muted-foreground capitalize'>
-                          {plant}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  )
-                )}
+              <div className='flex items-center gap-4'>
+                <Badge
+                  variant='outline'
+                  className='flex items-center gap-2 px-3 py-1'
+                >
+                  <Coins className='h-4 w-4 text-yellow-500' />
+                  <span className='text-lg font-bold'>{gameStore.moneys}</span>
+                </Badge>
+                <Button
+                  variant='outline'
+                  size='sm'
+                  onClick={() => setShowUI(prev => !prev)}
+                >
+                  Показать продукты
+                </Button>
               </div>
             </div>
-          </motion.div>
-        )}
+            {showUI && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                className='space-y-6 mt-4'
+              >
+                {/* РАСТЕНИЯ */}
+                <div>
+                  <h2 className='text-xl font-semibold mb-2'>🌱 Растения</h2>
+                  <div className='grid grid-cols-2 md:grid-cols-6 gap-4'>
+                    {Object.entries(gameStore.resources).map(
+                      ([plant, count], i) => (
+                        <Card key={i} className='bg-white/90'>
+                          <CardContent className='p-3 text-center flex flex-col items-center justify-center'>
+                            <div className='text-2xl mb-1'>
+                              {
+                                {
+                                  carrot: "🥕",
+                                  potato: "🥔",
+                                  wheat: "🌾",
+                                  corn: "🌽",
+                                  tomato: "🍅",
+                                  strawberry: "🍓",
+                                }[plant]
+                              }
+                            </div>
+                            <div className='text-lg font-bold'>{count}</div>
+                            <div className='text-xs text-muted-foreground capitalize'>
+                              {plant}
+                            </div>
+                          </CardContent>
+                        </Card>
+                      )
+                    )}
+                  </div>
+                </div>
+
+                {/*  РЫБА */}
+                <div>
+                  <h2 className='text-xl font-semibold mb-2'>🐟 Рыба</h2>
+                  <div className='grid grid-cols-2 md:grid-cols-6 gap-4'>
+                    {Object.entries(gameStore.fishes).map(
+                      ([fish, count], i) => {
+                        return (
+                          <Card key={i} className={`bg-white/90 border-2 `}>
+                            <CardContent className='p-3 text-center flex flex-col items-center justify-center'>
+                              <div className='text-2xl mb-1'>{"🐟"}</div>
+                              <div className='text-lg font-bold'>{count}</div>
+                              <div className='text-xs text-muted-foreground capitalize'>
+                                {fish}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        )
+                      }
+                    )}
+                  </div>
+                </div>
+
+                {/*  ПРОДУКТЫ АМБАРА */}
+                <div>
+                  <h2 className='text-xl font-semibold mb-2'>🌱 Продукты</h2>
+                  <div className='grid grid-cols-2 md:grid-cols-6 gap-4'>
+                    {Object.entries(gameStore.products).map(
+                      ([product, count], i) => {
+                        return (
+                          <Card key={i} className={`bg-white/90 border-2 `}>
+                            <CardContent className='p-3 text-center flex flex-col items-center justify-center'>
+                              <div className='text-2xl mb-1'>
+                                {
+                                  {
+                                    eggs: "🥚",
+                                    milk: "🥛",
+                                    wool: "🧶",
+                                  }[product]
+                                }
+                              </div>
+                              <div className='text-lg font-bold'>{count}</div>
+                              <div className='text-xs text-muted-foreground capitalize'>
+                                {product}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        )
+                      }
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </div>
+        </motion.div>
       </AnimatePresence>
 
-      {/* Main Menu - Adjusted for mobile */}
-      <AnimatePresence>
-        {showMainMenu && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className='absolute inset-0 bg-black/70 flex items-center justify-center z-50'
-          >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              className={`bg-white rounded-lg p-6 ${
-                isMobile ? "max-w-[90%]" : "max-w-md"
-              } w-full`}
-            >
-              <h2 className='text-2xl font-bold mb-6 text-center'>Ферма 3D</h2>
-
-              <div className='space-y-4'>
-                <Button
-                  className='w-full'
-                  onClick={() => setShowMainMenu(false)}
-                >
-                  Продолжить
-                </Button>
-                <Button className='w-full' variant='outline'>
-                  Сохранить игру
-                </Button>
-                <Button className='w-full' variant='outline'>
-                  Загрузить игру
-                </Button>
-                <Button className='w-full' variant='outline'>
-                  Настройки
-                </Button>
-                <Button className='w-full' variant='destructive'>
-                  Выйти
-                </Button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Interaction Dialogs - Adjusted for mobile */}
+      {/* Interaction Dialogs */}
       <Dialog
         open={showDialog}
         onOpenChange={open => {
@@ -828,7 +843,7 @@ export function FarmGame() {
         </DialogContent>
       </Dialog>
 
-      {/* Game Instructions - Adjusted for mobile */}
+      {/* Game Instructions */}
       <AnimatePresence>
         {showInstructions && (
           <motion.div
@@ -914,7 +929,7 @@ export function FarmGame() {
         )}
       </AnimatePresence>
 
-      {/* Interaction Prompt - Adjusted for mobile */}
+      {/* Interaction Prompt */}
       <AnimatePresence mode='wait'>
         {nearInteraction && (
           <motion.div
@@ -939,7 +954,52 @@ export function FarmGame() {
         )}
       </AnimatePresence>
 
-      <Toast />
+      {/* Interaction Dialogs */}
+      <Dialog
+        open={showDialog}
+        onOpenChange={open => {
+          // Предотвращаем автоматическое закрытие диалога рыбалки
+          if (!open && dialogType === "fishing") {
+            return
+          }
+          setShowDialog(open)
+          if (!open) {
+            setDialogType(null)
+          }
+        }}
+      >
+        <DialogContent className='sm:max-w-[600px]'>
+          {dialogType === "greenhouse" && <GreenhouseDialog />}
+          {dialogType === "fishing" && (
+            <>
+              <DialogHeader>
+                <DialogTitle>
+                  Рыбалка{" "}
+                  {getInventoryCount() > 0 ? `(${getInventoryCount()})` : ""}
+                </DialogTitle>
+              </DialogHeader>
+              <FishingDialog
+                open={showDialog}
+                onOpenChange={setShowDialog}
+                onCatch={handleFishCatch}
+              />
+            </>
+          )}
+          {dialogType === "stocks" && <StocksDialog />}
+          {dialogType === "mail" && <MailDialog />}
+          {dialogType === "kiosk" && <KioskDialog />}
+          {dialogType === "house" && (
+            <HouseDialog
+              onSleep={handleSleep}
+              isTransitioning={isTransitioning}
+            />
+          )}
+          {dialogType === "barn" && <BarnDialog />}
+          <DialogFooter>
+            <Button onClick={() => setShowDialog(false)}>Закрыть</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

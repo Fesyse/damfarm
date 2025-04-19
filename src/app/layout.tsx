@@ -9,7 +9,7 @@ export const metadata = {
 export default function RootLayout({ children }: React.PropsWithChildren) {
 	return (
 		<html lang="ru" suppressHydrationWarning>
-			<body>{children}</body>
+			<body suppressHydrationWarning>{children}</body>
 		</html>
 	);
 }
