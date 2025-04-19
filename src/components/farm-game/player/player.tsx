@@ -64,7 +64,10 @@ export function Player({ setPlayerPosition }: PlayerProps) {
 
   // Optimized collision detection function using pre-calculated boundaries
   const checkCollision = useCallback(
-    (newX: number, newZ: number): boolean => {
+    (
+      newX: number,
+      newZ: number
+    ): { collided: boolean; slideX?: number; slideZ?: number } => {
       const playerRadius = 0.5
 
       // Use spatial quadrants to optimize collision detection
@@ -77,7 +80,56 @@ export function Player({ setPlayerPosition }: PlayerProps) {
           newZ + playerRadius > fence.minZ &&
           newZ - playerRadius < fence.maxZ
         ) {
-          return true
+          // Calculate slide directions
+          const overlapLeft = newX + playerRadius - fence.minX
+          const overlapRight = fence.maxX - (newX - playerRadius)
+          const overlapTop = newZ + playerRadius - fence.minZ
+          const overlapBottom = fence.maxZ - (newZ - playerRadius)
+
+          // Find the smallest overlap to determine sliding direction
+          const minOverlap = Math.min(
+            overlapLeft,
+            overlapRight,
+            overlapTop,
+            overlapBottom
+          )
+
+          if (minOverlap === overlapLeft && overlapLeft < playerRadius * 2) {
+            return {
+              collided: true,
+              slideX: newX - overlapLeft - 0.01,
+              slideZ: newZ,
+            }
+          } else if (
+            minOverlap === overlapRight &&
+            overlapRight < playerRadius * 2
+          ) {
+            return {
+              collided: true,
+              slideX: newX + overlapRight + 0.01,
+              slideZ: newZ,
+            }
+          } else if (
+            minOverlap === overlapTop &&
+            overlapTop < playerRadius * 2
+          ) {
+            return {
+              collided: true,
+              slideX: newX,
+              slideZ: newZ - overlapTop - 0.01,
+            }
+          } else if (
+            minOverlap === overlapBottom &&
+            overlapBottom < playerRadius * 2
+          ) {
+            return {
+              collided: true,
+              slideX: newX,
+              slideZ: newZ + overlapBottom + 0.01,
+            }
+          }
+
+          return { collided: true }
         }
       }
 
@@ -102,16 +154,64 @@ export function Player({ setPlayerPosition }: PlayerProps) {
 
             // If player is close to a door, don't apply collision
             if (distanceSquared < door.radius * door.radius) {
-              return false
+              return { collided: false }
             }
           }
 
-          // Not near a door, so collision is true
-          return true
+          // Calculate slide directions
+          const overlapLeft = newX + playerRadius - building.minX
+          const overlapRight = building.maxX - (newX - playerRadius)
+          const overlapTop = newZ + playerRadius - building.minZ
+          const overlapBottom = building.maxZ - (newZ - playerRadius)
+
+          // Find the smallest overlap to determine sliding direction
+          const minOverlap = Math.min(
+            overlapLeft,
+            overlapRight,
+            overlapTop,
+            overlapBottom
+          )
+
+          if (minOverlap === overlapLeft && overlapLeft < playerRadius * 2) {
+            return {
+              collided: true,
+              slideX: newX - overlapLeft - 0.01,
+              slideZ: newZ,
+            }
+          } else if (
+            minOverlap === overlapRight &&
+            overlapRight < playerRadius * 2
+          ) {
+            return {
+              collided: true,
+              slideX: newX + overlapRight + 0.01,
+              slideZ: newZ,
+            }
+          } else if (
+            minOverlap === overlapTop &&
+            overlapTop < playerRadius * 2
+          ) {
+            return {
+              collided: true,
+              slideX: newX,
+              slideZ: newZ - overlapTop - 0.01,
+            }
+          } else if (
+            minOverlap === overlapBottom &&
+            overlapBottom < playerRadius * 2
+          ) {
+            return {
+              collided: true,
+              slideX: newX,
+              slideZ: newZ + overlapBottom + 0.01,
+            }
+          }
+
+          return { collided: true }
         }
       }
 
-      return false
+      return { collided: false }
     },
     [buildingDoors]
   )
@@ -187,7 +287,10 @@ export function Player({ setPlayerPosition }: PlayerProps) {
       const newX = currentPos[0] + targetMoveX
       const newZ = currentPos[2] + targetMoveZ
 
-      if (!checkCollision(newX, newZ)) {
+      // Check for collisions with the improved collision system
+      const collisionResult = checkCollision(newX, newZ)
+
+      if (!collisionResult.collided) {
         // Set player rotation to face direction of movement
         const moveAngle = Math.atan2(targetMoveX, targetMoveZ)
         setRotation(moveAngle)
@@ -214,10 +317,103 @@ export function Player({ setPlayerPosition }: PlayerProps) {
 
         // Immediately update the ref to ensure camera follows smoothly
         positionRef.current = newPosition
+      } else if (
+        collisionResult.slideX !== undefined &&
+        collisionResult.slideZ !== undefined
+      ) {
+        // Handle slide collision
+        const moveAngle = Math.atan2(targetMoveX, targetMoveZ)
+        setRotation(moveAngle)
+
+        // We have slide values, so use them
+        const slidePosition: Position = [
+          collisionResult.slideX,
+          currentPos[1],
+          collisionResult.slideZ,
+        ]
+        setPosition(slidePosition)
+        positionRef.current = slidePosition
+
+        // Adjust velocity for the slide direction
+        const slideVecX = collisionResult.slideX - currentPos[0]
+        const slideVecZ = collisionResult.slideZ - currentPos[2]
+
+        // Project velocity onto the slide direction
+        if (Math.abs(slideVecX) > 0.001 || Math.abs(slideVecZ) > 0.001) {
+          // Normalize slide vector
+          const slideMag = Math.sqrt(
+            slideVecX * slideVecX + slideVecZ * slideVecZ
+          )
+          const slideNormX = slideVecX / slideMag
+          const slideNormZ = slideVecZ / slideMag
+
+          // Project velocity onto slide direction
+          const dot =
+            velocityRef.current[0] * slideNormX +
+            velocityRef.current[2] * slideNormZ
+
+          // Set new velocity to slide along the wall
+          velocityRef.current[0] = slideNormX * dot * 0.8
+          velocityRef.current[2] = slideNormZ * dot * 0.8
+        } else {
+          // Reduce velocity more sharply when we can't slide
+          velocityRef.current[0] = lerp(velocityRef.current[0], 0, 0.7)
+          velocityRef.current[2] = lerp(velocityRef.current[2], 0, 0.7)
+        }
       } else {
-        // If collision, gradually reduce velocity to zero
+        // If collision and no slide direction, try to recover
+        // Try to move in X direction only
+        const checkX = checkCollision(newX, currentPos[2])
+        if (!checkX.collided) {
+          const newPosition: Position = [newX, currentPos[1], currentPos[2]]
+          setPosition(newPosition)
+          positionRef.current = newPosition
+          velocityRef.current[0] = targetMoveX * 0.5
+          velocityRef.current[2] = 0
+          return
+        }
+
+        // Try to move in Z direction only
+        const checkZ = checkCollision(currentPos[0], newZ)
+        if (!checkZ.collided) {
+          const newPosition: Position = [currentPos[0], currentPos[1], newZ]
+          setPosition(newPosition)
+          positionRef.current = newPosition
+          velocityRef.current[0] = 0
+          velocityRef.current[2] = targetMoveZ * 0.5
+          return
+        }
+
+        // If we're still colliding, gradually reduce velocity to zero
         velocityRef.current[0] = lerp(velocityRef.current[0], 0, 0.5)
         velocityRef.current[2] = lerp(velocityRef.current[2], 0, 0.5)
+
+        // Add a slight nudge away from the collision to help unstick
+        if (
+          Math.abs(velocityRef.current[0]) < 0.01 &&
+          Math.abs(velocityRef.current[2]) < 0.01
+        ) {
+          // Calculate direction away from collision
+          const dirX = currentPos[0] - newX
+          const dirZ = currentPos[2] - newZ
+
+          // Normalize and apply a tiny push
+          const mag = Math.sqrt(dirX * dirX + dirZ * dirZ)
+          if (mag > 0.001) {
+            const pushX = (dirX / mag) * 0.05
+            const pushZ = (dirZ / mag) * 0.05
+
+            const nudgedPos = [
+              currentPos[0] + pushX,
+              currentPos[1],
+              currentPos[2] + pushZ,
+            ] as Position
+            if (!checkCollision(nudgedPos[0], nudgedPos[2]).collided) {
+              setPosition(nudgedPos)
+              positionRef.current = nudgedPos
+            }
+          }
+        }
       }
     } else {
       // No movement keys pressed, decelerate gradually
@@ -233,10 +429,35 @@ export function Player({ setPlayerPosition }: PlayerProps) {
         const smoothX = currentPos[0] + velocityRef.current[0]
         const smoothZ = currentPos[2] + velocityRef.current[2]
 
-        // Update position with deceleration
-        const newPosition: Position = [smoothX, currentPos[1], smoothZ]
-        setPosition(newPosition)
-        positionRef.current = newPosition
+        // Check for collisions during deceleration
+        const collisionResult = checkCollision(smoothX, smoothZ)
+
+        if (!collisionResult.collided) {
+          // Update position with deceleration
+          const newPosition: Position = [smoothX, currentPos[1], smoothZ]
+          setPosition(newPosition)
+          positionRef.current = newPosition
+        } else if (
+          collisionResult.slideX !== undefined &&
+          collisionResult.slideZ !== undefined
+        ) {
+          // Handle slide collision during deceleration
+          const slidePosition: Position = [
+            collisionResult.slideX,
+            currentPos[1],
+            collisionResult.slideZ,
+          ]
+          setPosition(slidePosition)
+          positionRef.current = slidePosition
+
+          // Reduce velocity more quickly when sliding during deceleration
+          velocityRef.current[0] = lerp(velocityRef.current[0], 0, 0.4)
+          velocityRef.current[2] = lerp(velocityRef.current[2], 0, 0.4)
+        } else {
+          // Stop completely if we can't slide
+          velocityRef.current[0] = 0
+          velocityRef.current[2] = 0
+        }
       }
     }
 
