@@ -4,7 +4,7 @@ import { useMemo } from "react"
 
 export function FishingPond() {
   return (
-    <group rotation={[0, Math.PI / 2, 0]}>
+    <group rotation={[0, Math.PI / 1.5, 0]}>
       {/* Water surface with realistic color and slight movement */}
       <mesh
         position={[0, 0.05, 0]}

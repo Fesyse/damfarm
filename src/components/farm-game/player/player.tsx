@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback } from "react"
-import { useThree } from "@react-three/fiber"
+import { useState, useEffect, useRef, useCallback, useMemo } from "react"
+import { useThree, useFrame } from "@react-three/fiber"
 import { Position } from "../types"
 import { FENCE_BOUNDARIES, BUILDING_BOUNDARIES } from "../constants"
 
@@ -16,6 +16,10 @@ export function Player({ setPlayerPosition }: PlayerProps) {
   const positionRef = useRef<Position>([0, 0, 0])
   // Lower base speed to make movement less jerky
   const baseSpeed = 0.15
+  // Add velocity reference for smooth movement
+  const velocityRef = useRef<Position>([0, 0, 0])
+  // Add smoothing factor for player movement (between 0 and 1, lower = smoother but more input lag)
+  const smoothingFactor = 0.15
   const { camera } = useThree()
   const cameraRef = useRef({
     distance: 10,
@@ -23,6 +27,19 @@ export function Player({ setPlayerPosition }: PlayerProps) {
     angle: 0,
     targetHeight: 1,
     needsUpdate: false,
+  })
+
+  // Keys state tracking with useRef instead of state for better performance
+  const keys = useRef<Record<string, boolean>>({
+    KeyW: false,
+    KeyS: false,
+    KeyA: false,
+    KeyD: false,
+    Space: false,
+    ArrowLeft: false,
+    ArrowRight: false,
+    ArrowUp: false,
+    ArrowDown: false,
   })
 
   // Add state for mouse control
@@ -34,54 +51,421 @@ export function Player({ setPlayerPosition }: PlayerProps) {
     heightSensitivity: 0.01,
   })
 
-  // Animation frame reference to avoid memory leaks
-  const animationFrameId = useRef<number | null>(null)
+  // Pre-calculate and memoize building door positions for collision optimization
+  const buildingDoors = useMemo(() => {
+    return BUILDING_BOUNDARIES.filter(building => building.doorPosition).map(
+      building => ({
+        x: building.doorPosition?.x || 0,
+        z: building.doorPosition?.z || 0,
+        radius: building.doorPosition?.radius || 0,
+      })
+    )
+  }, [])
 
   // Optimized collision detection function using pre-calculated boundaries
-  const checkCollision = useCallback((newX: number, newZ: number): boolean => {
-    const playerRadius = 0.5
+  const checkCollision = useCallback(
+    (
+      newX: number,
+      newZ: number
+    ): { collided: boolean; slideX?: number; slideZ?: number } => {
+      const playerRadius = 0.5
 
-    // First check fence boundaries (faster check, as there are fewer fences)
-    const fenceCollision = FENCE_BOUNDARIES.some(
-      fence =>
-        newX + playerRadius > fence.minX &&
-        newX - playerRadius < fence.maxX &&
-        newZ + playerRadius > fence.minZ &&
-        newZ - playerRadius < fence.maxZ
-    )
+      // Use spatial quadrants to optimize collision detection
+      // First check fence boundaries (faster check, as there are fewer fences)
+      for (let i = 0; i < FENCE_BOUNDARIES.length; i++) {
+        const fence = FENCE_BOUNDARIES[i]
+        if (
+          newX + playerRadius > fence.minX &&
+          newX - playerRadius < fence.maxX &&
+          newZ + playerRadius > fence.minZ &&
+          newZ - playerRadius < fence.maxZ
+        ) {
+          // Calculate slide directions
+          const overlapLeft = newX + playerRadius - fence.minX
+          const overlapRight = fence.maxX - (newX - playerRadius)
+          const overlapTop = newZ + playerRadius - fence.minZ
+          const overlapBottom = fence.maxZ - (newZ - playerRadius)
 
-    if (fenceCollision) return true
+          // Find the smallest overlap to determine sliding direction
+          const minOverlap = Math.min(
+            overlapLeft,
+            overlapRight,
+            overlapTop,
+            overlapBottom
+          )
 
-    // Then check building boundaries if no fence collision
-    return BUILDING_BOUNDARIES.some(building => {
-      // First check if player is near door - allow access if close to door
-      if (building.doorPosition) {
-        const dx = newX - building.doorPosition.x
-        const dz = newZ - building.doorPosition.z
-        const distanceToDoor = Math.sqrt(dx * dx + dz * dz)
+          if (minOverlap === overlapLeft && overlapLeft < playerRadius * 2) {
+            return {
+              collided: true,
+              slideX: newX - overlapLeft - 0.01,
+              slideZ: newZ,
+            }
+          } else if (
+            minOverlap === overlapRight &&
+            overlapRight < playerRadius * 2
+          ) {
+            return {
+              collided: true,
+              slideX: newX + overlapRight + 0.01,
+              slideZ: newZ,
+            }
+          } else if (
+            minOverlap === overlapTop &&
+            overlapTop < playerRadius * 2
+          ) {
+            return {
+              collided: true,
+              slideX: newX,
+              slideZ: newZ - overlapTop - 0.01,
+            }
+          } else if (
+            minOverlap === overlapBottom &&
+            overlapBottom < playerRadius * 2
+          ) {
+            return {
+              collided: true,
+              slideX: newX,
+              slideZ: newZ + overlapBottom + 0.01,
+            }
+          }
 
-        // If player is close to a door, don't apply collision
-        if (distanceToDoor < building.doorPosition.radius) {
-          return false
+          return { collided: true }
         }
       }
 
-      // Apply normal collision check if not near door
-      return (
-        newX + playerRadius > building.minX &&
-        newX - playerRadius < building.maxX &&
-        newZ + playerRadius > building.minZ &&
-        newZ - playerRadius < building.maxZ
+      // Then check building boundaries if no fence collision
+      for (let i = 0; i < BUILDING_BOUNDARIES.length; i++) {
+        const building = BUILDING_BOUNDARIES[i]
+
+        // Quick AABB collision check first for performance
+        if (
+          newX + playerRadius > building.minX &&
+          newX - playerRadius < building.maxX &&
+          newZ + playerRadius > building.minZ &&
+          newZ - playerRadius < building.maxZ
+        ) {
+          // If colliding, check if player is near any door
+          for (let j = 0; j < buildingDoors.length; j++) {
+            const door = buildingDoors[j]
+            const dx = newX - door.x
+            const dz = newZ - door.z
+            // Use squared distance for better performance (avoids square root)
+            const distanceSquared = dx * dx + dz * dz
+
+            // If player is close to a door, don't apply collision
+            if (distanceSquared < door.radius * door.radius) {
+              return { collided: false }
+            }
+          }
+
+          // Calculate slide directions
+          const overlapLeft = newX + playerRadius - building.minX
+          const overlapRight = building.maxX - (newX - playerRadius)
+          const overlapTop = newZ + playerRadius - building.minZ
+          const overlapBottom = building.maxZ - (newZ - playerRadius)
+
+          // Find the smallest overlap to determine sliding direction
+          const minOverlap = Math.min(
+            overlapLeft,
+            overlapRight,
+            overlapTop,
+            overlapBottom
+          )
+
+          if (minOverlap === overlapLeft && overlapLeft < playerRadius * 2) {
+            return {
+              collided: true,
+              slideX: newX - overlapLeft - 0.01,
+              slideZ: newZ,
+            }
+          } else if (
+            minOverlap === overlapRight &&
+            overlapRight < playerRadius * 2
+          ) {
+            return {
+              collided: true,
+              slideX: newX + overlapRight + 0.01,
+              slideZ: newZ,
+            }
+          } else if (
+            minOverlap === overlapTop &&
+            overlapTop < playerRadius * 2
+          ) {
+            return {
+              collided: true,
+              slideX: newX,
+              slideZ: newZ - overlapTop - 0.01,
+            }
+          } else if (
+            minOverlap === overlapBottom &&
+            overlapBottom < playerRadius * 2
+          ) {
+            return {
+              collided: true,
+              slideX: newX,
+              slideZ: newZ + overlapBottom + 0.01,
+            }
+          }
+
+          return { collided: true }
+        }
+      }
+
+      return { collided: false }
+    },
+    [buildingDoors]
+  )
+
+  // Use useFrame hook for more efficient rendering
+  useFrame((_, delta) => {
+    // Cap delta time to prevent large jumps
+    const clampedDelta = Math.min(delta * 1000, 100)
+
+    // Use consistent timestep for speed calculation to avoid jitter
+    const speedFactor = clampedDelta / 16.67
+    const speed = baseSpeed * speedFactor
+
+    let targetMoveX = 0
+    let targetMoveZ = 0
+
+    // Calculate forward and right vectors based on camera angle
+    const angle = cameraRef.current.angle
+    const forward = {
+      x: Math.sin(angle),
+      z: Math.cos(angle),
+    }
+
+    const right = {
+      x: Math.sin(angle + Math.PI / 2),
+      z: Math.cos(angle + Math.PI / 2),
+    }
+
+    // Apply movement vectors independently to allow diagonal movement
+    if (keys.current.KeyW) {
+      targetMoveX -= forward.x * speed
+      targetMoveZ -= forward.z * speed
+    }
+    if (keys.current.KeyS) {
+      targetMoveX += forward.x * speed
+      targetMoveZ += forward.z * speed
+    }
+    if (keys.current.KeyA) {
+      targetMoveX -= right.x * speed
+      targetMoveZ -= right.z * speed
+    }
+    if (keys.current.KeyD) {
+      targetMoveX += right.x * speed
+      targetMoveZ += right.z * speed
+    }
+
+    // Normalize diagonal movement to maintain consistent speed
+    if (targetMoveX !== 0 && targetMoveZ !== 0) {
+      const magnitude = Math.sqrt(
+        targetMoveX * targetMoveX + targetMoveZ * targetMoveZ
       )
-    })
-  }, [])
+      targetMoveX = (targetMoveX / magnitude) * speed
+      targetMoveZ = (targetMoveZ / magnitude) * speed
+    }
 
-  // Separate camera update function using requestAnimationFrame for smoother updates
-  const updateCamera = useCallback(() => {
-    const { angle, distance, height, targetHeight } = cameraRef.current
+    // Smooth camera angle changes based on delta time
+    if (keys.current.ArrowLeft) cameraRef.current.angle -= 0.05 * speedFactor
+    if (keys.current.ArrowRight) cameraRef.current.angle += 0.05 * speedFactor
+
+    if (keys.current.ArrowUp)
+      cameraRef.current.height = Math.min(
+        15,
+        cameraRef.current.height + 0.2 * speedFactor
+      )
+    if (keys.current.ArrowDown)
+      cameraRef.current.height = Math.max(
+        2,
+        cameraRef.current.height - 0.2 * speedFactor
+      )
+
+    if (targetMoveX !== 0 || targetMoveZ !== 0) {
+      const currentPos = positionRef.current
+      const newX = currentPos[0] + targetMoveX
+      const newZ = currentPos[2] + targetMoveZ
+
+      // Check for collisions with the improved collision system
+      const collisionResult = checkCollision(newX, newZ)
+
+      if (!collisionResult.collided) {
+        // Set player rotation to face direction of movement
+        const moveAngle = Math.atan2(targetMoveX, targetMoveZ)
+        setRotation(moveAngle)
+
+        // Use velocity for smooth acceleration/deceleration
+        velocityRef.current[0] = lerp(
+          velocityRef.current[0],
+          targetMoveX,
+          smoothingFactor
+        )
+        velocityRef.current[2] = lerp(
+          velocityRef.current[2],
+          targetMoveZ,
+          smoothingFactor
+        )
+
+        // Apply smoothed velocity to position
+        const smoothX = currentPos[0] + velocityRef.current[0]
+        const smoothZ = currentPos[2] + velocityRef.current[2]
+
+        // Update position with smooth transition
+        const newPosition: Position = [smoothX, currentPos[1], smoothZ]
+        setPosition(newPosition)
+
+        // Immediately update the ref to ensure camera follows smoothly
+        positionRef.current = newPosition
+      } else if (
+        collisionResult.slideX !== undefined &&
+        collisionResult.slideZ !== undefined
+      ) {
+        // Handle slide collision
+        const moveAngle = Math.atan2(targetMoveX, targetMoveZ)
+        setRotation(moveAngle)
+
+        // We have slide values, so use them
+        const slidePosition: Position = [
+          collisionResult.slideX,
+          currentPos[1],
+          collisionResult.slideZ,
+        ]
+        setPosition(slidePosition)
+        positionRef.current = slidePosition
+
+        // Adjust velocity for the slide direction
+        const slideVecX = collisionResult.slideX - currentPos[0]
+        const slideVecZ = collisionResult.slideZ - currentPos[2]
+
+        // Project velocity onto the slide direction
+        if (Math.abs(slideVecX) > 0.001 || Math.abs(slideVecZ) > 0.001) {
+          // Normalize slide vector
+          const slideMag = Math.sqrt(
+            slideVecX * slideVecX + slideVecZ * slideVecZ
+          )
+          const slideNormX = slideVecX / slideMag
+          const slideNormZ = slideVecZ / slideMag
+
+          // Project velocity onto slide direction
+          const dot =
+            velocityRef.current[0] * slideNormX +
+            velocityRef.current[2] * slideNormZ
+
+          // Set new velocity to slide along the wall
+          velocityRef.current[0] = slideNormX * dot * 0.8
+          velocityRef.current[2] = slideNormZ * dot * 0.8
+        } else {
+          // Reduce velocity more sharply when we can't slide
+          velocityRef.current[0] = lerp(velocityRef.current[0], 0, 0.7)
+          velocityRef.current[2] = lerp(velocityRef.current[2], 0, 0.7)
+        }
+      } else {
+        // If collision and no slide direction, try to recover
+        // Try to move in X direction only
+        const checkX = checkCollision(newX, currentPos[2])
+        if (!checkX.collided) {
+          const newPosition: Position = [newX, currentPos[1], currentPos[2]]
+          setPosition(newPosition)
+          positionRef.current = newPosition
+          velocityRef.current[0] = targetMoveX * 0.5
+          velocityRef.current[2] = 0
+          return
+        }
+
+        // Try to move in Z direction only
+        const checkZ = checkCollision(currentPos[0], newZ)
+        if (!checkZ.collided) {
+          const newPosition: Position = [currentPos[0], currentPos[1], newZ]
+          setPosition(newPosition)
+          positionRef.current = newPosition
+          velocityRef.current[0] = 0
+          velocityRef.current[2] = targetMoveZ * 0.5
+          return
+        }
+
+        // If we're still colliding, gradually reduce velocity to zero
+        velocityRef.current[0] = lerp(velocityRef.current[0], 0, 0.5)
+        velocityRef.current[2] = lerp(velocityRef.current[2], 0, 0.5)
+
+        // Add a slight nudge away from the collision to help unstick
+        if (
+          Math.abs(velocityRef.current[0]) < 0.01 &&
+          Math.abs(velocityRef.current[2]) < 0.01
+        ) {
+          // Calculate direction away from collision
+          const dirX = currentPos[0] - newX
+          const dirZ = currentPos[2] - newZ
+
+          // Normalize and apply a tiny push
+          const mag = Math.sqrt(dirX * dirX + dirZ * dirZ)
+          if (mag > 0.001) {
+            const pushX = (dirX / mag) * 0.05
+            const pushZ = (dirZ / mag) * 0.05
+
+            const nudgedPos = [
+              currentPos[0] + pushX,
+              currentPos[1],
+              currentPos[2] + pushZ,
+            ] as Position
+            if (!checkCollision(nudgedPos[0], nudgedPos[2]).collided) {
+              setPosition(nudgedPos)
+              positionRef.current = nudgedPos
+            }
+          }
+        }
+      }
+    } else {
+      // No movement keys pressed, decelerate gradually
+      velocityRef.current[0] = lerp(velocityRef.current[0], 0, 0.2)
+      velocityRef.current[2] = lerp(velocityRef.current[2], 0, 0.2)
+
+      // Apply deceleration
+      if (
+        Math.abs(velocityRef.current[0]) > 0.001 ||
+        Math.abs(velocityRef.current[2]) > 0.001
+      ) {
+        const currentPos = positionRef.current
+        const smoothX = currentPos[0] + velocityRef.current[0]
+        const smoothZ = currentPos[2] + velocityRef.current[2]
+
+        // Check for collisions during deceleration
+        const collisionResult = checkCollision(smoothX, smoothZ)
+
+        if (!collisionResult.collided) {
+          // Update position with deceleration
+          const newPosition: Position = [smoothX, currentPos[1], smoothZ]
+          setPosition(newPosition)
+          positionRef.current = newPosition
+        } else if (
+          collisionResult.slideX !== undefined &&
+          collisionResult.slideZ !== undefined
+        ) {
+          // Handle slide collision during deceleration
+          const slidePosition: Position = [
+            collisionResult.slideX,
+            currentPos[1],
+            collisionResult.slideZ,
+          ]
+          setPosition(slidePosition)
+          positionRef.current = slidePosition
+
+          // Reduce velocity more quickly when sliding during deceleration
+          velocityRef.current[0] = lerp(velocityRef.current[0], 0, 0.4)
+          velocityRef.current[2] = lerp(velocityRef.current[2], 0, 0.4)
+        } else {
+          // Stop completely if we can't slide
+          velocityRef.current[0] = 0
+          velocityRef.current[2] = 0
+        }
+      }
+    }
+
+    // Update camera position
     const currentPosition = positionRef.current
+    const { distance, height, targetHeight } = cameraRef.current
 
-    // Calculate camera position only when needed
+    // Calculate camera position
     const cameraX = currentPosition[0] + Math.sin(angle) * distance
     const cameraZ = currentPosition[2] + Math.cos(angle) * distance
 
@@ -91,52 +475,24 @@ export function Player({ setPlayerPosition }: PlayerProps) {
       currentPosition[1] + targetHeight,
       currentPosition[2]
     )
-
-    // Continue animation loop
-    animationFrameId.current = requestAnimationFrame(updateCamera)
-  }, [camera])
-
-  // Start camera animation loop
-  useEffect(() => {
-    animationFrameId.current = requestAnimationFrame(updateCamera)
-
-    // Clean up animation frame on unmount
-    return () => {
-      if (animationFrameId.current !== null) {
-        cancelAnimationFrame(animationFrameId.current)
-      }
-    }
-  }, [updateCamera])
+  })
 
   // Update player position separately from camera position
   useEffect(() => {
     setPlayerPosition(position)
-    positionRef.current = position
   }, [position, setPlayerPosition])
 
   // Handle keyboard input with proper types
   useEffect(() => {
-    const keys: Record<string, boolean> = {
-      KeyW: false,
-      KeyS: false,
-      KeyA: false,
-      KeyD: false,
-      Space: false,
-      ArrowLeft: false,
-      ArrowRight: false,
-      ArrowUp: false,
-      ArrowDown: false,
-    }
-
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code in keys) {
-        keys[e.code] = true
+      if (e.code in keys.current) {
+        keys.current[e.code] = true
       }
     }
 
     const handleKeyUp = (e: KeyboardEvent) => {
-      if (e.code in keys) {
-        keys[e.code] = false
+      if (e.code in keys.current) {
+        keys.current[e.code] = false
       }
     }
 
@@ -157,7 +513,15 @@ export function Player({ setPlayerPosition }: PlayerProps) {
       }
     }
 
+    // Throttle mouse move function for better performance
+    let lastMoveTime = 0
     const handleMouseMove = (e: MouseEvent) => {
+      const now = performance.now()
+      // Only process mouse moves every 16ms (approx 60fps) for better performance
+      if (now - lastMoveTime < 16 && !mouseControlRef.current.isRightMouseDown)
+        return
+      lastMoveTime = now
+
       if (mouseControlRef.current.isRightMouseDown) {
         const deltaX = e.clientX - mouseControlRef.current.lastMouseX
         const deltaY = e.clientY - mouseControlRef.current.lastMouseY
@@ -185,12 +549,20 @@ export function Player({ setPlayerPosition }: PlayerProps) {
       e.preventDefault()
     }
 
-    // Throttled wheel handler to improve performance during rapid scrolling
+    // Debounced wheel handler to improve performance during rapid scrolling
+    let wheelTimeout: number | null = null
     const handleWheel = (e: WheelEvent) => {
-      cameraRef.current.distance = Math.max(
-        5,
-        Math.min(20, cameraRef.current.distance + e.deltaY * 0.01)
-      )
+      if (wheelTimeout !== null) {
+        clearTimeout(wheelTimeout)
+      }
+
+      wheelTimeout = window.setTimeout(() => {
+        cameraRef.current.distance = Math.max(
+          5,
+          Math.min(20, cameraRef.current.distance + e.deltaY * 0.01)
+        )
+        wheelTimeout = null
+      }, 10)
     }
 
     window.addEventListener("keydown", handleKeyDown)
@@ -203,99 +575,6 @@ export function Player({ setPlayerPosition }: PlayerProps) {
     window.addEventListener("mousemove", handleMouseMove)
     window.addEventListener("contextmenu", handleContextMenu)
 
-    // Use requestAnimationFrame for movement updates with delta time
-    let lastTime = 0
-    const movePlayer = (currentTime: number) => {
-      // Calculate delta time for smooth movement regardless of frame rate
-      const deltaTime = lastTime === 0 ? 16.67 : currentTime - lastTime
-      lastTime = currentTime
-
-      // Limit maximum delta to prevent large jumps after tab switching
-      const clampedDelta = Math.min(deltaTime, 100)
-
-      // Calculate speed based on delta time (60fps equivalent)
-      const speed = baseSpeed * (clampedDelta / 16.67)
-
-      let moveX = 0
-      let moveZ = 0
-
-      // Calculate forward and right vectors based on camera angle
-      const forward = {
-        x: Math.sin(cameraRef.current.angle),
-        z: Math.cos(cameraRef.current.angle),
-      }
-
-      const right = {
-        x: Math.sin(cameraRef.current.angle + Math.PI / 2),
-        z: Math.cos(cameraRef.current.angle + Math.PI / 2),
-      }
-
-      // Apply movement vectors independently to allow diagonal movement
-      if (keys.KeyW) {
-        moveX -= forward.x * speed
-        moveZ -= forward.z * speed
-      }
-      if (keys.KeyS) {
-        moveX += forward.x * speed
-        moveZ += forward.z * speed
-      }
-      if (keys.KeyA) {
-        moveX -= right.x * speed
-        moveZ -= right.z * speed
-      }
-      if (keys.KeyD) {
-        moveX += right.x * speed
-        moveZ += right.z * speed
-      }
-
-      // Normalize diagonal movement to maintain consistent speed
-      if (moveX !== 0 && moveZ !== 0) {
-        const magnitude = Math.sqrt(moveX * moveX + moveZ * moveZ)
-        moveX = (moveX / magnitude) * speed
-        moveZ = (moveZ / magnitude) * speed
-      }
-
-      // Smooth camera angle changes based on delta time
-      if (keys.ArrowLeft)
-        cameraRef.current.angle -= 0.05 * (clampedDelta / 16.67)
-      if (keys.ArrowRight)
-        cameraRef.current.angle += 0.05 * (clampedDelta / 16.67)
-
-      if (keys.ArrowUp)
-        cameraRef.current.height = Math.min(
-          15,
-          cameraRef.current.height + 0.2 * (clampedDelta / 16.67)
-        )
-      if (keys.ArrowDown)
-        cameraRef.current.height = Math.max(
-          2,
-          cameraRef.current.height - 0.2 * (clampedDelta / 16.67)
-        )
-
-      if (moveX !== 0 || moveZ !== 0) {
-        const currentPos = positionRef.current
-        const newX = currentPos[0] + moveX
-        const newZ = currentPos[2] + moveZ
-
-        if (!checkCollision(newX, newZ)) {
-          // Set player rotation to face direction of movement
-          const angle = Math.atan2(moveX, moveZ)
-          setRotation(angle)
-
-          // Update position with smooth transition
-          // Use the current position from ref for calculation to avoid animation lag
-          setPosition([newX, currentPos[1], newZ])
-
-          // Immediately update the ref to ensure camera follows smoothly
-          positionRef.current = [newX, currentPos[1], newZ]
-        }
-      }
-
-      movementFrameId = requestAnimationFrame(movePlayer)
-    }
-
-    let movementFrameId = requestAnimationFrame(movePlayer)
-
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
       window.removeEventListener("keyup", handleKeyUp)
@@ -304,58 +583,74 @@ export function Player({ setPlayerPosition }: PlayerProps) {
       window.removeEventListener("mouseup", handleMouseUp)
       window.removeEventListener("mousemove", handleMouseMove)
       window.removeEventListener("contextmenu", handleContextMenu)
-      cancelAnimationFrame(movementFrameId)
+      if (wheelTimeout !== null) {
+        clearTimeout(wheelTimeout)
+      }
     }
-  }, [checkCollision])
+  }, [])
+
+  // Optimize 3D model with memoization
+  const PlayerModel = useMemo(() => {
+    return (
+      <>
+        {/* Mushroom stem */}
+        <mesh castShadow position={[0, 0.4, 0]}>
+          <cylinderGeometry args={[0.3, 0.35, 0.8, 16]} />
+          <meshStandardMaterial color='#f5f5dc' />
+        </mesh>
+
+        {/* Mushroom cap - rounded */}
+        <mesh
+          castShadow
+          position={[0, 0.9, 0]}
+          rotation={[Math.PI / 2, Math.PI, 0]}
+        >
+          <sphereGeometry args={[0.6, 16, 16, 0, Math.PI]} />
+          <meshStandardMaterial color='#ff4d4d' flatShading={false} />
+        </mesh>
+
+        {/* Mushroom spots */}
+        <mesh position={[0.25, 1.33, 0.3]}>
+          <sphereGeometry args={[0.07, 8, 8]} />
+          <meshStandardMaterial color='#ffffff' />
+        </mesh>
+        <mesh position={[-0.2, 1.38, 0.25]}>
+          <sphereGeometry args={[0.08, 8, 8]} />
+          <meshStandardMaterial color='#ffffff' />
+        </mesh>
+        <mesh position={[0.15, 1.4, -0.25]}>
+          <sphereGeometry args={[0.07, 8, 8]} />
+          <meshStandardMaterial color='#ffffff' />
+        </mesh>
+        <mesh position={[-0.3, 1.35, -0.3]}>
+          <sphereGeometry args={[0.06, 8, 8]} />
+          <meshStandardMaterial color='#ffffff' />
+        </mesh>
+
+        {/* Eyes */}
+        <mesh position={[0.15, 0.5, 0.25]}>
+          <sphereGeometry args={[0.05, 8, 8]} />
+          <meshStandardMaterial color='#000000' />
+        </mesh>
+        <mesh position={[-0.15, 0.5, 0.25]}>
+          <sphereGeometry args={[0.05, 8, 8]} />
+          <meshStandardMaterial color='#000000' />
+        </mesh>
+      </>
+    )
+  }, [])
 
   return (
     <group
       position={[position[0], position[1], position[2]]}
       rotation-y={rotation}
     >
-      {/* Mushroom stem */}
-      <mesh castShadow position={[0, 0.4, 0]}>
-        <cylinderGeometry args={[0.3, 0.35, 0.8, 16]} />
-        <meshStandardMaterial color='#f5f5dc' />
-      </mesh>
-
-      {/* Mushroom cap - rounded */}
-      <mesh
-        castShadow
-        position={[0, 0.9, 0]}
-        rotation={[Math.PI / 2, Math.PI, 0]}
-      >
-        <sphereGeometry args={[0.6, 16, 16, 0, Math.PI]} />
-        <meshStandardMaterial color='#ff4d4d' flatShading={false} />
-      </mesh>
-
-      {/* Mushroom spots */}
-      <mesh position={[0.25, 1.33, 0.3]}>
-        <sphereGeometry args={[0.07, 8, 8]} />
-        <meshStandardMaterial color='#ffffff' />
-      </mesh>
-      <mesh position={[-0.2, 1.38, 0.25]}>
-        <sphereGeometry args={[0.08, 8, 8]} />
-        <meshStandardMaterial color='#ffffff' />
-      </mesh>
-      <mesh position={[0.15, 1.4, -0.25]}>
-        <sphereGeometry args={[0.07, 8, 8]} />
-        <meshStandardMaterial color='#ffffff' />
-      </mesh>
-      <mesh position={[-0.3, 1.35, -0.3]}>
-        <sphereGeometry args={[0.06, 8, 8]} />
-        <meshStandardMaterial color='#ffffff' />
-      </mesh>
-
-      {/* Eyes */}
-      <mesh position={[0.15, 0.5, 0.25]}>
-        <sphereGeometry args={[0.05, 8, 8]} />
-        <meshStandardMaterial color='#000000' />
-      </mesh>
-      <mesh position={[-0.15, 0.5, 0.25]}>
-        <sphereGeometry args={[0.05, 8, 8]} />
-        <meshStandardMaterial color='#000000' />
-      </mesh>
+      {PlayerModel}
     </group>
   )
+}
+
+// Add linear interpolation helper function
+function lerp(start: number, end: number, amount: number): number {
+  return (1 - amount) * start + amount * end
 }
