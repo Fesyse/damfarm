@@ -804,14 +804,12 @@ export function FarmGame() {
           }
         }}
       >
-        <DialogContent
-          className={`${isMobile ? "w-[95%] p-4" : "sm:max-w-[600px]"}`}
-        >
+        <DialogContent className={"max-w-xl w-full"}>
           {dialogType === "greenhouse" && <GreenhouseDialog />}
           {dialogType === "fishing" && (
             <>
               <DialogHeader>
-                <DialogTitle>Рыбалка </DialogTitle>
+                <DialogTitle>Рыбалка</DialogTitle>
               </DialogHeader>
               <FishingDialog
                 open={showDialog}
@@ -820,19 +818,21 @@ export function FarmGame() {
               />
             </>
           )}
-          {dialogType === "stocks" && <StocksDialog />}
-          {dialogType === "mail" && <MailDialog />}
-          {dialogType === "kiosk" && <KioskDialog />}
-          {dialogType === "house" && (
-            <HouseDialog
-              onSleep={handleSleep}
-              isTransitioning={isTransitioning}
-            />
-          )}
-          {dialogType === "barn" && <BarnDialog />}
-          <DialogFooter>
-            <Button onClick={() => setShowDialog(false)}>Закрыть</Button>
-          </DialogFooter>
+          <ScrollArea className='max-md:h-[calc(100svh-10rem)] overflow-hidden'>
+            {dialogType === "stocks" && <StocksDialog />}
+            {dialogType === "mail" && <MailDialog />}
+            {dialogType === "kiosk" && <KioskDialog />}
+            {dialogType === "house" && (
+              <HouseDialog
+                onSleep={handleSleep}
+                isTransitioning={isTransitioning}
+              />
+            )}
+            {dialogType === "barn" && <BarnDialog />}
+            <DialogFooter>
+              <Button onClick={() => setShowDialog(false)}>Закрыть</Button>
+            </DialogFooter>
+          </ScrollArea>
         </DialogContent>
       </Dialog>
 
@@ -946,50 +946,6 @@ export function FarmGame() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Interaction Dialogs */}
-      <Dialog
-        open={showDialog}
-        onOpenChange={open => {
-          // Предотвращаем автоматическое закрытие диалога рыбалки
-          if (!open && dialogType === "fishing") {
-            return
-          }
-          setShowDialog(open)
-          if (!open) {
-            setDialogType(null)
-          }
-        }}
-      >
-        <DialogContent className='sm:max-w-[600px]'>
-          {dialogType === "greenhouse" && <GreenhouseDialog />}
-          {dialogType === "fishing" && (
-            <>
-              <DialogHeader>
-                <DialogTitle>Рыбалка</DialogTitle>
-              </DialogHeader>
-              <FishingDialog
-                open={showDialog}
-                onOpenChange={setShowDialog}
-                onCatch={handleFishCatch}
-              />
-            </>
-          )}
-          {dialogType === "stocks" && <StocksDialog />}
-          {dialogType === "mail" && <MailDialog />}
-          {dialogType === "kiosk" && <KioskDialog />}
-          {dialogType === "house" && (
-            <HouseDialog
-              onSleep={handleSleep}
-              isTransitioning={isTransitioning}
-            />
-          )}
-          {dialogType === "barn" && <BarnDialog />}
-          <DialogFooter>
-            <Button onClick={() => setShowDialog(false)}>Закрыть</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   )
 }
