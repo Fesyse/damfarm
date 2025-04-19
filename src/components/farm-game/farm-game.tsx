@@ -630,13 +630,6 @@ export function FarmGame() {
               <span className='text-lg font-bold'>{nearInteraction.key}</span>
             </button>
           )}
-
-          <button
-            onClick={() => setShowMobileControls(!showMobileControls)}
-            className='absolute bottom-4 right-4 p-2 bg-white/70 backdrop-blur-sm rounded-lg z-50'
-          >
-            {showMobileControls ? "Hide Controls" : "Show Controls"}
-          </button>
         </>
       )}
 
@@ -645,7 +638,7 @@ export function FarmGame() {
           onClick={() => setShowMobileControls(!showMobileControls)}
           className='absolute top-2 left-1/2 -translate-x-1/2 p-2 bg-white/70 backdrop-blur-sm rounded-lg z-50 text-xs'
         >
-          {showMobileControls ? "Hide Controls" : "Show Controls"}
+          {showMobileControls ? "Скрыть управление" : "Показать управление"}
         </button>
       )}
 
