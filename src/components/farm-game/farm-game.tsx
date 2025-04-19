@@ -229,12 +229,12 @@ export function FarmGame() {
 												<div className="text-2xl mb-1">
 													{
 														{
-															carrot: "🥕",
-															potato: "🥔",
-															wheat: "🌾",
-															corn: "🌽",
-															tomato: "🍅",
-															strawberry: "🍓",
+															Марковка: "🥕",
+															Картошка: "🥔",
+															Пшеница: "🌾",
+															Кукуруза: "🌽",
+															Томаты: "🍅",
+															Клубника: "🍓",
 														}[plant]
 													}
 												</div>
