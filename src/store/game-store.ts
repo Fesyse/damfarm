@@ -2,8 +2,15 @@ import {
   animalFeedResource,
   animalFeedResourceAmount,
 } from "@/components/farm-game/dialog"
+import { animalPrices, animalProduct } from "@/constants/animals"
 import { SEASONS } from "@/constants/seasons"
-import { GameState, ProductsType, SeedsType, ToolsType } from "@/types/store"
+import {
+  AnimalType,
+  GameState,
+  ProductsType,
+  SeedsType,
+  ToolsType,
+} from "@/types/store"
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
 
@@ -156,23 +163,7 @@ export const useGameStore = create<GameState>()(
           is_paid_news,
         })),
 
-      animals: [
-        {
-          id: 0,
-          type: "cow",
-          name: "Bessie",
-          price: 2000,
-          health: 100,
-          hunger: 50,
-          happiness: 70,
-          isStroked: false,
-          isFed: false,
-          product: "milk",
-          productAmount: 10,
-          feedResource: "wheat",
-          feedResourceAmount: 2,
-        },
-      ],
+      animals: [],
       setAnimals: animals => {
         set(() => ({
           animals,
@@ -182,18 +173,27 @@ export const useGameStore = create<GameState>()(
         set(state => ({ animals: [...state.animals, animal] }))
       },
       strokeAnimal: (id: number) => {
-        let changed = false
+        let error
         set(state => ({
           animals: state.animals.map(animal => {
-            const isNewAnimal = animal.id === id && !animal.isStroked
-            if (isNewAnimal) changed = true
+            const isNewAnimal = animal.id === id
+
+            if (isNewAnimal && animal.happiness >= 100) {
+              error = "Животное уже счастливое!"
+              return animal
+            }
+            if (isNewAnimal && animal.isStroked) {
+              error = "Вы уже погладили это животное сегодня!"
+              return animal
+            }
 
             return isNewAnimal
               ? { ...animal, happiness: animal.happiness + 10, isStroked: true }
               : animal
           }),
         }))
-        return changed
+
+        return error
       },
       feedAnimal: (id: number) => {
         let error
@@ -208,13 +208,17 @@ export const useGameStore = create<GameState>()(
             const resource = animalFeedResource[animal.type]
             const resourceAmount = animalFeedResourceAmount[animal.type]
 
+            if (isNewAnimal && state.resources[resource] < resourceAmount) {
+              error = `Недостаточно ${resourceName[resource]}`
+            }
+            if (isNewAnimal && animal.hunger >= 100) {
+              error = "Животное уже сытое!"
+              return animal
+            }
+
             if (isNewAnimal && state.resources[resource] >= resourceAmount) {
               error = "Вы покормили животное!"
               return { ...animal, hunger: animal.hunger + 10, isFed: true }
-            }
-
-            if (isNewAnimal && state.resources[resource] < resourceAmount) {
-              error = `Недостаточно ${resourceName[resource]}`
             }
 
             return animal
@@ -244,6 +248,35 @@ export const useGameStore = create<GameState>()(
               return animal
             }),
             products: collectedProducts,
+          }
+        })
+
+        return error
+      },
+      buyAnimal: animal => {
+        let error
+        set(state => {
+          const price = animalPrices[animal]
+          if (state.moneys < price) {
+            error = "Недостаточно монет"
+            return {}
+          }
+
+          const newAnimal: AnimalType = {
+            id: state.animals.length,
+            type: animal,
+            health: 100,
+            hunger: 100,
+            happiness: 100,
+            isStroked: false,
+            isFed: false,
+            product: animalProduct[animal],
+            productAmount: 10,
+          }
+
+          return {
+            moneys: state.moneys - price,
+            animals: [...state.animals, newAnimal],
           }
         })
 

@@ -56,7 +56,6 @@ export type ProductsType = {
 export type AnimalType = {
   id: number
   type: "cow" | "chicken" | "sheep" | "pig" | "rabbit" | "horse"
-  name: string
 
   health: number
   hunger: number
@@ -101,9 +100,11 @@ export interface GameState {
   setIsPaidNews: (is_paid_news: boolean) => void
 
   animals: AnimalType[]
-  strokeAnimal: (id: number) => boolean
+  strokeAnimal: (id: number) => string | undefined
   feedAnimal: (id: number) => string | undefined
   setAnimals: (animals: AnimalType[]) => void
   addNewAnimal: (animal: AnimalType) => void
   collectProducts: (id: number) => string | undefined
+
+  buyAnimal: (animal: AnimalType["type"]) => string | undefined
 }
