@@ -27,7 +27,7 @@ export default function Home() {
 			<AnimatePresence mode="wait">
 				{isLoading && (
 					<motion.div
-						key={"loader"}
+						key={"loading"}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}

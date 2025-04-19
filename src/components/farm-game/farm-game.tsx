@@ -41,7 +41,9 @@ import { Canvas } from "@react-three/fiber";
 import {
 	CircleHelp,
 	Coins,
+	Flower,
 	Menu,
+	Snowflake,
 	Sun,
 	User,
 	Volume2,
@@ -357,7 +359,7 @@ export function FarmGame() {
 			{/* UI Toggle Button */}
 			<button
 				className="absolute top-4 right-4 z-50 bg-white/80 p-2 rounded-full shadow-lg"
-				onClick={() => setShowUI(!showUI)}
+				onClick={() => setShowMainMenu(true)}
 			>
 				{showUI ? <X size={24} /> : <Menu size={24} />}
 			</button>
@@ -395,72 +397,137 @@ export function FarmGame() {
 
 			{/* Game UI */}
 			<AnimatePresence>
-				{showUI && (
-					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
-						exit={{ opacity: 0, y: 20 }}
-						className="absolute bottom-0 left-0 right-0 p-4 z-40"
-					>
-						<div className="bg-white/80 backdrop-blur-md rounded-lg shadow-lg p-4 max-w-6xl mx-auto">
-							<div className="flex justify-between items-center mb-4">
-								<div className="flex items-center gap-4">
-									<div className="flex items-center gap-2 bg-white/80 px-3 py-1 rounded-lg">
-										<Sun className="h-5 w-5 text-yellow-500" />
-										<span className="font-medium">
-											{SEASONS[gameStore.seasons]} - День {gameStore.days}
-										</span>
-									</div>
-								</div>
-								<div className="flex items-center gap-4">
-									<Badge
-										variant="outline"
-										className="flex items-center gap-2 px-3 py-1"
-									>
-										<Coins className="h-4 w-4 text-yellow-500" />
-										<span className="text-lg font-bold">
-											{gameStore.moneys}
-										</span>
-									</Badge>
-									<Button
-										variant="outline"
-										size="sm"
-										onClick={() => setShowMainMenu(true)}
-									>
-										Меню
-									</Button>
+				<motion.div
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					className="absolute bottom-0 left-0 right-0 p-4 z-40"
+				>
+					<div className="bg-white/80 backdrop-blur-md rounded-lg shadow-lg p-4  max-w-6xl mx-auto">
+						<div className="flex justify-between items-center mb-4">
+							<div className="flex items-center gap-4">
+								<div className="flex items-center gap-2 text-xl px-3 py-1 rounded-lg">
+									{SEASONS[gameStore.seasons] === "winter" ? (
+										<Snowflake className="h-7 w-7 text-blue-800" />
+									) : SEASONS[gameStore.seasons] === "spring" ? (
+										<Flower className="h-7 w-7 text-yellow-900" />
+									) : (
+										<Sun className="h-7 w-7 text-yellow-400" />
+									)}
+									<span className="font-medium">
+										{SEASONS[gameStore.seasons]} - День {gameStore.days}
+									</span>
 								</div>
 							</div>
-
-							<div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-								{Object.entries(gameStore.resources).map(
-									([plant, count], i) => (
-										<Card key={i} className="bg-white/90">
-											<CardContent className="p-3 text-center flex flex-col items-center justify-center">
-												<div className="text-2xl mb-1">
-													{
-														{
-															Марковка: "🥕",
-															Картошка: "🥔",
-															Пшеница: "🌾",
-															Кукуруза: "🌽",
-															Томаты: "🍅",
-															Клубника: "🍓",
-														}[plant]
-													}
-												</div>
-												<div className="text-lg font-bold">{count}</div>
-												<div className="text-xs text-muted-foreground capitalize">
-													{plant}
-												</div>
-											</CardContent>
-										</Card>
-									)
-								)}
+							<div className="flex items-center gap-4">
+								<Badge
+									variant="outline"
+									className="flex items-center gap-2 px-3 py-1"
+								>
+									<Coins className="h-4 w-4 text-yellow-500" />
+									<span className="text-lg font-bold">{gameStore.moneys}</span>
+								</Badge>
+								<Button
+									variant="outline"
+									size="sm"
+									onClick={() => setShowUI((prev) => !prev)}
+								>
+									Показать продукты
+								</Button>
 							</div>
 						</div>
-					</motion.div>
-				)}
+						{showUI && (
+							<motion.div
+								initial={{ opacity: 0, y: 20 }}
+								animate={{ opacity: 1, y: 0 }}
+								exit={{ opacity: 0, y: 20 }}
+								className="space-y-6"
+							>
+								{/*  РАСТЕНИЯ */}
+								<div>
+									<h2 className="text-xl font-semibold mb-2">🌱 Растения</h2>
+									<div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+										{Object.entries(gameStore.resources).map(
+											([plant, count], i) => (
+												<Card key={i} className="bg-white/90">
+													<CardContent className="p-3 text-center flex flex-col items-center justify-center">
+														<div className="text-2xl mb-1">
+															{
+																{
+																	carrot: "🥕",
+																	potato: "🥔",
+																	wheat: "🌾",
+																	corn: "🌽",
+																	tomato: "🍅",
+																	strawberry: "🍓",
+																}[plant]
+															}
+														</div>
+														<div className="text-lg font-bold">{count}</div>
+														<div className="text-xs text-muted-foreground capitalize">
+															{plant}
+														</div>
+													</CardContent>
+												</Card>
+											)
+										)}
+									</div>
+								</div>
+
+								{/*  РЫБА */}
+								<div>
+									<h2 className="text-xl font-semibold mb-2">🐟 Рыба</h2>
+									<div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+										{Object.entries(gameStore.fishes).map(
+											([fish, count], i) => {
+												return (
+													<Card key={i} className={`bg-white/90 border-2 `}>
+														<CardContent className="p-3 text-center flex flex-col items-center justify-center">
+															<div className="text-2xl mb-1">{"🐟"}</div>
+															<div className="text-lg font-bold">{count}</div>
+															<div className="text-xs text-muted-foreground capitalize">
+																{fish}
+															</div>
+														</CardContent>
+													</Card>
+												);
+											}
+										)}
+									</div>
+								</div>
+
+								{/*  ПРОДУКТЫ АМБАРА */}
+								<div>
+									<h2 className="text-xl font-semibold mb-2">🌱 Продукты</h2>
+									<div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+										{Object.entries(gameStore.products).map(
+											([product, count], i) => {
+												return (
+													<Card key={i} className={`bg-white/90 border-2 `}>
+														<CardContent className="p-3 text-center flex flex-col items-center justify-center">
+															<div className="text-2xl mb-1">
+																{
+																	{
+																		eggs: "🥚",
+																		milk: "🥛",
+																		wool: "🧶",
+																	}[product]
+																}
+															</div>
+															<div className="text-lg font-bold">{count}</div>
+															<div className="text-xs text-muted-foreground capitalize">
+																{product}
+															</div>
+														</CardContent>
+													</Card>
+												);
+											}
+										)}
+									</div>
+								</div>
+							</motion.div>
+						)}
+					</div>
+				</motion.div>
 			</AnimatePresence>
 
 			{/* Main Menu */}
