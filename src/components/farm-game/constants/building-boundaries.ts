@@ -13,13 +13,18 @@ export const BUILDING_BOUNDARIES: BuildingBoundary[] = [
       radius: 1.5, // Area around door where collision is disabled
     },
   },
-  // Kiosk (rotated by -Math.PI/6)
+  // Kiosk (rotation calculated to face center)
   {
-    ...calculateRotatedBoundaries([10, 0, 10], 3.6, 5, -Math.PI / 6),
+    ...calculateRotatedBoundaries(
+      [5, 0, 15],
+      3.6,
+      5,
+      Math.atan2(-5, -15) // rotation to face center
+    ),
     type: "kiosk",
     doorPosition: {
-      x: 10, // Front of kiosk is open
-      z: 12, // Front of kiosk is open
+      x: 5, // Front of kiosk is open
+      z: 17, // Front of kiosk is open
       radius: 2, // Wider area for counter interaction
     },
   },
@@ -35,11 +40,16 @@ export const BUILDING_BOUNDARIES: BuildingBoundary[] = [
   },
   // Stock Exchange (rotated by Math.PI/4)
   {
-    ...calculateRotatedBoundaries([15, 0, -15], 6, 6, Math.PI / 4),
+    ...calculateRotatedBoundaries(
+      [15, 0, -8],
+      6,
+      6,
+      Math.atan2(-15, 8) // updated rotation to face center based on new position
+    ),
     type: "stocks",
     doorPosition: {
       x: 13.7, // Door position adjusted for rotation
-      z: -16.7, // Door position adjusted for rotation
+      z: -6, // Updated door position
       radius: 1.2, // Area around door where collision is disabled
     },
   },
@@ -64,6 +74,21 @@ export const BUILDING_BOUNDARIES: BuildingBoundary[] = [
       x: -15.5, // Center position for interaction
       z: 17.6, // Edge of pond where dock is
       radius: 2, // Area for interaction
+    },
+  },
+  // Barn (rotation calculated to face center)
+  {
+    ...calculateRotatedBoundaries(
+      [15, 0, 8],
+      8,
+      10,
+      Math.atan2(-15, -8) // updated rotation to face center based on new position
+    ),
+    type: "barn",
+    doorPosition: {
+      x: 15, // Updated door position
+      z: 12, // Updated door position
+      radius: 1.5, // Area around door where collision is disabled
     },
   },
 ]
