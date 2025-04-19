@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   DialogHeader,
   DialogTitle,
@@ -22,31 +21,114 @@ import {
 } from "lucide-react";
 import { getPricesForPlants } from "@/data/json-data";
 import { useGameStore } from "@/store/game-store";
+import { useToast } from "@/components/ui/use-toast";
+import { SeedsType } from "@/types/store";
+
+interface ShopItem {
+	name: string;
+	icon: string;
+	price: number;
+	stock: number;
+	type: "seed" | "tool";
+	id: keyof SeedsType | "wateringCan" | "shovel";
+}
 
 export function KioskDialog() {
-  const gameStore = useGameStore((state) => state);
+ const gameStore = useGameStore((state) => state);
+ const { toast } = useToast();
+	const moneys = gameStore.moneys;
+	const setMoney = gameStore.setMoney;
+	const seeds = gameStore.seeds;
+	const setSeeds = gameStore.setSeeds;
+	const tools = gameStore.tools
+	const setTool = gameStore.setTool
 
-  // Buy items categorized
-  const toolItems = [
-    { name: "Лейка", icon: "💧", price: 50, stock: 3 },
-    { name: "Лопата", icon: "🧹", price: 40, stock: 4 },
-    { name: "Грабли", icon: "🔨", price: 35, stock: 6 },
-    { name: "Секатор", icon: "✂️", price: 25, stock: 8 },
-  ];
+	const items: ShopItem[] = [
+		{
+			name: "Семена моркови",
+			icon: "🥕",
+			price: 10,
+			stock: 15,
+			type: "seed",
+			id: "carrotsSeed",
+		},
+		{
+			name: "Семена картофеля",
+			icon: "🥔",
+			price: 15,
+			stock: 10,
+			type: "seed",
+			id: "potatoesSeed",
+		},
+		{
+			name: "Семена пшеницы",
+			icon: "🌾",
+			price: 5,
+			stock: 20,
+			type: "seed",
+			id: "wheatSeed",
+		},
+		{
+			name: "Семена кукурузы",
+			icon: "🌽",
+			price: 20,
+			stock: 8,
+			type: "seed",
+			id: "cornSeed",
+		},
+		{
+			name: "Лейка",
+			icon: "💧",
+			price: 50,
+			stock: 3,
+			type: "tool",
+			id: "wateringCan",
+		},
+		{
+			name: "Лопата",
+			icon: "🧹",
+			price: 40,
+			stock: 4,
+			type: "tool",
+			id: "shovel",
+		},
+	];
+	const handleBuy = (item: ShopItem) => {
+		if (moneys < item.price) {
+			toast({
+				title: "Недостаточно монет",
+				description: `Для покупки ${item.name} нужно ${item.price} монет`,
+			});
+			return;
+		}
 
-  const seedItems = [
-    { name: "Семена моркови", icon: "🥕", price: 10, stock: 15 },
-    { name: "Семена картофеля", icon: "🥔", price: 15, stock: 10 },
-    { name: "Семена пшеницы", icon: "🌾", price: 5, stock: 20 },
-    { name: "Семена кукурузы", icon: "🌽", price: 20, stock: 8 },
-  ];
+		if (item.type === "tool" && tools[item.id as keyof typeof tools]) {
+			toast({
+				title: "У вас уже есть этот инструмент",
+				description: `${item.name} уже куплен`,
+			});
+			return;
+		}
 
-  const otherItems = [
-    { name: "Удобрение", icon: "💩", price: 30, stock: 5 },
-    { name: "Горшок", icon: "🪴", price: 15, stock: 12 },
-    { name: "Перчатки", icon: "🧤", price: 8, stock: 10 },
-    { name: "Пугало", icon: "🧟", price: 60, stock: 2 },
-  ];
+		setMoney(-item.price);
+
+		if (item.type === "seed") {
+			setSeeds({
+				...seeds,
+				[item.id]: (seeds[item.id as keyof typeof seeds] || 0) + 1,
+			});
+			toast({
+				title: "Покупка успешна",
+				description: `Вы купили ${item.name}`,
+			});
+		} else if (item.type === "tool") {
+			setTool(item.id as keyof typeof tools, true);
+			toast({
+				title: "Покупка успешна",
+				description: `Вы купили ${item.name}`,
+			});
+		}
+	};
 
   // Sell items categorized
   const productInventory = [
@@ -70,12 +152,6 @@ export function KioskDialog() {
     { name: "Сом", icon: "🦈", quantity: 1, sellPrice: 60 },
   ];
 
-  const handleBuy = (item) => {
-    if (gameStore.moneys >= item.price && item.stock > 0) {
-      // setBalance(balance - item.price);
-      // Here you would update the inventory and shop stock
-    }
-  };
 
   const handleSell = (item) => {
     if (item.quantity > 0) {
@@ -118,48 +194,55 @@ export function KioskDialog() {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="buy">
-          <Tabs defaultValue="tools" className="w-full">
-            <TabsList className="w-full mb-4 bg-muted/30">
-              <TabsTrigger value="tools" className="flex items-center gap-1">
-                <Shovel className="h-3.5 w-3.5" />
-                Инструменты
-              </TabsTrigger>
-              <TabsTrigger value="seeds" className="flex items-center gap-1">
-                <Seedling className="h-3.5 w-3.5" />
-                Семена
-              </TabsTrigger>
-              <TabsTrigger value="other" className="flex items-center gap-1">
-                <Package className="h-3.5 w-3.5" />
-                Остальное
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="tools" className="space-y-4">
-              <ItemTable
-                items={toolItems}
-                onAction={handleBuy}
-                actionLabel="Купить"
-              />
-            </TabsContent>
-
-            <TabsContent value="seeds" className="space-y-4">
-              <ItemTable
-                items={seedItems}
-                onAction={handleBuy}
-                actionLabel="Купить"
-              />
-            </TabsContent>
-
-            <TabsContent value="other" className="space-y-4">
-              <ItemTable
-                items={otherItems}
-                onAction={handleBuy}
-                actionLabel="Купить"
-              />
-            </TabsContent>
-          </Tabs>
-        </TabsContent>
+				<div className="border rounded-md">
+					<table className="w-full">
+						<thead>
+							<tr className="border-b">
+								<th className="text-left p-2">Товар</th>
+								<th className="text-right p-2">Цена</th>
+								<th className="text-right p-2">В наличии</th>
+								<th className="text-right p-2">Действия</th>
+							</tr>
+						</thead>
+						<tbody>
+							{items.map((item, i) => (
+								<tr key={i} className="border-b">
+									<td className="p-2">
+										<div className="flex items-center gap-2">
+											<span className="text-xl">{item.icon}</span>
+											<span>{item.name}</span>
+										</div>
+									</td>
+									<td className="text-right p-2">{item.price}</td>
+									<td className="text-right p-2">
+										{item.type === "seed"
+											? seeds[item.id as keyof typeof seeds]
+											: tools[item.id as keyof typeof tools]
+											? "Куплено"
+											: item.stock}
+									</td>
+									<td className="text-right p-2">
+										<Button
+											size="sm"
+											variant="outline"
+											onClick={() => handleBuy(item)}
+											disabled={
+												moneys < item.price ||
+												(item.type === "tool" &&
+													tools[item.id as keyof typeof tools])
+											}
+										>
+											{item.type === "tool" &&
+											tools[item.id as keyof typeof tools]
+												? "Куплено"
+												: "Купить"}
+										</Button>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
 
         <TabsContent value="sell">
           <Tabs defaultValue="products" className="w-full">
@@ -261,7 +344,7 @@ function ItemTable({ items, onAction, actionLabel }) {
 function InventoryGrid({ items, onAction, name }) {
   const gameStore = useGameStore((state) => state);
   if(name === "products"){
-    
+
   }
 
   if (items.length === 0) {
@@ -306,4 +389,41 @@ function InventoryGrid({ items, onAction, name }) {
       ))}
     </div>
   );
-}
+// import { Badge } from "@/components/ui/badge";
+// import { Button } from "@/components/ui/button";
+// import {
+// 	DialogDescription,
+// 	DialogHeader,
+// 	DialogTitle,
+// } from "@/components/ui/dialog";
+// import { Coins } from "lucide-react";
+
+// export function KioskDialog() {
+
+
+
+// 	return (
+// 		<>
+// 			<DialogHeader>
+// 				<DialogTitle>Киоск</DialogTitle>
+// 				<DialogDescription>
+// 					Покупайте семена и инструменты для вашей фермы
+// 				</DialogDescription>
+// 			</DialogHeader>
+// 			<div className="grid grid-cols-1 gap-4">
+// 				<div className="flex justify-between items-center">
+// 					<div className="font-medium">Ваш баланс:</div>
+// 					<Badge
+// 						variant="outline"
+// 						className="flex items-center gap-2 px-3 py-1"
+// 					>
+// 						<Coins className="h-4 w-4 text-yellow-500" />
+// 						<span className="text-lg font-bold">{moneys}</span>
+// 					</Badge>
+// 				</div>
+
+
+// 			</div>
+// 		</>
+// 	);
+// }
