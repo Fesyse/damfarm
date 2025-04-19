@@ -6,7 +6,9 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
+import { SEASONS } from "@/constants/seasons";
 import { useGameStore } from "@/store/game-store";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 interface Plant {
@@ -16,6 +18,7 @@ interface Plant {
 	growthTime: number; // in seconds
 	basePrice: number;
 	yield: number;
+	seedType: string; // Added to match with game store seeds
 }
 
 interface Plot {
@@ -24,7 +27,19 @@ interface Plot {
 	stage: number;
 	watered: boolean;
 	plantedAt: number | null;
+	lastWateredAt: number | null; // Added to track watering boost
 }
+
+// Season-based growth modifiers
+const SEASON_MODIFIERS = {
+	spring: 1.2, // 20% faster in spring
+	summer: 1.5, // 50% faster in summer
+	autumn: 0.8, // 20% slower in autumn
+	winter: 0.5, // 50% slower in winter
+};
+
+const WATERING_BOOST = 1.3; // 30% growth boost when watered
+const WATERING_DURATION = 30; // Watering effect lasts for 30 seconds
 
 const PLANTS: Plant[] = [
 	{
@@ -34,6 +49,7 @@ const PLANTS: Plant[] = [
 		growthTime: 60,
 		basePrice: 10,
 		yield: 2,
+		seedType: "carrotsSeed",
 	},
 	{
 		id: "potato",
@@ -42,6 +58,7 @@ const PLANTS: Plant[] = [
 		growthTime: 90,
 		basePrice: 15,
 		yield: 2,
+		seedType: "potatoesSeed",
 	},
 	{
 		id: "wheat",
@@ -50,6 +67,7 @@ const PLANTS: Plant[] = [
 		growthTime: 45,
 		basePrice: 8,
 		yield: 2,
+		seedType: "wheatSeed",
 	},
 	{
 		id: "corn",
@@ -58,6 +76,7 @@ const PLANTS: Plant[] = [
 		growthTime: 120,
 		basePrice: 20,
 		yield: 2,
+		seedType: "cornSeed",
 	},
 ];
 
@@ -67,13 +86,42 @@ export function GreenhouseDialog({}) {
 	const { toast } = useToast();
 	const [selectedPlant, setSelectedPlant] = useState<string>("carrot");
 	const [plots, setPlots] = useState<Plot[]>([
-		{ id: 1, plant: null, stage: 0, watered: false, plantedAt: null },
-		{ id: 2, plant: null, stage: 0, watered: false, plantedAt: null },
-		{ id: 3, plant: null, stage: 0, watered: false, plantedAt: null },
+		{
+			id: 1,
+			plant: null,
+			stage: 0,
+			watered: false,
+			plantedAt: null,
+			lastWateredAt: null,
+		},
+		{
+			id: 2,
+			plant: null,
+			stage: 0,
+			watered: false,
+			plantedAt: null,
+			lastWateredAt: null,
+		},
+		{
+			id: 3,
+			plant: null,
+			stage: 0,
+			watered: false,
+			plantedAt: null,
+			lastWateredAt: null,
+		},
 	]);
+	const [harvestAnimation, setHarvestAnimation] = useState<{
+		emoji: string;
+		id: number;
+	} | null>(null);
 
 	const moneys = useGameStore((state) => state.moneys);
 	const setMoney = useGameStore((state) => state.setMoney);
+	const seeds = useGameStore((state) => state.seeds);
+	const setSeeds = useGameStore((state) => state.setSeeds);
+	const season = useGameStore((state) => state.seasons);
+	const hasWateringCan = useGameStore((state) => state.tools.wateringCan);
 
 	// Update plant growth every second
 	useEffect(() => {
@@ -87,29 +135,48 @@ export function GreenhouseDialog({}) {
 
 					const now = Date.now();
 					const elapsed = (now - plot.plantedAt) / 1000;
+
+					// Calculate growth modifiers
+					const seasonModifier =
+						SEASON_MODIFIERS[SEASONS[season] as keyof typeof SEASON_MODIFIERS];
+					const wateringModifier =
+						plot.watered &&
+						plot.lastWateredAt &&
+						(now - plot.lastWateredAt) / 1000 < WATERING_DURATION
+							? WATERING_BOOST
+							: 1;
+
+					const effectiveGrowthTime =
+						plant.growthTime / (seasonModifier * wateringModifier);
 					const newStage = Math.min(
-						Math.floor((elapsed / plant.growthTime) * 3),
+						Math.floor((elapsed / effectiveGrowthTime) * 3),
 						3
 					);
 
 					return {
 						...plot,
 						stage: newStage,
-						watered: false, // Reset watered status every tick
+						watered: !!(
+							plot.lastWateredAt &&
+							(now - plot.lastWateredAt) / 1000 < WATERING_DURATION
+						),
 					};
 				})
 			);
 		}, 1000);
 
 		return () => clearInterval(interval);
-	}, []);
+	}, [season]);
 
 	const handlePlant = (plotId: number) => {
-		const plantPrice = PLANTS.find((p) => p.id === selectedPlant)!.basePrice;
-		if (moneys < plantPrice) {
+		const plant = PLANTS.find((p) => p.id === selectedPlant);
+		if (!plant) return;
+
+		const seedCount = seeds[plant.seedType as keyof typeof seeds];
+		if (seedCount <= 0) {
 			toast({
-				title: "Недостаточно монет",
-				description: "У вас недостаточно монет для посадки этого растения",
+				title: "Нет семян",
+				description: `У вас нет семян ${plant.name}`,
 			});
 			return;
 		}
@@ -123,17 +190,33 @@ export function GreenhouseDialog({}) {
 							stage: 0,
 							watered: false,
 							plantedAt: Date.now(),
+							lastWateredAt: null,
 					  }
 					: plot
 			)
 		);
-		setMoney(-plantPrice);
+
+		// Deduct one seed
+		setSeeds({
+			...seeds,
+			[plant.seedType]: seedCount - 1,
+		});
 	};
 
 	const handleWater = (plotId: number) => {
+		if (!hasWateringCan) {
+			toast({
+				title: "Нужна лейка",
+				description: "Купите лейку в киоске",
+			});
+			return;
+		}
+
 		setPlots((currentPlots) =>
 			currentPlots.map((plot) =>
-				plot.id === plotId ? { ...plot, watered: true } : plot
+				plot.id === plotId
+					? { ...plot, watered: true, lastWateredAt: Date.now() }
+					: plot
 			)
 		);
 	};
@@ -148,13 +231,30 @@ export function GreenhouseDialog({}) {
 		const harvestedAmount = plant.yield;
 		setMoney(harvestedAmount * plant.basePrice);
 
-		setPlots((currentPlots) =>
-			currentPlots.map((p) =>
-				p.id === plotId
-					? { ...p, plant: null, stage: 0, watered: false, plantedAt: null }
-					: p
-			)
-		);
+		// Trigger harvest animation
+		setHarvestAnimation({
+			emoji: plant.emoji,
+			id: plotId,
+		});
+
+		// Reset plot after animation
+		setTimeout(() => {
+			setHarvestAnimation(null);
+			setPlots((currentPlots) =>
+				currentPlots.map((p) =>
+					p.id === plotId
+						? {
+								...p,
+								plant: null,
+								stage: 0,
+								watered: false,
+								plantedAt: null,
+								lastWateredAt: null,
+						  }
+						: p
+				)
+			);
+		}, 1000);
 
 		toast({
 			title: "Урожай собран!",
@@ -182,6 +282,7 @@ export function GreenhouseDialog({}) {
 				stage: 0,
 				watered: false,
 				plantedAt: null,
+				lastWateredAt: null,
 			},
 		]);
 
@@ -224,7 +325,7 @@ export function GreenhouseDialog({}) {
 							<div className="flex flex-col items-start">
 								<span className="text-sm">{plant.name}</span>
 								<span className="text-xs opacity-75">
-									{plant.basePrice} монет
+									{seeds[plant.seedType as keyof typeof seeds]} семян
 								</span>
 							</div>
 						</button>
@@ -320,6 +421,21 @@ export function GreenhouseDialog({}) {
 									</button>
 								</div>
 							)}
+
+							<AnimatePresence>
+								{harvestAnimation && harvestAnimation.id === plot.id && (
+									<motion.div
+										initial={{ scale: 1, y: 0, opacity: 1 }}
+										animate={{ scale: 1.5, y: 100, opacity: 0 }}
+										exit={{ scale: 0, opacity: 0 }}
+										transition={{ duration: 1 }}
+										className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl pointer-events-none z-50"
+									>
+										{harvestAnimation.emoji}
+										<span className="text-2xl ml-1">×2</span>
+									</motion.div>
+								)}
+							</AnimatePresence>
 						</div>
 					))}
 				</div>
