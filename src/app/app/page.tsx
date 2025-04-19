@@ -39,7 +39,7 @@ export default function Home() {
       <Suspense fallback={null}>
         <motion.div
           key={"farm-game"}
-          className='h-screen overflow-hidden'
+          className='h-[100svh] overflow-hidden'
           initial={{ visibility: "hidden" }}
           animate={{ visibility: isLoading ? "hidden" : "visible" }}
         >
