@@ -1,18 +1,18 @@
 import {
   animalFeedResource,
   animalFeedResourceAmount,
-} from "@/components/farm-game/dialog";
-import { animalPrices, animalProduct } from "@/constants/animals";
-import { SEASONS } from "@/constants/seasons";
+} from "@/components/farm-game/dialog"
+import { animalPrices, animalProduct } from "@/constants/animals"
+import { SEASONS } from "@/constants/seasons"
 import {
   AnimalType,
   GameState,
   ProductsType,
   SeedsType,
   ToolsType,
-} from "@/types/store";
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+} from "@/types/store"
+import { create } from "zustand"
+import { createJSONStorage, persist } from "zustand/middleware"
 
 const resourceName = {
   wheat: "пшеницы",
@@ -21,41 +21,73 @@ const resourceName = {
   corn: "кукурузы",
   tomato: "помидоров",
   strawberry: "клубнике",
-};
+}
 
 export const useGameStore = create<GameState>()(
   persist(
     (set, get) => ({
       days: 1,
       setNextDay: () => {
-        set((state) => ({
-          seasons:
-            (state.days + 1) % 7 == 0 ? state.setSeason() : state.seasons,
-          days: 30,
-        }));
+        set(state => {
+          const newAnimals = state.animals.map(animal => {
+            const newAnimal: AnimalType = {
+              ...animal,
+              isStroked: false,
+              isFed: false,
+            }
+            newAnimal.happiness -= Math.floor(Math.random() * 15 + 10)
+            newAnimal.hunger -= Math.floor(Math.random() * 15 + 10)
+            newAnimal.health -= Math.floor(Math.random() * 15 + 10)
+
+            newAnimal.happiness = Math.max(
+              0,
+              Math.min(newAnimal.happiness, 100)
+            )
+            newAnimal.hunger = Math.max(0, Math.min(newAnimal.hunger, 100))
+            newAnimal.health = Math.max(0, Math.min(newAnimal.health, 100))
+
+            if (
+              newAnimal.happiness > 50 &&
+              newAnimal.hunger < 50 &&
+              newAnimal.health > 50
+            ) {
+              newAnimal.productAmount += Math.floor(Math.random() * 5)
+            }
+
+            newAnimal.productAmount =
+              animal.productAmount + newAnimal.productAmount
+
+            return newAnimal
+          })
+
+          return {
+            animals: newAnimals,
+            seasons:
+              (state.days + 1) % 7 == 0 ? state.setSeason() : state.seasons,
+            days: state.days + 1,
+          }
+        })
       },
 
       moneys: 2500,
-      setMoney: (moneys) =>
-        set((state) => ({
+      setMoney: moneys =>
+        set(state => ({
           moneys: state.moneys + moneys,
         })),
 
-      // tools
       tools: {
         wateringCan: false,
         shovel: false,
       },
       setTool: (name: keyof ToolsType, value: boolean) => {
-        set((state) => ({
+        set(state => ({
           tools: {
             ...state.tools,
             [name]: value,
           },
-        }));
+        }))
       },
 
-      // resources
       resources: {
         carrot: 10,
         potato: 0,
@@ -65,15 +97,14 @@ export const useGameStore = create<GameState>()(
         strawberry: 0,
       },
       setResource: (name, value) => {
-        set((state) => ({
+        set(state => ({
           resources: {
             ...state.resources,
             [name]: state.resources[name] + value,
           },
-        }));
+        }))
       },
 
-      // seeds
       seeds: {
         carrotsSeed: {
           inInventory: 0,
@@ -103,7 +134,7 @@ export const useGameStore = create<GameState>()(
       setSeeds: (seeds: SeedsType) => {
         set(() => ({
           seeds,
-        }));
+        }))
       },
 
       fishes: {
@@ -119,12 +150,12 @@ export const useGameStore = create<GameState>()(
       },
 
       setFishes: (name, value) => {
-        set((state) => ({
+        set(state => ({
           fishes: {
             ...state.fishes,
             [name]: state.fishes[name] + value,
           },
-        }));
+        }))
       },
       products: {
         eggs: 0,
@@ -137,7 +168,7 @@ export const useGameStore = create<GameState>()(
           products: { ...state.products, [name]: state.products[name] + value },
         }));
       },
-      // stocks
+
       stocks: {
         TechNova: 0,
         OilCorp: 0,
@@ -146,122 +177,122 @@ export const useGameStore = create<GameState>()(
         MediPlus: 0,
       },
       setStocks: (name, value) => {
-        set((state) => ({
+        set(state => ({
           stocks: {
             ...state.stocks,
             [name]: state.stocks[name] + value,
           },
-        }));
+        }))
       },
 
       seasons: 0,
       setSeason: () => {
-        return SEASONS.length - 1 === get().seasons ? 0 : get().seasons + 1;
+        return SEASONS.length - 1 === get().seasons ? 0 : get().seasons + 1
       },
 
       is_paid_news: false,
-      setIsPaidNews: (is_paid_news) =>
+      setIsPaidNews: is_paid_news =>
         set(() => ({
           is_paid_news,
         })),
 
       animals: [],
-      setAnimals: (animals) => {
+      setAnimals: animals => {
         set(() => ({
           animals,
-        }));
+        }))
       },
-      addNewAnimal: (animal) => {
-        set((state) => ({ animals: [...state.animals, animal] }));
+      addNewAnimal: animal => {
+        set(state => ({ animals: [...state.animals, animal] }))
       },
       strokeAnimal: (id: number) => {
-        let error;
-        set((state) => ({
-          animals: state.animals.map((animal) => {
-            const isNewAnimal = animal.id === id;
+        let error
+        set(state => ({
+          animals: state.animals.map(animal => {
+            const isNewAnimal = animal.id === id
 
             if (isNewAnimal && animal.happiness >= 100) {
-              error = "Животное уже счастливое!";
-              return animal;
+              error = "Животное уже счастливое!"
+              return animal
             }
             if (isNewAnimal && animal.isStroked) {
-              error = "Вы уже погладили это животное сегодня!";
-              return animal;
+              error = "Вы уже погладили это животное сегодня!"
+              return animal
             }
 
             return isNewAnimal
               ? { ...animal, happiness: animal.happiness + 10, isStroked: true }
-              : animal;
+              : animal
           }),
-        }));
+        }))
 
-        return error;
+        return error
       },
       feedAnimal: (id: number) => {
-        let error;
-        set((state) => ({
-          animals: state.animals.map((animal) => {
-            const isNewAnimal = animal.id === id;
+        let error
+        set(state => ({
+          animals: state.animals.map(animal => {
+            const isNewAnimal = animal.id === id
             if (isNewAnimal && animal.isFed) {
-              error = "Вы уже кормили это животное сегодня!";
-              return animal;
+              error = "Вы уже кормили это животное сегодня!"
+              return animal
             }
 
-            const resource = animalFeedResource[animal.type];
-            const resourceAmount = animalFeedResourceAmount[animal.type];
+            const resource = animalFeedResource[animal.type]
+            const resourceAmount = animalFeedResourceAmount[animal.type]
 
             if (isNewAnimal && state.resources[resource] < resourceAmount) {
-              error = `Недостаточно ${resourceName[resource]}`;
+              error = `Недостаточно ${resourceName[resource]}`
             }
             if (isNewAnimal && animal.hunger >= 100) {
-              error = "Животное уже сытое!";
-              return animal;
+              error = "Животное уже сытое!"
+              return animal
             }
 
             if (isNewAnimal && state.resources[resource] >= resourceAmount) {
-              error = "Вы покормили животное!";
-              return { ...animal, hunger: animal.hunger + 10, isFed: true };
+              error = "Вы покормили животное!"
+              return { ...animal, hunger: animal.hunger + 10, isFed: true }
             }
 
-            return animal;
+            return animal
           }),
-        }));
+        }))
 
-        return error;
+        return error
       },
       collectProducts: (id: number) => {
-        let error;
-        set((state) => {
+        let error
+        set(state => {
           const collectedProducts: {
-            milk: number;
-            eggs: number;
-            wool: number;
-            meat: number;
-          } = state.products;
+            milk: number
+            eggs: number
+            wool: number
+            meat: number
+          } = state.products
 
           return {
-            animals: state.animals.map((animal) => {
-              const isNewAnimal = animal.id === id;
+            animals: state.animals.map(animal => {
+              const isNewAnimal = animal.id === id
               if (isNewAnimal && animal.productAmount > 0) {
-                collectedProducts[animal.product] += animal.productAmount;
-                return { ...animal, productAmount: 0 };
+                collectedProducts[animal.product] += animal.productAmount
+                return { ...animal, productAmount: 0 }
               }
 
-              return animal;
+              return animal
             }),
             products: collectedProducts,
-          };
-        });
+          }
+        })
 
-        return error;
+        return error
       },
-      buyAnimal: (animal) => {
-        let error;
-        set((state) => {
-          const price = animalPrices[animal];
+      buyAnimal: animal => {
+        let error
+        set(state => {
+          const price = animalPrices[animal]
           if (state.moneys < price) {
-            error = "Недостаточно монет";
-            return {};
+            error = "Недостаточно монет"
+            return {}
           }
 
           const newAnimal: AnimalType = {
@@ -274,15 +305,15 @@ export const useGameStore = create<GameState>()(
             isFed: false,
             product: animalProduct[animal],
             productAmount: 10,
-          };
+          }
 
           return {
             moneys: state.moneys - price,
             animals: [...state.animals, newAnimal],
-          };
-        });
+          }
+        })
 
-        return error;
+        return error
       },
     }),
     {
@@ -290,4 +321,4 @@ export const useGameStore = create<GameState>()(
       storage: createJSONStorage(() => localStorage),
     }
   )
-);
+)

@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useToast } from "@/components/ui/use-toast"
 import {
@@ -128,7 +129,6 @@ export function KioskDialog() {
   }
 
   const handleSell = (item: { name: string; key: string; price: number }) => {
-    // setBalance(balance + item.sellPrice);
     // Here you would update the inventory
   }
 
@@ -153,8 +153,7 @@ export function KioskDialog() {
           {gameStore.moneys}
         </Badge>
       </div>
-
-      <Tabs defaultValue='buy' className='w-full'>
+      <Tabs defaultValue='buy' className='w-full mb-4'>
         <TabsList className='grid grid-cols-2 mb-4'>
           <TabsTrigger value='buy' className='flex items-center gap-2'>
             <ShoppingCart className='h-4 w-4' />
@@ -166,8 +165,8 @@ export function KioskDialog() {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value='buy'>
-          <div className='border rounded-md'>
+        <TabsContent value='buy' className='flex justify-center'>
+          <ScrollArea className='border rounded-md overflow-hidden max-md:w-[300px]'>
             <table className='w-full'>
               <thead>
                 <tr className='border-b'>
@@ -221,7 +220,8 @@ export function KioskDialog() {
                 ))}
               </tbody>
             </table>
-          </div>
+            <ScrollBar orientation='horizontal' />
+          </ScrollArea>
         </TabsContent>
         <TabsContent value='sell'>
           <Tabs defaultValue='products' className='w-full'>

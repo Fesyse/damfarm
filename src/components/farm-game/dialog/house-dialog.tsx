@@ -27,12 +27,9 @@ export function HouseDialog({
       router.push("/future");
     }
     // Call the onSleep handler if it exists, otherwise just advance the day
-    if (onSleep) {
-      onSleep();
-    } else {
-      gameStore.setNextDay();
-    }
-  };
+    if (onSleep) onSleep()
+    else gameStore.setNextDay()
+  }
 
   return (
     <>
@@ -52,7 +49,7 @@ export function HouseDialog({
                 onClick={handleSleep}
                 disabled={isTransitioning}
               >
-                {isTransitioning ? "Сон..." : "Поспать (пропустить день)"}
+                {isTransitioning ? "Сон..." : "Поспать"} 🌗
               </Button>
             </DialogClose>
           </CardContent>

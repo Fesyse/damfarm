@@ -14,12 +14,13 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useGameStore } from "@/store/game-store";
-import { getStocks, getStocksHistory } from "@/data/json-data";
-import { StocksType } from "@/types/store";
+} from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useGameStore } from "@/store/game-store"
+import { getStocks, getStocksHistory } from "@/data/json-data"
+import { StocksType } from "@/types/store"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
 // Generate random price history for demo
 const generatePriceHistory = (
@@ -192,7 +193,7 @@ export function StocksDialog() {
                 <ChevronDown className='h-4 w-4 opacity-50' />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className='w-[300px]'>
+            <DropdownMenuContent>
               {stocks.map((stock, id) => (
                 <DropdownMenuItem
                   key={stock.name}
@@ -232,21 +233,26 @@ export function StocksDialog() {
         </div>
 
         {/* Price Chart */}
-        <div className='rounded-lg border p-4'>
-          <div className='mb-2 flex items-center justify-between'>
-            <h3 className='font-medium'>График цены</h3>
-            <div className='flex items-center gap-1'>
-              <LineChart className='h-4 w-4' />
-              <span className='text-sm text-gray-500'>30 дней</span>
+        <ScrollArea className='min-w-[300px] overflow-hidden'>
+          <div className='rounded-lg border p-4'>
+            <div className='mb-2 flex items-center justify-between'>
+              <h3 className='font-medium'>График цены</h3>
+              <div className='flex items-center gap-1'>
+                <LineChart className='h-4 w-4' />
+                <span className='text-sm text-gray-500'>30 дней</span>
+              </div>
             </div>
+            <ScrollArea className='w-[550px] overflow-hidden'>
+              <canvas
+                ref={chartRef}
+                width={550}
+                height={200}
+                className='w-full'
+              ></canvas>
+            </ScrollArea>
           </div>
-          <canvas
-            ref={chartRef}
-            width={550}
-            height={200}
-            className='w-full'
-          ></canvas>
-        </div>
+          <ScrollBar orientation='horizontal' />
+        </ScrollArea>
 
         {/* Buy Controls */}
         <div className='grid gap-4'>

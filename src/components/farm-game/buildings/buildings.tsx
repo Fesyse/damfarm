@@ -37,7 +37,14 @@ const MemoizedBillboard = memo(
 );
 MemoizedBillboard.displayName = "MemoizedBillboard";
 
-const MemoizedGreenhouse = memo(() => <Greenhouse />);
+const MemoizedGreenhouse = memo(() => {
+  return (
+    <>
+      <Greenhouse position={[3, 0, -5]} rotation={[0, Math.PI / 7, 0]} />
+      <Greenhouse position={[-5, 0, -1.15]} rotation={[0, Math.PI / 7, 0]} />
+    </>
+  );
+});
 MemoizedGreenhouse.displayName = "MemoizedGreenhouse";
 
 const MemoizedKiosk = memo(() => <Kiosk />);
@@ -193,7 +200,7 @@ export function Buildings({
     { x: -25, z: -5, scale: 0.75 },
     { x: 12, z: -25, scale: 0.7 },
 
-    { x: 25, z: 5, scale: 0.8 },
+    { x: 28, z: 5, scale: 0.8 },
     { x: -30, z: 15, scale: 0.75 },
     { x: 30, z: -5, scale: 0.85 },
     { x: 15, z: -20, scale: 0.7 },
@@ -236,14 +243,13 @@ export function Buildings({
         rotation-y={rotations.greenhouse}
       >
         <MemoizedGreenhouse />
-        <MemoizedBillboard position={[0, 10, 0]} text="Теплица" />
+        <MemoizedBillboard position={[0, 10, 0]} text="Теплицы" />
       </group>
       <group>
         {treePositions.map((tree, i) => (
           <Tree key={i} position={[tree.x, 0, tree.z]} scale={tree.scale} />
         ))}
       </group>
-
       <group>
         {bushPositions.map((tree, i) => (
           <Bush key={i} position={[tree.x, 0, tree.z]} scale={tree.scale} />

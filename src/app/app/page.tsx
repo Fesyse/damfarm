@@ -38,7 +38,7 @@ export default function Home() {
       </AnimatePresence>
       <Suspense fallback={null}>
         <motion.div
-          key={"farm-game"}
+          key='farm-game'
           className='h-screen overflow-hidden'
           initial={{ visibility: "hidden" }}
           animate={{ visibility: isLoading ? "hidden" : "visible" }}
