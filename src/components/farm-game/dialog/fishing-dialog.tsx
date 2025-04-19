@@ -293,6 +293,7 @@ export function FishingDialog({
 						onClick={() => {
 							if (Math.abs(hookProgress - hookTarget) < 10) {
 								setGameState("catching");
+								// Устанавливаем начальную позицию рыбы
 								setFishPosition(Math.random() * 100);
 							} else {
 								setGameState("idle");

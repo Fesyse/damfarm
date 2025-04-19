@@ -26,6 +26,7 @@ export function Player({ setPlayerPosition }: PlayerProps) {
     height: 5,
     angle: 0,
     targetHeight: 1,
+    needsUpdate: false,
   })
 
   // Keys state tracking with useRef instead of state for better performance
