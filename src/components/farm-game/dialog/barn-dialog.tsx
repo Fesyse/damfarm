@@ -100,9 +100,8 @@ const availableAnimals = [
 
 export function BarnDialog() {
   const [tab, setTab] = useState<"animals" | "market">("animals")
-  const { animals, strokeAnimal, feedAnimal, collectProducts } = useGameStore(
-    state => state
-  )
+  const { animals, strokeAnimal, feedAnimal, collectProducts, buyAnimal } =
+    useGameStore(state => state)
 
   const strokeAnimalHandler = (id: number) => {
     const changed = strokeAnimal(id)
@@ -143,6 +142,17 @@ export function BarnDialog() {
     }
   }
 
+  const buyAnimalHandler = (animal: AnimalType["type"]) => {
+    const error = buyAnimal(animal)
+
+    if (!error) {
+      setTab("animals")
+      toast.success("Вы купили животное!")
+    } else {
+      toast.error(error)
+    }
+  }
+
   return (
     <>
       <DialogHeader>
@@ -174,11 +184,8 @@ export function BarnDialog() {
                         <span className='text-2xl'>
                           {animalEmoji[animal.type]}
                         </span>
-                        {animal.name}
-                      </CardTitle>
-                      <span className='text-sm text-muted-foreground'>
                         {animalName[animal.type]}
-                      </span>
+                      </CardTitle>
                     </div>
                   </CardHeader>
                   <CardContent className='p-4 pt-0'>
@@ -293,7 +300,12 @@ export function BarnDialog() {
                 <CardContent className='p-4 pt-0 mt-auto'>
                   <div className='flex justify-between items-center'>
                     <span className='font-semibold'>{animal.price} монет</span>
-                    <Button size='sm'>Купить</Button>
+                    <Button
+                      size='sm'
+                      onClick={() => buyAnimalHandler(animal.type)}
+                    >
+                      Купить
+                    </Button>
                   </div>
                 </CardContent>
               </Card>

@@ -2,8 +2,15 @@ import {
   animalFeedResource,
   animalFeedResourceAmount,
 } from "@/components/farm-game/dialog"
+import { animalPrices, animalProduct } from "@/constants/animals"
 import { SEASONS } from "@/constants/seasons"
-import { GameState, ProductsType, SeedsType, ToolsType } from "@/types/store"
+import {
+  AnimalType,
+  GameState,
+  ProductsType,
+  SeedsType,
+  ToolsType,
+} from "@/types/store"
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
 
@@ -156,23 +163,7 @@ export const useGameStore = create<GameState>()(
           is_paid_news,
         })),
 
-      animals: [
-        {
-          id: 0,
-          type: "cow",
-          name: "Bessie",
-          price: 2000,
-          health: 100,
-          hunger: 50,
-          happiness: 70,
-          isStroked: false,
-          isFed: false,
-          product: "milk",
-          productAmount: 10,
-          feedResource: "wheat",
-          feedResourceAmount: 2,
-        },
-      ],
+      animals: [],
       setAnimals: animals => {
         set(() => ({
           animals,
@@ -193,6 +184,7 @@ export const useGameStore = create<GameState>()(
               : animal
           }),
         }))
+
         return changed
       },
       feedAnimal: (id: number) => {
@@ -244,6 +236,36 @@ export const useGameStore = create<GameState>()(
               return animal
             }),
             products: collectedProducts,
+          }
+        })
+
+        return error
+      },
+      buyAnimal: animal => {
+        let error
+        set(state => {
+          const price = animalPrices[animal]
+          if (state.moneys < price) {
+            error = "Недостаточно монет"
+            return {}
+          }
+
+          const newAnimal: AnimalType = {
+            id: state.animals.length,
+            type: animal,
+            name: animal,
+            health: 100,
+            hunger: 100,
+            happiness: 100,
+            isStroked: false,
+            isFed: false,
+            product: animalProduct[animal],
+            productAmount: 10,
+          }
+
+          return {
+            moneys: state.moneys - price,
+            animals: [...state.animals, newAnimal],
           }
         })
 

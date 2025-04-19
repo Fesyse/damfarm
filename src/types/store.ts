@@ -56,7 +56,6 @@ export type ProductsType = {
 export type AnimalType = {
   id: number
   type: "cow" | "chicken" | "sheep" | "pig" | "rabbit" | "horse"
-  name: string
 
   health: number
   hunger: number
@@ -106,4 +105,6 @@ export interface GameState {
   setAnimals: (animals: AnimalType[]) => void
   addNewAnimal: (animal: AnimalType) => void
   collectProducts: (id: number) => string | undefined
+
+  buyAnimal: (animal: AnimalType["type"]) => string | undefined
 }
