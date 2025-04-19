@@ -3,22 +3,13 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-	Dialog,
-	DialogContent,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-} from "@/components/ui/dialog";
-import { useToast } from "@/components/ui/use-toast";
-import { Fish } from "@/types/fish";
-import { Environment, Sky } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
+import { SEASONS } from "@/constants/seasons";
+import { useGameStore } from "@/store/game-store";
+import { Environment } from "@react-three/drei";
 import { AnimatePresence, motion } from "framer-motion";
-import { CircleHelp, Coins, Menu, Sun, User, X } from "lucide-react";
 import { Suspense, useEffect, useState } from "react";
-import { Toast } from "../ui/toast";
 import {
+	BarnDialog,
 	FishingDialog,
 	GreenhouseDialog,
 	HouseDialog,
@@ -26,11 +17,27 @@ import {
 	MailDialog,
 	StocksDialog,
 } from "./dialog";
-import { Player } from "./player";
-import { InteractionPoint, Position } from "./types";
-import { GameWorld } from "./world";
 
+import { Fish } from "@/types/fish";
+import { Sky } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { CircleHelp, Coins, Menu, Sun, User, X } from "lucide-react";
+import {
+	Dialog,
+	DialogContent,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+} from "../ui/dialog";
+import { Toast } from "../ui/toast";
+import { useToast } from "../ui/use-toast";
+import { Player } from "./player";
+import { Position } from "./types";
+import { InteractionPoint } from "./types/interaction-point";
+import { GameWorld } from "./world/game-world";
 export function FarmGame() {
+	const gameStore = useGameStore((state: any) => state);
+
 	const [showUI, setShowUI] = useState(true);
 	const [showMainMenu, setShowMainMenu] = useState(false);
 	const [playerPosition, setPlayerPosition] = useState<Position>([0, 0, 0]);
@@ -38,20 +45,18 @@ export function FarmGame() {
 		useState<InteractionPoint | null>(null);
 	const [showDialog, setShowDialog] = useState(false);
 	const [dialogType, setDialogType] = useState<string | null>(null);
-	const [plantCounts] = useState({
-		carrot: 12,
-		potato: 8,
-		wheat: 15,
-		corn: 10,
-		tomato: 5,
-		strawberry: 7,
-	});
-	// Add state for showing instructions
-	const [showInstructions, setShowInstructions] = useState(false);
+	// const [plantCounts] = useState({
+	//   carrot: 12,
+	//   potato: 8,
+	//   wheat: 15,
+	//   corn: 10,
+	//   tomato: 5,
+	//   strawberry: 7,
+	// });
 	const [inventory, setInventory] = useState<Fish[]>([]);
 	const { toast } = useToast();
+	const [showInstructions, setShowInstructions] = useState(false);
 
-	// Handle interaction key press
 	useEffect(() => {
 		const handleKeyPress = (e: KeyboardEvent) => {
 			e.preventDefault();
@@ -65,7 +70,10 @@ export function FarmGame() {
 				}
 			}
 
-			// Hide instructions when H is pressed
+			if (e.code === "KeyM") {
+				setDialogType("mail");
+				setShowDialog(true);
+			}
 			if (e.code === "KeyH") {
 				setShowInstructions((prev) => !prev);
 			}
@@ -226,7 +234,9 @@ export function FarmGame() {
 								<div className="flex items-center gap-4">
 									<div className="flex items-center gap-2 bg-white/80 px-3 py-1 rounded-lg">
 										<Sun className="h-5 w-5 text-yellow-500" />
-										<span className="font-medium">Лето - День 5</span>
+										<span className="font-medium">
+											{SEASONS[gameStore.seasons]} - День {gameStore.days}
+										</span>
 									</div>
 								</div>
 								<div className="flex items-center gap-4">
@@ -235,7 +245,9 @@ export function FarmGame() {
 										className="flex items-center gap-2 px-3 py-1"
 									>
 										<Coins className="h-4 w-4 text-yellow-500" />
-										<span className="text-lg font-bold">1250</span>
+										<span className="text-lg font-bold">
+											{gameStore.moneys}
+										</span>
 									</Badge>
 									<Button
 										variant="outline"
@@ -248,28 +260,30 @@ export function FarmGame() {
 							</div>
 
 							<div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-								{Object.entries(plantCounts).map(([plant, count], i) => (
-									<Card key={i} className="bg-white/90">
-										<CardContent className="p-3 text-center flex flex-col items-center justify-center">
-											<div className="text-2xl mb-1">
-												{
+								{Object.entries(gameStore.resources).map(
+									([plant, count], i) => (
+										<Card key={i} className="bg-white/90">
+											<CardContent className="p-3 text-center flex flex-col items-center justify-center">
+												<div className="text-2xl mb-1">
 													{
-														carrot: "🥕",
-														potato: "🥔",
-														wheat: "🌾",
-														corn: "🌽",
-														tomato: "🍅",
-														strawberry: "🍓",
-													}[plant]
-												}
-											</div>
-											<div className="text-lg font-bold">{count}</div>
-											<div className="text-xs text-muted-foreground capitalize">
-												{plant}
-											</div>
-										</CardContent>
-									</Card>
-								))}
+														{
+															carrot: "🥕",
+															potato: "🥔",
+															wheat: "🌾",
+															corn: "🌽",
+															tomato: "🍅",
+															strawberry: "🍓",
+														}[plant]
+													}
+												</div>
+												<div className="text-lg font-bold">{count}</div>
+												<div className="text-xs text-muted-foreground capitalize">
+													{plant}
+												</div>
+											</CardContent>
+										</Card>
+									)
+								)}
 							</div>
 						</div>
 					</motion.div>
@@ -343,7 +357,6 @@ export function FarmGame() {
 								open={showDialog}
 								onOpenChange={setShowDialog}
 								onCatch={(fish) => {
-									// Добавляем пойманную рыбу в инвентарь
 									setInventory((prev) => [...prev, fish]);
 									toast({
 										title: "Рыба поймана!",
@@ -357,6 +370,7 @@ export function FarmGame() {
 					{dialogType === "mail" && <MailDialog />}
 					{dialogType === "kiosk" && <KioskDialog />}
 					{dialogType === "house" && <HouseDialog />}
+					{dialogType === "barn" && <BarnDialog />}
 					<DialogFooter>
 						<Button onClick={() => setShowDialog(false)}>Закрыть</Button>
 					</DialogFooter>

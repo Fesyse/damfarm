@@ -1,6 +1,19 @@
 import { InteractionPoint } from "../types"
 
-// Define interaction points outside to avoid recreating in every render
+const calculateInteractionPoint = (
+  x: number,
+  z: number,
+  distanceFromBuilding: number
+): [number, number, number] => {
+  const angle = Math.atan2(-x, -z)
+
+  // Calculate position in front of the building using the angle
+  const interactionX = x + Math.sin(angle) * distanceFromBuilding
+  const interactionZ = z + Math.cos(angle) * distanceFromBuilding
+
+  return [interactionX, 0, interactionZ]
+}
+
 export const INTERACTION_POINTS: InteractionPoint[] = [
   {
     type: "greenhouse",
@@ -10,19 +23,19 @@ export const INTERACTION_POINTS: InteractionPoint[] = [
   },
   {
     type: "kiosk",
-    position: [10, 0, 10],
+    position: calculateInteractionPoint(5, 15, 2),
     key: "E",
     action: "посетить Киоск",
   },
   {
     type: "house",
-    position: [0, 0, -10],
+    position: [0, 0, -7],
     key: "E",
     action: "войти в Дом",
   },
   {
     type: "stocks",
-    position: [10, 0, -10],
+    position: calculateInteractionPoint(15, -8, 2),
     key: "E",
     action: "торговать акциями",
   },
@@ -37,5 +50,11 @@ export const INTERACTION_POINTS: InteractionPoint[] = [
     position: [2, 0, -12],
     key: "M",
     action: "проверить почту",
+  },
+  {
+    type: "barn",
+    position: calculateInteractionPoint(15, 8, 3),
+    key: "E",
+    action: "ухаживать за животными",
   },
 ]

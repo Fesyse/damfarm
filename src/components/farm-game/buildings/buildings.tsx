@@ -9,6 +9,7 @@ import { Kiosk } from "./kiosk"
 import { House } from "./house"
 import { StockExchange } from "./stock-exchange"
 import { Mailbox } from "./mailbox"
+import { Barn } from "./barn"
 import { FishingPond } from "../world/fishing-pond"
 
 interface BuildingsProps {
@@ -42,7 +43,6 @@ export function Buildings({
     []
   )
 
-  // Update interaction detection with requestAnimationFrame instead of setInterval
   useEffect(() => {
     let animationFrameId: number
 
@@ -59,7 +59,6 @@ export function Buildings({
     }
   }, [playerPosition, setNearInteraction, findClosestInteraction])
 
-  // Define locations precisely
   const locations = {
     center: [0, 0, 0] as Position,
     house: {
@@ -71,12 +70,12 @@ export function Buildings({
       door: [-13.9, 0, 3.5] as Position,
     },
     kiosk: {
-      position: [10, 0, 10] as Position,
-      door: [10, 0, 12] as Position,
+      position: [5, 0, 15] as Position,
+      door: [5, 0, 17] as Position,
     },
     stockExchange: {
-      position: [15, 0, -15] as Position,
-      door: [13.7, 0, -16.7] as Position,
+      position: [15, 0, -8] as Position,
+      door: [13.7, 0, -6] as Position,
     },
     fishingPond: {
       position: [-20, 0, 20] as Position,
@@ -84,6 +83,10 @@ export function Buildings({
     },
     mailbox: {
       position: [2.1, 0, -6] as Position,
+    },
+    barn: {
+      position: [15, 0, 8] as Position,
+      door: [15, 0, 12] as Position,
     },
   }
 
@@ -100,7 +103,13 @@ export function Buildings({
       </group>
 
       {/* Kiosk */}
-      <group position={locations.kiosk.position} rotation-y={-Math.PI / 6}>
+      <group
+        position={locations.kiosk.position}
+        rotation-y={Math.atan2(
+          -locations.kiosk.position[0],
+          -locations.kiosk.position[2]
+        )}
+      >
         <Kiosk />
         <Billboard position={[0, 6, 0]}>
           <Text fontSize={1} color='black'>
@@ -141,6 +150,22 @@ export function Buildings({
         <Billboard position={[0, 4, 0]}>
           <Text fontSize={1} color='black'>
             Пруд
+          </Text>
+        </Billboard>
+      </group>
+
+      {/* Barn */}
+      <group
+        position={locations.barn.position}
+        rotation-y={Math.atan2(
+          -locations.barn.position[0],
+          -locations.barn.position[2]
+        )}
+      >
+        <Barn />
+        <Billboard position={[0, 11.5, 0]}>
+          <Text fontSize={1} color='black'>
+            Амбар
           </Text>
         </Billboard>
       </group>

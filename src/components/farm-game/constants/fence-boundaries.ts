@@ -1,6 +1,5 @@
 import { WORLD_FENCES } from "./world-fences"
 
-// Pre-calculate fence boundaries for faster collision detection
 export const FENCE_BOUNDARIES = WORLD_FENCES.map(fence => {
   const [fenceX, , fenceZ] = fence.position
   const [, fenceRotY] = fence.rotation
