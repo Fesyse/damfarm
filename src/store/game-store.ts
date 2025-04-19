@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { GameState } from "@/@types/store";
+import { GameState } from "@/types/store";
 import { SEASONS } from "@/constants/seasons";
 
 export const useGameStore = create<GameState>()((set, get) => ({
@@ -53,6 +53,41 @@ export const useGameStore = create<GameState>()((set, get) => ({
     }));
   },
 
+  fishes: {
+    carp: 0,
+    tuna: 0,
+    pike_perch: 0,
+    cod: 0,
+    mackerel: 0,
+    herring: 0,
+    perch: 0,
+    pike: 0,
+    bream: 0,
+  },
+
+  setFishes: (name, value) => {
+    set((state) => ({
+      fishes: {
+        ...state.fishes,
+        [name]: value,
+      },
+    }));
+  },
+
+  products: {
+    eggs: 0,
+    milk: 0,
+    wool: 0,
+  },
+  setProducts: (name, value) => {
+    set((state) => ({
+      products: {
+        ...state.products,
+        [name]: value,
+      },
+    }));
+  },
+
   // stocks
   stocks: {
     TechNova: 0,
@@ -65,7 +100,7 @@ export const useGameStore = create<GameState>()((set, get) => ({
     set((state) => ({
       stocks: {
         ...state.stocks,
-        [name]: state.stocks[name] + value ,
+        [name]: state.stocks[name] + value,
       },
     }));
   },

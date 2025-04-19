@@ -24,7 +24,23 @@ export type StocksType = {
   MediPlus: number;
 };
 
-type FishType = {};
+export type FishType = {
+  carp: number;
+  tuna: number;
+  pike_perch: number;
+  cod: number;
+  mackerel: number;
+  herring: number;
+  perch: number;
+  pike: number;
+  bream: number;
+};
+
+export type ProductsType = {
+  eggs: number;
+  milk: number;
+  wool: number;
+};
 
 export interface GameState {
   days: number;
@@ -38,6 +54,12 @@ export interface GameState {
 
   seeds: SeedsType;
   setSeed: (name: keyof SeedsType, value: number) => void;
+
+  fishes: FishType;
+  setFishes: (name: keyof FishType, value: number) => void;
+
+  products: ProductsType;
+  setProducts: (name: keyof ProductsType, value: number) => void;
 
   stocks: StocksType;
   setStocks: (name: keyof StocksType, value: number) => void;

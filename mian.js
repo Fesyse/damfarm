@@ -1,15 +1,12 @@
-let s = {
-  carrots: 0,
-  potatoes: 0,
-  wheat: 0,
-  corn: 0,
+const FISHES_BY_ENGLISH_NAME = {
+  Карась: "сrucianСarp",
+  Тунец: "tuna",
+  Судак: "pikePerch",
+  Треска: "cod",
+  Скумбрия: "mackerel",
+  Сельдь: "herring",
+  Окунь: "perch",
+  Щука: "pike",
+  Лещ: "bream",
 };
-let name = "potatoes";
-let value = 1;
-
-let z = {
-  ...s,
-  [name]: value,
-};
-
-console.log(z);
+console.log(FISHES_BY_ENGLISH_NAME["Треска"]);
