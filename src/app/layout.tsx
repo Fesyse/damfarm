@@ -1,14 +1,15 @@
-import "./globals.css"
+import "./globals.css";
 
 export const metadata = {
-  title: "3D Farm Game",
-  description: "A 3D farming game built with Next.js and React Three Fiber",
-}
+	title: "DamFarm - Веселая ферма",
+	description:
+		"Веселая ферма предоставляет возможности ухода за животными заработка денег и вкладываения этих денег в акции",
+};
 
 export default function RootLayout({ children }: React.PropsWithChildren) {
-  return (
-    <html lang='ru' suppressHydrationWarning>
-      <body>{children}</body>
-    </html>
-  )
+	return (
+		<html lang="ru" suppressHydrationWarning>
+			<body>{children}</body>
+		</html>
+	);
 }
