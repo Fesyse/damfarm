@@ -8,7 +8,10 @@ interface StartButtonProps {
 }
 
 export default function StartButton({ onClick }: StartButtonProps) {
-  const isGameExist = localStorage.getItem("damfarm-game-storage")
+  const isGameExist =
+    typeof window !== "undefined"
+      ? localStorage.getItem("damfarm-game-storage")
+      : false
 
   return (
     <motion.button

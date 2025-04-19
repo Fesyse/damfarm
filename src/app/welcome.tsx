@@ -12,11 +12,13 @@ export function Welcome() {
   const router = useRouter()
 
   const handleStart = () => {
-    const isGameExist = localStorage.getItem("damfarm-game-storage")
-    if (isGameExist) {
-      router.push("/app")
-    } else {
-      setShowCutscene(true)
+    if (typeof window !== "undefined") {
+      const isGameExist = localStorage.getItem("damfarm-game-storage")
+      if (isGameExist) {
+        router.push("/app")
+      } else {
+        setShowCutscene(true)
+      }
     }
   }
 
