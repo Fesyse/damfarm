@@ -99,8 +99,15 @@ export const useGameStore = create<GameState>()(
         set(state => ({
           resources: {
             ...state.resources,
-            [name]: value,
+            [name]: state.resources[name] + value,
           },
+        }))
+      },
+      plots: [],
+      setPlots: plots => {
+        set(state => ({
+          ...state,
+          plots: [...plots],
         }))
       },
 
@@ -131,8 +138,9 @@ export const useGameStore = create<GameState>()(
         },
       },
       setSeeds: (seeds: SeedsType) => {
-        set(() => ({
-          seeds,
+        set(state => ({
+          ...state,
+          seeds: { ...seeds },
         }))
       },
 
@@ -163,7 +171,9 @@ export const useGameStore = create<GameState>()(
         meat: 0,
       },
       setProducts: (name: keyof ProductsType, value: number) => {
-        set(state => ({ products: { ...state.products, [name]: value } }))
+        set(state => ({
+          products: { ...state.products, [name]: state.products[name] + value },
+        }))
       },
 
       stocks: {
@@ -258,7 +268,6 @@ export const useGameStore = create<GameState>()(
         return error
       },
       collectProducts: (id: number) => {
-        let error
         set(state => {
           const collectedProducts: {
             milk: number
@@ -280,8 +289,6 @@ export const useGameStore = create<GameState>()(
             products: collectedProducts,
           }
         })
-
-        return error
       },
       buyAnimal: animal => {
         let error

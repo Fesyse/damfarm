@@ -130,16 +130,12 @@ export function BarnDialog() {
   }
 
   const collectProductsHandler = (id: number) => {
-    const error = collectProducts(id)
-    if (!error) {
-      toast.success("Вы собрали продукты!", {
-        description: (
-          <span className='text-foreground'>Возвращайтесь завтра!</span>
-        ),
-      })
-    } else {
-      toast.error(error)
-    }
+    collectProducts(id)
+    toast.success("Вы собрали продукты!", {
+      description: (
+        <span className='text-foreground'>Возвращайтесь завтра!</span>
+      ),
+    })
   }
 
   const buyAnimalHandler = (animal: AnimalType["type"]) => {

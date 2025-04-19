@@ -7,6 +7,15 @@ export type ResoursesType = {
   strawberry: number
 }
 
+export type PlotsType = {
+  id: number
+  plant: string | null
+  stage: number
+  watered: boolean
+  plantedAt: number | null
+  lastWateredAt: number | null
+}
+
 type SeedType = {
   inInventory: number
   stock: number
@@ -67,6 +76,8 @@ export type AnimalType = {
   productAmount: number
 }
 
+type AnimalError = string | undefined
+
 export interface GameState {
   days: number
   setNextDay: () => void
@@ -79,6 +90,9 @@ export interface GameState {
 
   resources: ResoursesType
   setResource: (name: keyof ResoursesType, value: number) => void
+
+  plots: PlotsType[]
+  setPlots: (plots: PlotsType[]) => void
 
   seeds: SeedsType
   setSeeds: (seeds: SeedsType) => void
@@ -99,11 +113,10 @@ export interface GameState {
   setIsPaidNews: (is_paid_news: boolean) => void
 
   animals: AnimalType[]
-  strokeAnimal: (id: number) => string | undefined
-  feedAnimal: (id: number) => string | undefined
+  strokeAnimal: (id: number) => AnimalError
   setAnimals: (animals: AnimalType[]) => void
   addNewAnimal: (animal: AnimalType) => void
-  collectProducts: (id: number) => string | undefined
-
-  buyAnimal: (animal: AnimalType["type"]) => string | undefined
+  buyAnimal: (animal: AnimalType["type"]) => AnimalError
+  collectProducts: (id: number) => void
+  feedAnimal: (id: number) => AnimalError
 }
