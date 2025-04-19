@@ -54,6 +54,7 @@ import {
 	X,
 } from "lucide-react";
 import { toast } from "sonner";
+import { ScrollArea } from "../ui/scroll-area";
 import { Player } from "./player";
 import { Position } from "./types";
 import { InteractionPoint } from "./types/interaction-point";
@@ -253,7 +254,6 @@ export function FarmGame() {
 		right: false,
 	});
 
-	// Keyboard movement simulation functions for mobile
 	const simulateKeyDown = useCallback((key: string) => {
 		const event = new KeyboardEvent("keydown", { code: key });
 		window.dispatchEvent(event);
@@ -264,7 +264,6 @@ export function FarmGame() {
 		window.dispatchEvent(event);
 	}, []);
 
-	// Touch controls for mobile
 	useEffect(() => {
 		if (!isMobile) return;
 
@@ -293,7 +292,6 @@ export function FarmGame() {
 			const touchX = touch.clientX - rect.left;
 			const touchY = touch.clientY - rect.top;
 
-			// Calculate distance and angle from center
 			const deltaX = touchX - touchStartPos.x;
 			const deltaY = touchY - touchStartPos.y;
 			const distance = Math.min(
@@ -302,15 +300,11 @@ export function FarmGame() {
 			);
 			const angle = Math.atan2(deltaY, deltaX);
 
-			// Set joystick position with maximum radius constraint
 			const limitedX = touchStartPos.x + distance * Math.cos(angle);
 			const limitedY = touchStartPos.y + distance * Math.sin(angle);
 			setJoystickPos({ x: limitedX, y: limitedY });
 
-			// Handle movement based on joystick position
 			const threshold = 10;
-
-			// Reset all directions first
 			if (isPressing.current.up) {
 				simulateKeyUp("KeyW");
 				isPressing.current.up = false;
@@ -328,7 +322,6 @@ export function FarmGame() {
 				isPressing.current.right = false;
 			}
 
-			// Apply new directions
 			if (deltaY < -threshold) {
 				simulateKeyDown("KeyW");
 				isPressing.current.up = true;
@@ -351,7 +344,6 @@ export function FarmGame() {
 			setJoystickActive(false);
 			setTouchStartPos(null);
 
-			// Reset all pressed keys
 			if (isPressing.current.up) {
 				simulateKeyUp("KeyW");
 				isPressing.current.up = false;
@@ -388,7 +380,6 @@ export function FarmGame() {
 		return () => clearTimeout(timer);
 	}, []);
 
-	// Optimize the 3D rendering settings
 	const canvasProps = useMemo<CanvasProps>(
 		() => ({
 			shadows: true,
@@ -595,13 +586,11 @@ export function FarmGame() {
 				</div>
 			)}
 
-			{/* Mobile touch controls */}
-			{isMobile && showMobileControls && (
+			{isMobile && showMobileControls && !showUI && (
 				<>
-					{/* Virtual joystick for movement */}
 					<div
 						ref={joystickAreaRef}
-						className="absolute bottom-32 left-6 w-32 h-32 bg-white/30 backdrop-blur-sm rounded-full z-50 touch-none"
+						className="absolute bottom-36 left-1/2 -translate-x-1/2 w-32 h-32 bg-white/30 backdrop-blur-sm rounded-full z-50 touch-none"
 					>
 						{joystickActive && touchStartPos && (
 							<div
@@ -614,17 +603,17 @@ export function FarmGame() {
 						)}
 						{!joystickActive && (
 							<div className="absolute inset-0 flex items-center justify-center opacity-70">
-								<div className="grid grid-cols-3 grid-rows-3 w-full h-full">
-									<div className="col-start-2 row-start-1 flex justify-center">
+								<div className="grid grid-cols-3 grid-rows-3 w-full h-full aspect-square">
+									<div className="col-start-2 row-start-1 flex items-center justify-center">
 										<ArrowUp size={20} />
 									</div>
-									<div className="col-start-1 row-start-2 flex items-center">
+									<div className="col-start-1 row-start-2 flex items-center justify-center">
 										<ArrowLeft size={20} />
 									</div>
-									<div className="col-start-3 row-start-2 flex items-center justify-end">
+									<div className="col-start-3 row-start-2 flex items-center justify-center">
 										<ArrowRight size={20} />
 									</div>
-									<div className="col-start-2 row-start-3 flex justify-center">
+									<div className="col-start-2 row-start-3 flex items-center justify-center">
 										<ArrowDown size={20} />
 									</div>
 								</div>
@@ -632,7 +621,6 @@ export function FarmGame() {
 						)}
 					</div>
 
-					{/* Mobile action button - for interactions */}
 					{nearInteraction && (
 						<button
 							onClick={handleInteractionButtonClick}
@@ -642,7 +630,6 @@ export function FarmGame() {
 						</button>
 					)}
 
-					{/* Mobile toggle for controls visibility */}
 					<button
 						onClick={() => setShowMobileControls(!showMobileControls)}
 						className="absolute bottom-4 right-4 p-2 bg-white/70 backdrop-blur-sm rounded-lg z-50"
@@ -652,7 +639,15 @@ export function FarmGame() {
 				</>
 			)}
 
-			{/* Game UI */}
+			{isMobile && (
+				<button
+					onClick={() => setShowMobileControls(!showMobileControls)}
+					className="absolute top-2 left-1/2 -translate-x-1/2 p-2 bg-white/70 backdrop-blur-sm rounded-lg z-50 text-xs"
+				>
+					{showMobileControls ? "Hide Controls" : "Show Controls"}
+				</button>
+			)}
+
 			<AnimatePresence>
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
@@ -660,7 +655,7 @@ export function FarmGame() {
 					className="absolute bottom-0 left-0 right-0 p-4 z-40"
 				>
 					<div className="bg-white/80 backdrop-blur-md rounded-lg shadow-lg p-4  max-w-6xl mx-auto">
-						<div className="flex justify-between items-center">
+						<div className="flex flex-col md:flex-row justify-between items-center">
 							<div className="flex items-center gap-4">
 								<div className="flex items-center gap-2 text-xl px-3 py-1 rounded-lg">
 									{SEASONS[gameStore.seasons] === "winter" ? (
@@ -699,88 +694,91 @@ export function FarmGame() {
 								exit={{ opacity: 0, y: 20 }}
 								className="space-y-6 mt-4"
 							>
-								{/* РАСТЕНИЯ */}
-								<div>
-									<h2 className="text-xl font-semibold mb-2">🌱 Растения</h2>
-									<div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-										{Object.entries(gameStore.resources)
-											.filter((f) => f[1] > 0)
-											.map(([plant, count], i) => (
-												<Card key={i} className="bg-white/90">
-													<CardContent className="p-3 text-center flex flex-col items-center justify-center">
-														<div className="text-2xl mb-1">
-															{
-																{
-																	carrot: "🥕",
-																	potato: "🥔",
-																	wheat: "🌾",
-																	corn: "🌽",
-																	tomato: "🍅",
-																	strawberry: "🍓",
-																}[plant]
-															}
-														</div>
-														<div className="text-lg font-bold">{count}</div>
-														<div className="text-xs text-muted-foreground capitalize">
-															{plant}
-														</div>
-													</CardContent>
-												</Card>
-											))}
-									</div>
-								</div>
-
-								{/*  РЫБА */}
-								<div>
-									<h2 className="text-xl font-semibold mb-2">🐟 Рыба</h2>
-									<div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-										{Object.entries(gameStore.fishes)
-											.filter((f) => f[1] > 0)
-											.map(([fish, count], i) => {
-												return (
-													<Card key={i} className={`bg-white/90 border-2 `}>
-														<CardContent className="p-3 text-center flex flex-col items-center justify-center">
-															<div className="text-2xl mb-1">{"🐟"}</div>
-															<div className="text-lg font-bold">{count}</div>
-															<div className="text-xs text-muted-foreground capitalize">
-																{fish}
-															</div>
-														</CardContent>
-													</Card>
-												);
-											})}
-									</div>
-								</div>
-
-								{/*  ПРОДУКТЫ АМБАРА */}
-								<div>
-									<h2 className="text-xl font-semibold mb-2">🌱 Продукты</h2>
-									<div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-										{Object.entries(gameStore.products)
-											.filter((f) => f[1] > 0)
-											.map(([product, count], i) => {
-												return (
-													<Card key={i} className={`bg-white/90 border-2 `}>
+								<ScrollArea className="max-md:max-h-[calc(100svh-15rem)] overflow-hidden">
+									{/* РАСТЕНИЯ */}
+									<div>
+										<h2 className="text-xl font-semibold mb-2">🌱 Растения</h2>
+										<div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+											{Object.entries(gameStore.resources).map(
+												([plant, count], i) => (
+													<Card key={i} className="bg-white/90">
 														<CardContent className="p-3 text-center flex flex-col items-center justify-center">
 															<div className="text-2xl mb-1">
 																{
 																	{
-																		eggs: "🥚",
-																		milk: "🥛",
-																		wool: "🧶",
-																	}[product]
+																		carrot: "🥕",
+																		potato: "🥔",
+																		wheat: "🌾",
+																		corn: "🌽",
+																		tomato: "🍅",
+																		strawberry: "🍓",
+																	}[plant]
 																}
 															</div>
 															<div className="text-lg font-bold">{count}</div>
 															<div className="text-xs text-muted-foreground capitalize">
-																{product}
+																{plant}
 															</div>
 														</CardContent>
 													</Card>
-												);
-											})}
+												)
+											)}
+										</div>
 									</div>
-								</div>
+
+									{/*  РЫБА */}
+									<div>
+										<h2 className="text-xl font-semibold mb-2">🐟 Рыба</h2>
+										<div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+											{Object.entries(gameStore.fishes).map(
+												([fish, count], i) => {
+													return (
+														<Card key={i} className={`bg-white/90 border-2 `}>
+															<CardContent className="p-3 text-center flex flex-col items-center justify-center">
+																<div className="text-2xl mb-1">{"🐟"}</div>
+																<div className="text-lg font-bold">{count}</div>
+																<div className="text-xs text-muted-foreground capitalize">
+																	{fish}
+																</div>
+															</CardContent>
+														</Card>
+													);
+												}
+											)}
+										</div>
+									</div>
+
+									{/*  ПРОДУКТЫ АМБАРА */}
+									<div>
+										<h2 className="text-xl font-semibold mb-2">🌱 Продукты</h2>
+										<div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+											{Object.entries(gameStore.products).map(
+												([product, count], i) => {
+													return (
+														<Card key={i} className={`bg-white/90 border-2 `}>
+															<CardContent className="p-3 text-center flex flex-col items-center justify-center">
+																<div className="text-2xl mb-1">
+																	{
+																		{
+																			eggs: "🥚",
+																			milk: "🥛",
+																			wool: "🧶",
+																			meat: "🍖",
+																		}[product]
+																	}
+																</div>
+																<div className="text-lg font-bold">{count}</div>
+																<div className="text-xs text-muted-foreground capitalize">
+																	{product}
+																</div>
+															</CardContent>
+														</Card>
+													);
+												}
+											)}
+										</div>
+									</div>
+								</ScrollArea>
 							</motion.div>
 						)}
 					</div>
