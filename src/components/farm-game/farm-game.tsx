@@ -508,7 +508,10 @@ export function FarmGame() {
             setNearInteraction={setNearInteraction}
             playerPosition={playerPosition}
           />
-          <Player setPlayerPosition={setPlayerPosition} />
+          <Player
+            isDialogOpen={showDialog}
+            setPlayerPosition={setPlayerPosition}
+          />
         </Suspense>
       </Canvas>
 
@@ -627,13 +630,6 @@ export function FarmGame() {
               <span className='text-lg font-bold'>{nearInteraction.key}</span>
             </button>
           )}
-
-          <button
-            onClick={() => setShowMobileControls(!showMobileControls)}
-            className='absolute bottom-4 right-4 p-2 bg-white/70 backdrop-blur-sm rounded-lg z-50'
-          >
-            {showMobileControls ? "Hide Controls" : "Show Controls"}
-          </button>
         </>
       )}
 
@@ -642,7 +638,7 @@ export function FarmGame() {
           onClick={() => setShowMobileControls(!showMobileControls)}
           className='absolute top-2 left-1/2 -translate-x-1/2 p-2 bg-white/70 backdrop-blur-sm rounded-lg z-50 text-xs'
         >
-          {showMobileControls ? "Hide Controls" : "Show Controls"}
+          {showMobileControls ? "Скрыть управление" : "Показать управление"}
         </button>
       )}
 
@@ -664,7 +660,8 @@ export function FarmGame() {
                     <Sun className='h-7 w-7 text-yellow-400' />
                   )}
                   <span className='font-medium'>
-                    {SEASONS[gameStore.seasons]} - День {gameStore.days}
+                    {SEASONS[gameStore.seasons]} -{" "}
+                    {isTransitioning ? "Ночь" : "День"} {gameStore.days}
                   </span>
                 </div>
               </div>
@@ -681,7 +678,7 @@ export function FarmGame() {
                   size='sm'
                   onClick={() => setShowUI(prev => !prev)}
                 >
-                  Показать продукты
+                  {showUI ? "Скрыть инвентарь" : "Показать инвентарь"}
                 </Button>
               </div>
             </div>
@@ -690,90 +687,100 @@ export function FarmGame() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
-                className='space-y-6 mt-4'
+                className=' mt-4'
               >
-                <ScrollArea className='max-md:max-h-[calc(100svh-15rem)] overflow-hidden'>
-                  {/* РАСТЕНИЯ */}
-                  <div>
-                    <h2 className='text-xl font-semibold mb-2'>🌱 Растения</h2>
-                    <div className='grid grid-cols-2 md:grid-cols-6 gap-4'>
-                      {Object.entries(gameStore.resources).map(
-                        ([plant, count], i) => (
-                          <Card key={i} className='bg-white/90'>
-                            <CardContent className='p-3 text-center flex flex-col items-center justify-center'>
-                              <div className='text-2xl mb-1'>
-                                {
-                                  {
-                                    carrot: "🥕",
-                                    potato: "🥔",
-                                    wheat: "🌾",
-                                    corn: "🌽",
-                                    tomato: "🍅",
-                                    strawberry: "🍓",
-                                  }[plant]
-                                }
-                              </div>
-                              <div className='text-lg font-bold'>{count}</div>
-                              <div className='text-xs text-muted-foreground capitalize'>
-                                {plant}
-                              </div>
-                            </CardContent>
-                          </Card>
-                        )
-                      )}
-                    </div>
-                  </div>
-
-                  {/*  РЫБА */}
-                  <div>
-                    <h2 className='text-xl font-semibold mb-2'>🐟 Рыба</h2>
-                    <div className='grid grid-cols-2 md:grid-cols-6 gap-4'>
-                      {Object.entries(gameStore.fishes).map(
-                        ([fish, count], i) => {
-                          return (
-                            <Card key={i} className={`bg-white/90 border-2 `}>
-                              <CardContent className='p-3 text-center flex flex-col items-center justify-center'>
-                                <div className='text-2xl mb-1'>{"🐟"}</div>
-                                <div className='text-lg font-bold'>{count}</div>
-                                <div className='text-xs text-muted-foreground capitalize'>
-                                  {fish}
-                                </div>
-                              </CardContent>
-                            </Card>
-                          )
-                        }
-                      )}
-                    </div>
-                  </div>
-
-                  {/*  ПРОДУКТЫ АМБАРА */}
-                  <div>
-                    <h2 className='text-xl font-semibold mb-2'>🌱 Продукты</h2>
-                    <div className='grid grid-cols-2 md:grid-cols-6 gap-4'>
-                      {Object.entries(gameStore.products).map(
-                        ([product, count], i) => {
-                          return (
-                            <Card key={i} className={`bg-white/90 border-2 `}>
+                <ScrollArea className='max-md:h-[calc(100svh-15rem)] overflow-hidden'>
+                  <div className='flex flex-col gap-5'>
+                    {/* РАСТЕНИЯ */}
+                    <div>
+                      <h2 className='text-xl font-semibold mb-2'>
+                        🌱 Растения
+                      </h2>
+                      <div className='grid grid-cols-2 md:grid-cols-6 gap-4'>
+                        {Object.entries(gameStore.resources).map(
+                          ([plant, count], i) => (
+                            <Card key={i} className='bg-white/90'>
                               <CardContent className='p-3 text-center flex flex-col items-center justify-center'>
                                 <div className='text-2xl mb-1'>
                                   {
                                     {
-                                      eggs: "🥚",
-                                      milk: "🥛",
-                                      wool: "🧶",
-                                      meat: "🍖",
-                                    }[product]
+                                      carrot: "🥕",
+                                      potato: "🥔",
+                                      wheat: "🌾",
+                                      corn: "🌽",
+                                      tomato: "🍅",
+                                      strawberry: "🍓",
+                                    }[plant]
                                   }
                                 </div>
                                 <div className='text-lg font-bold'>{count}</div>
                                 <div className='text-xs text-muted-foreground capitalize'>
-                                  {product}
+                                  {plant}
                                 </div>
                               </CardContent>
                             </Card>
                           )
-                        }
-                      )}
+                        )}
+                      </div>
+                    </div>
+
+                    {/*  РЫБА */}
+                    <div>
+                      <h2 className='text-xl font-semibold mb-2'>🐟 Рыба</h2>
+                      <div className='grid grid-cols-2 md:grid-cols-6 gap-4'>
+                        {Object.entries(gameStore.fishes).map(
+                          ([fish, count], i) => {
+                            return (
+                              <Card key={i} className={`bg-white/90 border-2 `}>
+                                <CardContent className='p-3 text-center flex flex-col items-center justify-center'>
+                                  <div className='text-2xl mb-1'>{"🐟"}</div>
+                                  <div className='text-lg font-bold'>
+                                    {count}
+                                  </div>
+                                  <div className='text-xs text-muted-foreground capitalize'>
+                                    {fish}
+                                  </div>
+                                </CardContent>
+                              </Card>
+                            )
+                          }
+                        )}
+                      </div>
+                    </div>
+
+                    {/*  ПРОДУКТЫ АМБАРА */}
+                    <div>
+                      <h2 className='text-xl font-semibold mb-2'>
+                        🌱 Продукты
+                      </h2>
+                      <div className='grid grid-cols-2 md:grid-cols-6 gap-4'>
+                        {Object.entries(gameStore.products).map(
+                          ([product, count], i) => {
+                            return (
+                              <Card key={i} className={`bg-white/90 border-2 `}>
+                                <CardContent className='p-3 text-center flex flex-col items-center justify-center'>
+                                  <div className='text-2xl mb-1'>
+                                    {
+                                      {
+                                        eggs: "🥚",
+                                        milk: "🥛",
+                                        wool: "🧶",
+                                        meat: "🍖",
+                                      }[product]
+                                    }
+                                  </div>
+                                  <div className='text-lg font-bold'>
+                                    {count}
+                                  </div>
+                                  <div className='text-xs text-muted-foreground capitalize'>
+                                    {product}
+                                  </div>
+                                </CardContent>
+                              </Card>
+                            )
+                          }
+                        )}
+                      </div>
                     </div>
                   </div>
                 </ScrollArea>
@@ -797,14 +804,12 @@ export function FarmGame() {
           }
         }}
       >
-        <DialogContent
-          className={`${isMobile ? "w-[95%] p-4" : "sm:max-w-[600px]"}`}
-        >
+        <DialogContent className={"max-w-xl w-full"}>
           {dialogType === "greenhouse" && <GreenhouseDialog />}
           {dialogType === "fishing" && (
             <>
               <DialogHeader>
-                <DialogTitle>Рыбалка </DialogTitle>
+                <DialogTitle>Рыбалка</DialogTitle>
               </DialogHeader>
               <FishingDialog
                 open={showDialog}
@@ -813,19 +818,21 @@ export function FarmGame() {
               />
             </>
           )}
-          {dialogType === "stocks" && <StocksDialog />}
-          {dialogType === "mail" && <MailDialog />}
-          {dialogType === "kiosk" && <KioskDialog />}
-          {dialogType === "house" && (
-            <HouseDialog
-              onSleep={handleSleep}
-              isTransitioning={isTransitioning}
-            />
-          )}
-          {dialogType === "barn" && <BarnDialog />}
-          <DialogFooter>
-            <Button onClick={() => setShowDialog(false)}>Закрыть</Button>
-          </DialogFooter>
+          <ScrollArea className='max-md:h-[calc(100svh-10rem)] overflow-hidden'>
+            {dialogType === "stocks" && <StocksDialog />}
+            {dialogType === "mail" && <MailDialog />}
+            {dialogType === "kiosk" && <KioskDialog />}
+            {dialogType === "house" && (
+              <HouseDialog
+                onSleep={handleSleep}
+                isTransitioning={isTransitioning}
+              />
+            )}
+            {dialogType === "barn" && <BarnDialog />}
+            <DialogFooter>
+              <Button onClick={() => setShowDialog(false)}>Закрыть</Button>
+            </DialogFooter>
+          </ScrollArea>
         </DialogContent>
       </Dialog>
 
@@ -939,50 +946,6 @@ export function FarmGame() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Interaction Dialogs */}
-      <Dialog
-        open={showDialog}
-        onOpenChange={open => {
-          // Предотвращаем автоматическое закрытие диалога рыбалки
-          if (!open && dialogType === "fishing") {
-            return
-          }
-          setShowDialog(open)
-          if (!open) {
-            setDialogType(null)
-          }
-        }}
-      >
-        <DialogContent className='sm:max-w-[600px]'>
-          {dialogType === "greenhouse" && <GreenhouseDialog />}
-          {dialogType === "fishing" && (
-            <>
-              <DialogHeader>
-                <DialogTitle>Рыбалка</DialogTitle>
-              </DialogHeader>
-              <FishingDialog
-                open={showDialog}
-                onOpenChange={setShowDialog}
-                onCatch={handleFishCatch}
-              />
-            </>
-          )}
-          {dialogType === "stocks" && <StocksDialog />}
-          {dialogType === "mail" && <MailDialog />}
-          {dialogType === "kiosk" && <KioskDialog />}
-          {dialogType === "house" && (
-            <HouseDialog
-              onSleep={handleSleep}
-              isTransitioning={isTransitioning}
-            />
-          )}
-          {dialogType === "barn" && <BarnDialog />}
-          <DialogFooter>
-            <Button onClick={() => setShowDialog(false)}>Закрыть</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   )
 }

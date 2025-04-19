@@ -2,14 +2,14 @@ import { BuildingBoundary } from "../types"
 import { calculateRotatedBoundaries } from "../utils"
 
 export const BUILDING_BOUNDARIES: BuildingBoundary[] = [
-  // Greenhouse
+  // Greenhouses
   {
-    ...calculateRotatedBoundaries([-15, 0, 0], 8, 9, Math.PI / 6),
+    ...calculateRotatedBoundaries([-20, 0, 0], 12, 5, 0),
     type: "greenhouse",
     doorPosition: {
-      x: -13.9,
-      z: 3.5,
-      radius: 1.5,
+      x: -15,
+      z: 2.5,
+      radius: 1.2,
     },
   },
   // Kiosk

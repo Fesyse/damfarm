@@ -35,7 +35,14 @@ const MemoizedBillboard = memo(
 )
 MemoizedBillboard.displayName = "MemoizedBillboard"
 
-const MemoizedGreenhouse = memo(() => <Greenhouse />)
+const MemoizedGreenhouse = memo(() => {
+  return (
+    <>
+      <Greenhouse position={[3, 0, -5]} rotation={[0, Math.PI / 7, 0]} />
+      <Greenhouse position={[-5, 0, -1.15]} rotation={[0, Math.PI / 7, 0]} />
+    </>
+  )
+})
 MemoizedGreenhouse.displayName = "MemoizedGreenhouse"
 
 const MemoizedKiosk = memo(() => <Kiosk />)
@@ -165,7 +172,7 @@ export function Buildings({
         rotation-y={rotations.greenhouse}
       >
         <MemoizedGreenhouse />
-        <MemoizedBillboard position={[0, 10, 0]} text='Теплица' />
+        <MemoizedBillboard position={[0, 10, 0]} text='Теплицы' />
       </group>
 
       {/* Kiosk */}
