@@ -88,6 +88,7 @@ const productEmoji = {
   wool: "🧶",
   meat: "🍖",
 }
+
 const availableAnimals = [
   { type: "cow", price: 2000, description: "Дает молоко каждый день" },
   { type: "chicken", price: 500, description: "Несет яйца каждый день" },
@@ -99,7 +100,9 @@ const availableAnimals = [
 
 export function BarnDialog() {
   const [tab, setTab] = useState<"animals" | "market">("animals")
-  const { animals, strokeAnimal, feedAnimal } = useGameStore(state => state)
+  const { animals, strokeAnimal, feedAnimal, collectProducts } = useGameStore(
+    state => state
+  )
 
   const strokeAnimalHandler = (id: number) => {
     const changed = strokeAnimal(id)
@@ -126,6 +129,20 @@ export function BarnDialog() {
       toast.error(error ?? "Вы уже кормили это животное сегодня!")
     }
   }
+
+  const collectProductsHandler = (id: number) => {
+    const error = collectProducts(id)
+    if (!error) {
+      toast.success("Вы собрали продукты!", {
+        description: (
+          <span className='text-foreground'>Возвращайтесь завтра!</span>
+        ),
+      })
+    } else {
+      toast.error(error)
+    }
+  }
+
   return (
     <>
       <DialogHeader>
@@ -236,7 +253,11 @@ export function BarnDialog() {
                           </Tooltip>
                         </TooltipProvider>
                         {animal.product && animal.productAmount > 0 && (
-                          <Button size='sm' className='flex-1'>
+                          <Button
+                            size='sm'
+                            className='flex-1'
+                            onClick={() => collectProductsHandler(animal.id)}
+                          >
                             Собрать продукты
                           </Button>
                         )}

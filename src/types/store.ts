@@ -105,4 +105,5 @@ export interface GameState {
   feedAnimal: (id: number) => string | undefined
   setAnimals: (animals: AnimalType[]) => void
   addNewAnimal: (animal: AnimalType) => void
+  collectProducts: (id: number) => string | undefined
 }

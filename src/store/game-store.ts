@@ -223,6 +223,32 @@ export const useGameStore = create<GameState>()(
 
         return error
       },
+      collectProducts: (id: number) => {
+        let error
+        set(state => {
+          const collectedProducts: {
+            milk: number
+            eggs: number
+            wool: number
+            meat: number
+          } = state.products
+
+          return {
+            animals: state.animals.map(animal => {
+              const isNewAnimal = animal.id === id
+              if (isNewAnimal && animal.productAmount > 0) {
+                collectedProducts[animal.product] += animal.productAmount
+                return { ...animal, productAmount: 0 }
+              }
+
+              return animal
+            }),
+            products: collectedProducts,
+          }
+        })
+
+        return error
+      },
     }),
     {
       name: "damfarm-game-storage",
