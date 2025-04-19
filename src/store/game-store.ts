@@ -156,7 +156,7 @@ export const useGameStore = create<GameState>()(
         set(state => ({
           fishes: {
             ...state.fishes,
-            [name]: value,
+            [name]: state.fishes[name] + value,
           },
         }))
       },
