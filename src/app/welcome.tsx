@@ -56,7 +56,7 @@ export function Welcome() {
                   repeatType: "reverse",
                 }}
               >
-                Sunflower Valley
+                Damfarm
               </motion.h1>
               <motion.div
                 className='absolute -z-10 inset-0 bg-amber-500 rounded-full blur-3xl opacity-20'
