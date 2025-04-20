@@ -15,10 +15,8 @@ export function Mountains({
 }: MountainsProps) {
 	const groupRef = useRef<THREE.Group>(null);
 
-	// Modified mountain configuration for outside-fence placement
 	const mountainRanges = useMemo(() => {
 		return [
-			// Tall mountains in the background
 			{
 				count: 5,
 				basePosition: [0, 0, -28],
@@ -31,7 +29,6 @@ export function Mountains({
 				color: "#78909C",
 				segments: 6,
 			},
-			// Mid-range peaks
 			{
 				count: 4,
 				basePosition: [0, 0, -24],
@@ -47,7 +44,6 @@ export function Mountains({
 		];
 	}, []);
 
-	// Generate the individual mountains for each range
 	const mountainData = useMemo(() => {
 		const data: {
 			x: number;
@@ -62,7 +58,6 @@ export function Mountains({
 
 		mountainRanges.forEach((range) => {
 			for (let i = 0; i < range.count; i++) {
-				// Generate mountain data
 				const height =
 					range.minHeight + Math.random() * (range.maxHeight - range.minHeight);
 				data.push({
@@ -74,7 +69,7 @@ export function Mountains({
 					height: height,
 					color: range.color,
 					segments: range.segments,
-					snowCap: height > 50, // Snow caps on the tallest peaks
+					snowCap: height > 50,
 				});
 			}
 		});
@@ -86,7 +81,6 @@ export function Mountains({
 		<group position={position} rotation={rotation} ref={groupRef}>
 			{mountainData.map((mountain, i) => (
 				<group key={i} position={[mountain.x, 0, mountain.z]}>
-					{/* Main mountain body */}
 					<mesh position={[0, mountain.height / 2, 0]} castShadow>
 						<coneGeometry
 							args={[mountain.scale, mountain.height, mountain.segments]}
@@ -99,7 +93,6 @@ export function Mountains({
 						/>
 					</mesh>
 
-					{/* Add snow caps to tall mountains */}
 					{mountain.snowCap && (
 						<mesh
 							position={[0, mountain.height - mountain.height * 0.15, 0]}

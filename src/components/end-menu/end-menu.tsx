@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, RefreshCwIcon, Sun, Cloud, Bird } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button"
+import { AnimatePresence, motion } from "framer-motion"
+import { Bird, ChevronRight, Cloud, RefreshCwIcon, Sun } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 export function FarmStory() {
   const router = useRouter();
@@ -56,7 +56,6 @@ export function FarmStory() {
     }, 1000);
   };
 
-  // Random position generator for animated elements
   const randomPosition = () => {
     return {
       x: Math.random() * 100,
@@ -65,10 +64,8 @@ export function FarmStory() {
     };
   };
 
-  // Generate clouds
   const clouds = Array.from({ length: 5 }, (_, i) => randomPosition());
 
-  // Generate birds
   const birds = Array.from({ length: 8 }, (_, i) => randomPosition());
 
   return (
