@@ -9,7 +9,7 @@ export function Loading({ className }: { className?: string }) {
 
 	useEffect(() => {
 		const startTime = Date.now();
-		const duration = 600; // 1 second to match the page timeout
+		const duration = 600;
 
 		const timer = setInterval(() => {
 			const elapsedTime = Date.now() - startTime;
@@ -67,55 +67,3 @@ export function Loading({ className }: { className?: string }) {
 		</div>
 	);
 }
-
-// Add to your global CSS (e.g. app/globals.css)
-/*
-@layer components {
-  .cloud {
-    @apply absolute h-16 w-24 bg-white/80 rounded-full;
-    &::before, &::after {
-      content: '';
-      @apply absolute bottom-0 bg-white/80 rounded-full;
-    }
-    &::before {
-      @apply h-12 w-12 -left-4;
-    }
-    &::after {
-      @apply h-14 w-14 -right-3;
-    }
-  }
-}
-
-@layer utilities {
-  .animate-float-slow {
-    animation: float 6s ease-in-out infinite;
-  }
-  .animate-float-medium {
-    animation: float 5s ease-in-out infinite;
-  }
-  .animate-float-fast {
-    animation: float 4s ease-in-out infinite;
-  }
-  .animate-bounce-slow {
-    animation: bounce 2s ease-in-out infinite;
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-*/

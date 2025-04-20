@@ -3,25 +3,30 @@
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/ui/icons";
 import { Progress } from "@/components/ui/progress";
-import { useToast } from "@/components/ui/use-toast";
+import { FISH_NAME } from "@/constants/fishes";
 import { getRandomFishByChance } from "@/lib/get-random-fish";
 import { useGameStore } from "@/store/game-store";
 import { Fish } from "@/types/fish";
 import { FishType } from "@/types/store";
 import { FishIcon, Shrimp } from "lucide-react";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
-// Типы рыб
-
-// Состояния игры
 type GameState = "idle" | "fishing" | "hooking" | "catching";
 
-// Пропсы компонента
-interface FishingDialogProps {
+type FishingDialogProps = {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
 	onCatch: (fish: Fish) => void;
-}
+};
+
+const fishRarity = {
+	common: "обычная",
+	uncommon: "необычная",
+	rare: "редкая",
+	epic: "эпическая",
+	legendary: "легендарная",
+};
 
 export function FishingDialog({
 	open,
@@ -30,10 +35,9 @@ export function FishingDialog({
 }: FishingDialogProps) {
 	const gameStore = useGameStore((state) => state);
 
-	const { toast } = useToast();
 	const [gameState, setGameState] = useState<GameState>("idle");
 	const [progress, setProgress] = useState(0);
-	const [caughtFish, setCaughtFish] = useState<Fish | null>(null);
+	const [caughtFish, setCaughtFish] = useState<Fish[]>([]);
 	const [hookPosition, setHookPosition] = useState(50);
 	const [fishPosition, setFishPosition] = useState(50);
 	const [bobberOffset, setBobberOffset] = useState(0);
@@ -57,7 +61,7 @@ export function FishingDialog({
 		if (open) {
 			setGameState("idle");
 			setProgress(0);
-			setCaughtFish(null);
+			setCaughtFish([]);
 			setHookPosition(50);
 			setFishPosition(50);
 			setBobberOffset(0);
@@ -75,7 +79,6 @@ export function FishingDialog({
 
 	useEffect(() => {
 		if (gameState === "fishing") {
-			// Анимация поплавка
 			const bobberTimer = setInterval(() => {
 				setBobberOffset((prev) => {
 					const newOffset = prev + (Math.random() * 2 - 1);
@@ -83,10 +86,8 @@ export function FishingDialog({
 				});
 			}, 100);
 
-			// Случайная поклевка
 			const biteTimer = setInterval(() => {
 				if (Math.random() < 0.1) {
-					// 10% шанс поклевки
 					setIsBiting(true);
 					const timeout = setTimeout(() => {
 						setIsBiting(false);
@@ -123,35 +124,24 @@ export function FishingDialog({
 	useEffect(() => {
 		if (gameState === "catching") {
 			console.log("Catching state started");
-			// Таймер на поимку рыбы
 			const timeout = setTimeout(() => {
-				console.log("Catch timeout triggered", {
-					hasStartedCatching,
-					isMounted,
-				});
 				if (!hasStartedCatching && isMounted) {
 					setGameState("idle");
-					toast({
-						title: "Упс!",
-						description: "Упс, рыбка уплыла! Попробуйте еще раз.",
-					});
+					toast.error("Упс, рыбка уплыла! Попробуйте еще раз.");
 				}
 			}, 5000);
 			setCatchTimeout(timeout);
 
-			// Движение рыбы
 			const timer = setInterval(() => {
 				if (isMounted) {
 					setFishPosition((prev) => {
 						const newPosition = prev + (Math.random() * 10 - 5);
-						// Ограничиваем движение рыбы в пределах 10-90%
 						return Math.max(10, Math.min(90, newPosition));
 					});
 				}
 			}, 100);
 
 			return () => {
-				console.log("Cleaning up catching state");
 				clearInterval(timer);
 				if (catchTimeout) {
 					clearTimeout(catchTimeout);
@@ -173,7 +163,6 @@ export function FishingDialog({
 			setGameState("hooking");
 			setIsBiting(false);
 			if (biteTimeout) clearTimeout(biteTimeout);
-			// Устанавливаем случайную цель для подсечки
 			setHookTarget(Math.random() * 100);
 		}
 	};
@@ -213,9 +202,7 @@ export function FishingDialog({
 		const position = (x / rect.width) * 100;
 		setHookPosition(Math.max(0, Math.min(100, position)));
 
-		// Проверяем, близко ли крючок к рыбе
 		if (Math.abs(hookPosition - fishPosition) < 10) {
-			// Если таймер еще не запущен, запускаем его
 			if (!holdTimer && isMounted) {
 				const timer = setInterval(() => {
 					if (!isMounted) {
@@ -224,22 +211,17 @@ export function FishingDialog({
 					}
 
 					setHoldProgress((prev) => {
-						const newProgress = prev + 100 / 30; // 3 секунды = 30 интервалов по 100мс
+						const newProgress = prev + 100 / 30;
 						if (newProgress >= 100) {
-							// Clear all timers before updating state
 							if (holdTimer) clearInterval(holdTimer);
 							if (catchTimeout) clearTimeout(catchTimeout);
 
 							const randomFish = getRandomFishByChance();
 							if (isMounted) {
-								setCaughtFish(randomFish);
+								setCaughtFish((prev) => [...prev, randomFish]);
 								setGameState("idle");
 								onCatch(randomFish);
 								gameStore.setFishes(randomFish.name as keyof FishType, 1);
-								toast({
-									title: "Успех!",
-									description: `Вы поймали ${randomFish.name}!`,
-								});
 							}
 							return 100;
 						}
@@ -257,7 +239,6 @@ export function FishingDialog({
 		}
 	};
 
-	// Add cleanup effect for all timers
 	useEffect(() => {
 		return () => {
 			if (holdTimer) clearInterval(holdTimer);
@@ -271,7 +252,7 @@ export function FishingDialog({
 			<div className="text-center mb-4">
 				{gameState === "idle" && (
 					<p className="text-muted-foreground">
-						Нажмите "Начать рыбалку" чтобы начать
+						Нажмите &quot;Начать рыбалку&quot; чтобы начать
 					</p>
 				)}
 				{gameState === "fishing" && (
@@ -312,10 +293,7 @@ export function FishingDialog({
 								setFishPosition(Math.random() * 100);
 							} else {
 								setGameState("idle");
-								toast({
-									title: "Рыба сорвалась!",
-									description: "Попробуйте еще раз!",
-								});
+								toast.error("Рыба сорвалась! Попробуйте еще раз!");
 							}
 						}}
 					>
@@ -334,7 +312,7 @@ export function FishingDialog({
 				onMouseDown={handleMouseDown}
 				onMouseUp={handleMouseUp}
 				onMouseLeave={handleMouseUp}
-				onClick={(e) => {
+				onClick={() => {
 					if (gameState === "fishing" && isBiting) {
 						handleClick();
 					}
@@ -392,35 +370,43 @@ export function FishingDialog({
 				</Button>
 			</div>
 
-			{caughtFish && (
-				<div
-					className={`text-center p-4 rounded-lg space-y-2 ${
-						{
-							common: "bg-gray-100 border border-gray-300",
-							uncommon: "bg-green-100 border border-green-300",
-							rare: "bg-blue-100 border border-blue-300",
-							epic: "bg-purple-100 border border-purple-300",
-							legendary: "bg-yellow-100 border border-yellow-400",
-						}[caughtFish.rarity]
-					}`}
-				>
-					<p className="text-lg font-semibold">
-						Поймана рыба: {caughtFish.name}
-					</p>
-					<p className="text-2xl">{caughtFish.icon}</p>
-					<p
-						className={`text-sm font-medium ${
-							{
-								common: "text-gray-600",
-								uncommon: "text-green-700",
-								rare: "text-blue-700",
-								epic: "text-purple-700",
-								legendary: "text-yellow-700",
-							}[caughtFish.rarity]
-						}`}
-					>
-						Редкость: {caughtFish.rarity.toUpperCase()}
-					</p>
+			{caughtFish.length > 0 && (
+				<div className="space-y-2">
+					<h3 className="text-lg font-medium text-center">Пойманные рыбы:</h3>
+					<div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+						{caughtFish.map((fish, index) => (
+							<div
+								key={`${fish.name}-${index}`}
+								className={`text-center p-3 rounded-lg space-y-1 border ${
+									{
+										common: "bg-gray-100 border-gray-300",
+										uncommon: "bg-green-100 border-green-300",
+										rare: "bg-blue-100 border-blue-300",
+										epic: "bg-purple-100 border-purple-300",
+										legendary: "bg-yellow-100 border-yellow-400",
+									}[fish.rarity]
+								}`}
+							>
+								<p className="text-base font-semibold">
+									{FISH_NAME[fish.name as keyof typeof FISH_NAME]}
+								</p>
+								<p className="text-xl">{fish.icon}</p>
+								<p
+									className={`text-xs font-medium ${
+										{
+											common: "text-gray-600",
+											uncommon: "text-green-700",
+											rare: "text-blue-700",
+											epic: "text-purple-700",
+											legendary: "text-yellow-700",
+										}[fish.rarity]
+									}`}
+								>
+									Редкость: {fishRarity[fish.rarity]}
+								</p>
+							</div>
+						))}
+					</div>
 				</div>
 			)}
 		</div>

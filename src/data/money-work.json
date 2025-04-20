@@ -1,1901 +1,1901 @@
 {
-	"days": [
-		{
-			"day": 1,
-			"news": {
-				"stocks": [
-					{
-						"text": "OilCorp участвует в скандале по загрязнению.",
-						"type": "free",
-						"reliability": "controversial"
-					},
-					{
-						"text": "TechNova выпускает новый AI-чип.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "MediPlus испытывает новый препарат.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Фейковые новости о болезни Моркови.",
-						"type": "free",
-						"reliability": "unreliable"
-					},
-					{
-						"text": "Ожидается рекордный урожай Кукурузы.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Нашествие насекомых угрожает урожаю Клубники.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Рост рыболовства в Норвегии увеличивает поставки Лосося.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 340 },
-				{ "name": "OilCorp", "price": 546 },
-				{ "name": "GreenFuture", "price": 300 },
-				{ "name": "GameVerse", "price": 287 },
-				{ "name": "MediPlus", "price": 768 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 30, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 25, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 39, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 35, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 53, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 61, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 150, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 200, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 180, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 140, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 120, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 90, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 160, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 170, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 100, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 2,
-			"news": {
-				"stocks": [
-					{
-						"text": "TechNova слухи о слиянии с Azurix.",
-						"type": "paid",
-						"reliability": "unreliable"
-					},
-					{
-						"text": "GreenFuture получила грант ЕС.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "MediPlus скрывает побочные эффекты.",
-						"type": "paid",
-						"reliability": "unreliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Правительство с"
-					},
-					{
-						"text": "Крупный фермер зcontroversial"
-					},
-					{
-						"text": "Землетрясение повлияло на урожай Кукурузы.",
-						"type": "free",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Ураган в Тихом океане повлиял на поставки Тунца.",
-						"type": "paid",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 368 },
-				{ "name": "OilCorp", "price": 567 },
-				{ "name": "GreenFuture", "price": 314 },
-				{ "name": "GameVerse", "price": 267 },
-				{ "name": "MediPlus", "price": 783 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 3,
-			"news": {
-				"stocks": [
-					{
-						"text": "GameVerse анонсировала новую VR игру.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "OilCorp пытается замять дело о загрязнении.",
-						"type": "paid",
-						"reliability": "unreliable"
-					},
-					{
-						"text": "MediPlus получила одобрение FDA.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Засуха угрожает урожаю Пшеницы.",
-						"type": "free",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Импорт Моркови из Китая увеличился.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Проблемы с логистикой влияют на поставки Лосося.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Новый вид червей уничтожает посевы Картошки.",
-						"type": "paid",
-						"reliability": "controversial"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 375 },
-				{ "name": "OilCorp", "price": 550 },
-				{ "name": "GreenFuture", "price": 320 },
-				{ "name": "GameVerse", "price": 300 },
-				{ "name": "MediPlus", "price": 800 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 32, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 35, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 50, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 30, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 60, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 70, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 160, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 200, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 180, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 140, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 130, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 90, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 160, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 170, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 100, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 4,
-			"news": {
-				"stocks": [
-					{
-						"text": "TechNova опровергает слухи о слиянии.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "GreenFuture инвестирует в солнечную энергию.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "GameVerse переносит релиз игры.",
-						"type": "paid",
-						"reliability": "unreliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Дожди улучшили прогноз урожая Томатов.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Фермеры жалуются на нехватку удобрений для Кукурузы.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Браконьеры уменьшили популяцию Судака в реках.",
-						"type": "paid",
-						"reliability": "unreliable"
-					},
-					{
-						"text": "Экспорт Трески в Японию увеличился.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 380 },
-				{ "name": "OilCorp", "price": 540 },
-				{ "name": "GreenFuture", "price": 330 },
-				{ "name": "GameVerse", "price": 290 },
-				{ "name": "MediPlus", "price": 810 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 5,
-			"news": {
-				"stocks": [
-					{
-						"text": "OilCorp выплачивает штрафы за загрязнение.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "MediPlus запускает программу лояльности.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "GreenFuture разрабатывает ветряные турбины.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Новый сорт Моркови устойчив к болезням.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Заморозки повредили урожай Клубники.",
-						"type": "free",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Дефицит воды влияет на выращивание Томатов.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Шторм в Атлантике повлиял на вылов Скумбрии.",
-						"type": "paid",
-						"reliability": "controversial"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 385 },
-				{ "name": "OilCorp", "price": 530 },
-				{ "name": "GreenFuture", "price": 340 },
-				{ "name": "GameVerse", "price": 285 },
-				{ "name": "MediPlus", "price": 820 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 6,
-			"news": {
-				"stocks": [
-					{
-						"text": "TechNova разрабатывает новое поколение чипов для майнинга.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "OilCorp инвестирует в возобновляемые источники энергии.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "GameVerse увольняет часть сотрудников из-за переноса релиза игры.",
-						"type": "paid",
-						"reliability": "unreliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Фермеры переходят на выращивание органической Картошки.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Нехватка рабочей силы влияет на сбор урожая Пшеницы.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Правительство снижает квоты на вылов Сельди.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Загрязнение моря угрожает популяции Окуня.",
-						"type": "paid",
-						"reliability": "controversial"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 390 },
-				{ "name": "OilCorp", "price": 535 },
-				{ "name": "GreenFuture", "price": 345 },
-				{ "name": "GameVerse", "price": 280 },
-				{ "name": "MediPlus", "price": 825 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 7,
-			"news": {
-				"stocks": [
-					{
-						"text": "MediPlus объявила о положительных результатах клинических испытаний нового препарата.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "GreenFuture планирует расширение производства солнечных панелей.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "TechNova сталкивается с проблемами в производстве новых чипов.",
-						"type": "paid",
-						"reliability": "unreliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Повышенный спрос на органическую Морковь.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Увеличение экспортных пошлин на Кукурузу.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Засуха в регионе влияет на урожайность Щуки.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Новые правила регулирования вылова Карася.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 385 },
-				{ "name": "OilCorp", "price": 540 },
-				{ "name": "GreenFuture", "price": 350 },
-				{ "name": "GameVerse", "price": 275 },
-				{ "name": "MediPlus", "price": 830 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 8,
-			"news": {
-				"stocks": [
-					{
-						"text": "Слухи о банкротстве GameVerse.",
-						"type": "paid",
-						"reliability": "unreliable"
-					},
-					{
-						"text": "OilCorp уличили в уклонении от налогов.",
-						"type": "free",
-						"reliability": "controversial"
-					},
-					{
-						"text": "TechNova представила прототип нового квантового компьютера.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Экспорт Моркови в Европу вырос.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Дефицит воды привел к снижению урожая Кукурузы.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "carp стал более доступным из-за новых технологий.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Ученые предупреждают о сокращении популяции Леща.",
-						"type": "paid",
-						"reliability": "unreliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 390 },
-				{ "name": "OilCorp", "price": 530 },
-				{ "name": "GreenFuture", "price": 355 },
-				{ "name": "GameVerse", "price": 270 },
-				{ "name": "MediPlus", "price": 835 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 9,
-			"news": {
-				"stocks": [
-					{
-						"text": "MediPlus запускает новую программу исследований в области генной инженерии.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "GreenFuture объявляет о новом прорыве в технологии хранения энергии.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "TechNova заключает партнерство с крупной телекоммуникационной компанией.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Власти вводят ограничения на использование пестицидов при выращивании Картошки.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Неблагоприятные погодные условия снизили урожайность Пшеницы.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Вспышка заболевания среди популяции Тунца привела к снижению улова.",
-						"type": "paid",
-						"reliability": "unreliable"
-					},
-					{
-						"text": "Государственная поддержка стимулирует выращивание Моркови.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 395 },
-				{ "name": "OilCorp", "price": 525 },
-				{ "name": "GreenFuture", "price": 360 },
-				{ "name": "GameVerse", "price": 265 },
-				{ "name": "MediPlus", "price": 840 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 10,
-			"news": {
-				"stocks": [
-					{
-						"text": "GameVerse официально объявила о банкротстве.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "OilCorp меняет руководство после скандалов.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "TechNova ищет новые рынки сбыта для своей продукции.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Цены на Томаты бьют рекорды из-за неурожая в соседних странах.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "strawberry становится деликатесом из-за болезней растений.",
-						"type": "free",
-						"reliability": "unreliable"
-					},
-					{
-						"text": "pike_perch становится популярным среди потребителей благодаря новым рецептам.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Обнаружена утечка нефти, повлиявшая на популяцию Трески.",
-						"type": "paid",
-						"reliability": "controversial"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 400 },
-				{ "name": "OilCorp", "price": 520 },
-				{ "name": "GreenFuture", "price": 365 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 845 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 11,
-			"news": {
-				"stocks": [
-					{
-						"text": "TechNova выпустила обновление для своего AI-чипа.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "OilCorp начала программу по восстановлению окружающей среды.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "GreenFuture представила новую технологию переработки отходов.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Власти субсидируют фермеров, выращивающих Клубнику.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Резкое увеличение цен на Тунца из-за проблем с поставками.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "herring стала популярной в азиатских странах.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Изменение климата влияет на размножение Щуки.",
-						"type": "paid",
-						"reliability": "unreliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 405 },
-				{ "name": "OilCorp", "price": 525 },
-				{ "name": "GreenFuture", "price": 370 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 850 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 12,
-			"news": {
-				"stocks": [
-					{
-						"text": "MediPlus запускает образовательные программы для врачей.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "GreenFuture получила крупный заказ от правительства на поставку солнечных панелей.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "OilCorp расширяет свою деятельность на рынке возобновляемой энергетики.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Власти вводят новые стандарты качества для Пшеницы.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "На рынке появились "
-					},
-					{
-						"text": "carp стал более доступным благодаря новым технологиям аквакультуры.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Спрос на органическую Картошку растет среди потребителей.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 410 },
-				{ "name": "OilCorp", "price": 530 },
-				{ "name": "GreenFuture", "price": 375 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 855 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 13,
-			"news": {
-				"stocks": [
-					{
-						"text": "TechNova начинает разработку новых аккумуляторов для электромобилей.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "OilCorp столкнулась с обвинениями в несоблюдении экологических норм.",
-						"type": "free",
-						"reliability": "controversial"
-					},
-					{
-						"text": "MediPlus объявила об успешном завершении клинических испытаний.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Власти увеличивают поддержку местных производителей Томатов.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Погодные условия благоприятны для выращивания Клубники.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Повышенный спрос на органического Лосося из-за заботы о здоровье.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Снижение популяции Окуня в реках из-за загрязнения воды.",
-						"type": "paid",
-						"reliability": "unreliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 415 },
-				{ "name": "OilCorp", "price": 525 },
-				{ "name": "GreenFuture", "price": 380 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 860 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 14,
-			"news": {
-				"stocks": [
-					{
-						"text": "GreenFuture планирует запуск нового завода по производству ветряных турбин.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "MediPlus запустила программу по поддержке медицинских исследований.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "TechNova выпустила новый смартфон с использованием передовых AI технологий.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Правительство увеличивает субсидии на выращивание экологически чистой Картошки.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "На рынке появилось большое количество импортной Моркови, что привело к снижению цен.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Цены на Пшеницу выросли из-за засухи в регионе.",
-						"type": "free",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Влияние загрязнения на популяцию Леща привлекает внимание экологов.",
-						"type": "paid",
-						"reliability": "unreliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 420 },
-				{ "name": "OilCorp", "price": 530 },
-				{ "name": "GreenFuture", "price": 385 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 865 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 15,
-			"news": {
-				"stocks": [
-					{
-						"text": "OilCorp разработала новую технологию переработки нефтяных отходов.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "TechNova сотрудничает с международным исследовательским центром.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "GreenFuture привлекает инвестиции для расширения производства.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Снижение цен на herring из-за перенасыщения рынка.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Морковь становится все более популярной среди здорового питания.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Ученые выявили, что изменение климата может повлиять на поставки Трески.",
-						"type": "paid",
-						"reliability": "unreliable"
-					},
-					{
-						"text": "Государство выделяет средства на развитие аквакультуры по выращиванию Щуки.",
-						"type": "paid",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 425 },
-				{ "name": "OilCorp", "price": 535 },
-				{ "name": "GreenFuture", "price": 390 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 870 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 16,
-			"news": {
-				"stocks": [
-					{
-						"text": "GreenFuture разработала новую технологию утилизации углекислого газа.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "TechNova объявила о выпуске новой модели робота-ассистента.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "OilCorp инвестирует в строительство электрозаправок для автомобилей.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Сельхозпроизводители переходят на экологичное выращивание Томатов.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Засуха угрожает урожаю Судака в водоемах.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Правительство планирует ввести программу поддержки для рыболовства Лосося.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Повышенный спрос на Картошку из-за праздничного сезона.",
-						"type": "paid",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 430 },
-				{ "name": "OilCorp", "price": 540 },
-				{ "name": "GreenFuture", "price": 395 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 875 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 17,
-			"news": {
-				"stocks": [
-					{
-						"text": "MediPlus разрабатывает новые методы лечения рака.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "GreenFuture открыла новую электростанцию на солнечных батареях.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "TechNova выпустила новый ноутбук с уникальными функциями.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Разлив нефти негативно повлиял на популяцию Леща.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Урожай Моркови в этом году бьет все рекорды.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Из-за высоких цен на Тунца потребители переключаются на другие виды рыбы.",
-						"type": "paid",
-						"reliability": "unreliable"
-					},
-					{
-						"text": "Правительство поддерживает фермеров, выращивающих Клубнику.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 435 },
-				{ "name": "OilCorp", "price": 545 },
-				{ "name": "GreenFuture", "price": 400 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 880 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 18,
-			"news": {
-				"stocks": [
-					{
-						"text": "GreenFuture объявила о сотрудничестве с известным фондом охраны природы.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "MediPlus планирует разработку новых вакцин против распространенных заболеваний.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "TechNova запускает новую программу обучения для IT специалистов.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Высокий урожай Картошки привел к снижению цен на рынке.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Нехватка рабочей силы сказывается на сборе урожая Пшеницы.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Власти планируют ввести новые ограничения на вылов Скумбрии.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "perch стал более доступным благодаря развитию аквакультуры.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 440 },
-				{ "name": "OilCorp", "price": 550 },
-				{ "name": "GreenFuture", "price": 405 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 885 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 19,
-			"news": {
-				"stocks": [
-					{
-						"text": "MediPlus ищет новые возможности для расширения бизнеса за рубежом.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "GreenFuture анонсировала разработку новых экологически чистых удобрений.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "TechNova сотрудничает с производителями электромобилей для разработки новых технологий.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Томаты становятся все более дорогими из-за неурожая.",
-						"type": "paid",
-						"reliability": "unreliable"
-					},
-					{
-						"text": "Фермеры жалуются на нашествие вредителей на Клубнику.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Популярность органического Лосося растет с каждым днем.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Правительство вводит программу поддержки для развития производства Моркови.",
-						"type": "paid",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 445 },
-				{ "name": "OilCorp", "price": 555 },
-				{ "name": "GreenFuture", "price": 410 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 890 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 20,
-			"news": {
-				"stocks": [
-					{
-						"text": "TechNova разрабатывает новое поколение AI для беспилотных автомобилей.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "OilCorp планирует расширить свою деятельность в области биотоплива.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "MediPlus объявила о прорыве в лечении генетических заболеваний.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Картофель стал основным продуктом питания из-за роста цен на другие продукты.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Фермеры жалуются на низкий урожай Пшеницы из-за засухи.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Регулирование рыболовства влияет на доступность Скумбрии.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "perch становится популярным выбором среди потребителей благодаря полезным свойствам.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 450 },
-				{ "name": "OilCorp", "price": 560 },
-				{ "name": "GreenFuture", "price": 415 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 895 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 21,
-			"news": {
-				"stocks": [
-					{
-						"text": "TechNova выпускает новый AI чип с повышенной производительностью.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "OilCorp запускает программу по очистке загрязненных территорий.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "MediPlus разрабатывает лекарство от редкого генетического заболевания.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Власти ограничивают экспорт Моркови, чтобы обеспечить внутренний рынок.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Фермеры страдают от нашествия насекомых, что угрожает урожаю Кукурузы.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Ученые выяснили, что pike_perch содержит важные питательные вещества.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Загрязнение водоемов угрожает популяции Карася.",
-						"type": "paid",
-						"reliability": "unreliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 455 },
-				{ "name": "OilCorp", "price": 565 },
-				{ "name": "GreenFuture", "price": 420 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 900 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 22,
-			"news": {
-				"stocks": [
-					{
-						"text": "TechNova разрабатывает систему умного дома на базе AI.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "OilCorp финансирует научные исследования в области возобновляемой энергии.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "MediPlus расширяет свою сеть медицинских центров по всей стране.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Рынок наводнили ",
-						"reliability": "unreliable"
-					},
-					{
-						"text": "Спрос на Клубнику продолжает расти, цены бьют рекорды.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Правительство субсидирует рыболовство Лосося, чтобы поддержать отрасль.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Загрязнение водоемов угрожает популяции Трески.",
-						"type": "paid",
-						"reliability": "unreliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 460 },
-				{ "name": "OilCorp", "price": 570 },
-				{ "name": "GreenFuture", "price": 425 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 905 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 23,
-			"news": {
-				"stocks": [
-					{
-						"text": "TechNova анонсирует новый смартфон с поддержкой 6G сети.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "OilCorp разрабатывает новые технологии добычи нефти на шельфе.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "MediPlus представляет новый метод диагностики сердечно-сосудистых заболеваний.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Резкий скачок цен на Пшеницу из-за неурожая в основных регионах.",
-						"type": "paid",
-						"reliability": "unreliable"
-					},
-					{
-						"text": "Повышенный спрос на морковь связан с популяризацией здорового образа жизни.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Власти вводят ограничения на вылов Тунца в связи с уменьшением популяции.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Новые технологии в аквакультуре позволяют снизить цены на Щуку.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 465 },
-				{ "name": "OilCorp", "price": 575 },
-				{ "name": "GreenFuture", "price": 430 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 910 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 24,
-			"news": {
-				"stocks": [
-					{
-						"text": "MediPlus разрабатывает новые методы лечения болезни Альцгеймера.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "GreenFuture инвестирует в разработку новых ветряных электростанций в океане.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "TechNova представила новую операционную систему на основе искусственного интеллекта.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Повышение цен на Клубнику из-за неблагоприятных погодных условий.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Спрос на органический tuna превышает предложение, что ведет к росту цен.",
-						"type": "paid",
-						"reliability": "unreliable"
-					},
-					{
-						"text": "Власти планируют усилить контроль за использованием пестицидов при выращивании Моркови.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Научные исследования подтверждают, что употребление Сельди полезно для здоровья.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 470 },
-				{ "name": "OilCorp", "price": 580 },
-				{ "name": "GreenFuture", "price": 435 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 915 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 25,
-			"news": {
-				"stocks": [
-					{
-						"text": "TechNova запускает производство роботов для сельского хозяйства.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "OilCorp снижает выбросы углекислого газа на своих предприятиях.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "MediPlus разработала новые технологии для точной диагностики заболеваний.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Государственная программа поддержки направлена на развитие органического земледелия в области Томатов.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Засуха привела к снижению урожая Судака в некоторых регионах.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Правительство планирует увеличение квот на вылов Лосося для поддержки рыболовства.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Праздничный спрос приводит к росту цен на Картошку.",
-						"type": "paid",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 475 },
-				{ "name": "OilCorp", "price": 585 },
-				{ "name": "GreenFuture", "price": 440 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 920 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 26,
-			"news": {
-				"stocks": [
-					{
-						"text": "GreenFuture запускает программу по поддержке экологических проектов.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "MediPlus планирует разработку нового препарата для лечения диабета.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "TechNova выпустила новую линейку товаров для умного дома.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Разлив нефти угрожает популяции Леща.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Высокий урожай Моркови приводит к снижению цен на рынке.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Высокие цены на Тунца заставляют потребителей переключаться на другие виды рыбы.",
-						"type": "paid",
-						"reliability": "unreliable"
-					},
-					{
-						"text": "Правительство оказывает поддержку фермерам, выращивающим Клубнику.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 480 },
-				{ "name": "OilCorp", "price": 590 },
-				{ "name": "GreenFuture", "price": 445 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 925 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 27,
-			"news": {
-				"stocks": [
-					{
-						"text": "GreenFuture объявила о сотрудничестве с местным фондом защиты окружающей среды.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "MediPlus начала разработку новых вакцин против распространенных заболеваний.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "TechNova запускает новую программу обучения для IT-специалистов.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Высокий урожай Картошки привел к снижению цен на рынке.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Нехватка рабочей силы негативно влияет на сбор урожая Пшеницы.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Власти вводят новые ограничения на вылов Скумбрии.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "perch стал более доступным благодаря развитию технологий аквакультуры.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 485 },
-				{ "name": "OilCorp", "price": 595 },
-				{ "name": "GreenFuture", "price": 450 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 930 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		},
-		{
-			"day": 28,
-			"news": {
-				"stocks": [
-					{
-						"text": "MediPlus рассматривает новые возможности для расширения бизнеса за рубежом.",
-						"type": "paid",
-						"reliability": "reliable"
-					},
-					{
-						"text": "GreenFuture анонсировала разработку новых экологически чистых удобрений.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "TechNova сотрудничает с производителями электромобилей для разработки новых технологий.",
-						"type": "free",
-						"reliability": "reliable"
-					}
-				],
-				"shop": [
-					{
-						"text": "Цены на Томаты растут из-за неурожая.",
-						"type": "paid",
-						"reliability": "unreliable"
-					},
-					{
-						"text": "Фермеры жалуются на вредителей на Клубнике.",
-						"type": "paid",
-						"reliability": "controversial"
-					},
-					{
-						"text": "Популярность органического Лосося растет.",
-						"type": "free",
-						"reliability": "reliable"
-					},
-					{
-						"text": "Правительство вводит программу поддержки для производства Моркови.",
-						"type": "paid",
-						"reliability": "reliable"
-					}
-				]
-			},
-			"stocks": [
-				{ "name": "TechNova", "price": 490 },
-				{ "name": "OilCorp", "price": 600 },
-				{ "name": "GreenFuture", "price": 455 },
-				{ "name": "GameVerse", "price": 0 },
-				{ "name": "MediPlus", "price": 935 }
-			],
-			"products": [
-				{ "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
-				{ "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
-				{ "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
-				{ "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
-				{ "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
-				{ "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
-				{ "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
-				{ "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
-				{ "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
-				{ "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
-				{ "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
-				{ "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
-				{ "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
-				{ "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
-				{ "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
-			]
-		}
-	]
+  "days": [
+    {
+      "day": 1,
+      "news": {
+        "stocks": [
+          {
+            "text": "OilCorp участвует в скандале по загрязнению.",
+            "type": "free",
+            "reliability": "controversial"
+          },
+          {
+            "text": "TechNova выпускает новый AI-чип.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus испытывает новый препарат.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Фейковые новости о болезни Моркови.",
+            "type": "free",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Ожидается рекордный урожай Кукурузы.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Нашествие насекомых угрожает урожаю Клубники.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Рост рыболовства в Норвегии увеличивает поставки Лосося.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 340 },
+        { "name": "OilCorp", "price": 546 },
+        { "name": "GreenFuture", "price": 300 },
+        { "name": "GameVerse", "price": 287 },
+        { "name": "MediPlus", "price": 768 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 20, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 18, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 30, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 25, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 40, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 45, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 120, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 180, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 160, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 120, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 100, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 75, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 140, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 150, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 85, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 2,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova слухи о слиянии с Azurix.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "GreenFuture получила грант ЕС.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus скрывает побочные эффекты.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Правительство с"
+          },
+          {
+            "text": "Крупный фермер зcontroversial"
+          },
+          {
+            "text": "Землетрясение повлияло на урожай Кукурузы.",
+            "type": "free",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Ураган в Тихом океане повлиял на поставки Тунца.",
+            "type": "paid",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 368 },
+        { "name": "OilCorp", "price": 567 },
+        { "name": "GreenFuture", "price": 314 },
+        { "name": "GameVerse", "price": 267 },
+        { "name": "MediPlus", "price": 783 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 3,
+      "news": {
+        "stocks": [
+          {
+            "text": "GameVerse анонсировала новую VR игру.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp пытается замять дело о загрязнении.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "MediPlus получила одобрение FDA.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Засуха угрожает урожаю Пшеницы.",
+            "type": "free",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Импорт Моркови из Китая увеличился.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Проблемы с логистикой влияют на поставки Лосося.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Новый вид червей уничтожает посевы Картошки.",
+            "type": "paid",
+            "reliability": "controversial"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 375 },
+        { "name": "OilCorp", "price": 550 },
+        { "name": "GreenFuture", "price": 320 },
+        { "name": "GameVerse", "price": 300 },
+        { "name": "MediPlus", "price": 800 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 32, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 35, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 50, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 30, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 60, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 70, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 160, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 200, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 180, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 140, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 130, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 90, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 160, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 170, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 100, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 4,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova опровергает слухи о слиянии.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture инвестирует в солнечную энергию.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GameVerse переносит релиз игры.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Дожди улучшили прогноз урожая Томатов.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Фермеры жалуются на нехватку удобрений для Кукурузы.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Браконьеры уменьшили популяцию Судака в реках.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Экспорт Трески в Японию увеличился.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 380 },
+        { "name": "OilCorp", "price": 540 },
+        { "name": "GreenFuture", "price": 330 },
+        { "name": "GameVerse", "price": 290 },
+        { "name": "MediPlus", "price": 810 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 5,
+      "news": {
+        "stocks": [
+          {
+            "text": "OilCorp выплачивает штрафы за загрязнение.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus запускает программу лояльности.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture разрабатывает ветряные турбины.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Новый сорт Моркови устойчив к болезням.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Заморозки повредили урожай Клубники.",
+            "type": "free",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Дефицит воды влияет на выращивание Томатов.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Шторм в Атлантике повлиял на вылов Скумбрии.",
+            "type": "paid",
+            "reliability": "controversial"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 385 },
+        { "name": "OilCorp", "price": 530 },
+        { "name": "GreenFuture", "price": 340 },
+        { "name": "GameVerse", "price": 285 },
+        { "name": "MediPlus", "price": 820 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 6,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova разрабатывает новое поколение чипов для майнинга.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp инвестирует в возобновляемые источники энергии.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GameVerse увольняет часть сотрудников из-за переноса релиза игры.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Фермеры переходят на выращивание органической Картошки.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Нехватка рабочей силы влияет на сбор урожая Пшеницы.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Правительство снижает квоты на вылов Сельди.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Загрязнение моря угрожает популяции Окуня.",
+            "type": "paid",
+            "reliability": "controversial"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 390 },
+        { "name": "OilCorp", "price": 535 },
+        { "name": "GreenFuture", "price": 345 },
+        { "name": "GameVerse", "price": 280 },
+        { "name": "MediPlus", "price": 825 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 7,
+      "news": {
+        "stocks": [
+          {
+            "text": "MediPlus объявила о положительных результатах клинических испытаний нового препарата.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture планирует расширение производства солнечных панелей.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova сталкивается с проблемами в производстве новых чипов.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Повышенный спрос на органическую Морковь.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Увеличение экспортных пошлин на Кукурузу.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Засуха в регионе влияет на урожайность Щуки.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Новые правила регулирования вылова Карася.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 385 },
+        { "name": "OilCorp", "price": 540 },
+        { "name": "GreenFuture", "price": 350 },
+        { "name": "GameVerse", "price": 275 },
+        { "name": "MediPlus", "price": 830 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 8,
+      "news": {
+        "stocks": [
+          {
+            "text": "Слухи о банкротстве GameVerse.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "OilCorp уличили в уклонении от налогов.",
+            "type": "free",
+            "reliability": "controversial"
+          },
+          {
+            "text": "TechNova представила прототип нового квантового компьютера.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Экспорт Моркови в Европу вырос.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Дефицит воды привел к снижению урожая Кукурузы.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "carp стал более доступным из-за новых технологий.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Ученые предупреждают о сокращении популяции Леща.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 390 },
+        { "name": "OilCorp", "price": 530 },
+        { "name": "GreenFuture", "price": 355 },
+        { "name": "GameVerse", "price": 270 },
+        { "name": "MediPlus", "price": 835 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 9,
+      "news": {
+        "stocks": [
+          {
+            "text": "MediPlus запускает новую программу исследований в области генной инженерии.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture объявляет о новом прорыве в технологии хранения энергии.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova заключает партнерство с крупной телекоммуникационной компанией.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Власти вводят ограничения на использование пестицидов при выращивании Картошки.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Неблагоприятные погодные условия снизили урожайность Пшеницы.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Вспышка заболевания среди популяции Тунца привела к снижению улова.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Государственная поддержка стимулирует выращивание Моркови.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 395 },
+        { "name": "OilCorp", "price": 525 },
+        { "name": "GreenFuture", "price": 360 },
+        { "name": "GameVerse", "price": 265 },
+        { "name": "MediPlus", "price": 840 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 10,
+      "news": {
+        "stocks": [
+          {
+            "text": "GameVerse официально объявила о банкротстве.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp меняет руководство после скандалов.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova ищет новые рынки сбыта для своей продукции.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Цены на Томаты бьют рекорды из-за неурожая в соседних странах.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "strawberry становится деликатесом из-за болезней растений.",
+            "type": "free",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "pike_perch становится популярным среди потребителей благодаря новым рецептам.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Обнаружена утечка нефти, повлиявшая на популяцию Трески.",
+            "type": "paid",
+            "reliability": "controversial"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 400 },
+        { "name": "OilCorp", "price": 520 },
+        { "name": "GreenFuture", "price": 365 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 845 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 11,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova выпустила обновление для своего AI-чипа.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp начала программу по восстановлению окружающей среды.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture представила новую технологию переработки отходов.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Власти субсидируют фермеров, выращивающих Клубнику.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Резкое увеличение цен на Тунца из-за проблем с поставками.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "herring стала популярной в азиатских странах.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Изменение климата влияет на размножение Щуки.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 405 },
+        { "name": "OilCorp", "price": 525 },
+        { "name": "GreenFuture", "price": 370 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 850 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 12,
+      "news": {
+        "stocks": [
+          {
+            "text": "MediPlus запускает образовательные программы для врачей.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture получила крупный заказ от правительства на поставку солнечных панелей.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp расширяет свою деятельность на рынке возобновляемой энергетики.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Власти вводят новые стандарты качества для Пшеницы.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "На рынке появились "
+          },
+          {
+            "text": "carp стал более доступным благодаря новым технологиям аквакультуры.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Спрос на органическую Картошку растет среди потребителей.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 410 },
+        { "name": "OilCorp", "price": 530 },
+        { "name": "GreenFuture", "price": 375 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 855 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 13,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova начинает разработку новых аккумуляторов для электромобилей.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp столкнулась с обвинениями в несоблюдении экологических норм.",
+            "type": "free",
+            "reliability": "controversial"
+          },
+          {
+            "text": "MediPlus объявила об успешном завершении клинических испытаний.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Власти увеличивают поддержку местных производителей Томатов.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Погодные условия благоприятны для выращивания Клубники.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Повышенный спрос на органического Лосося из-за заботы о здоровье.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Снижение популяции Окуня в реках из-за загрязнения воды.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 415 },
+        { "name": "OilCorp", "price": 525 },
+        { "name": "GreenFuture", "price": 380 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 860 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 14,
+      "news": {
+        "stocks": [
+          {
+            "text": "GreenFuture планирует запуск нового завода по производству ветряных турбин.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus запустила программу по поддержке медицинских исследований.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova выпустила новый смартфон с использованием передовых AI технологий.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Правительство увеличивает субсидии на выращивание экологически чистой Картошки.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "На рынке появилось большое количество импортной Моркови, что привело к снижению цен.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Цены на Пшеницу выросли из-за засухи в регионе.",
+            "type": "free",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Влияние загрязнения на популяцию Леща привлекает внимание экологов.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 420 },
+        { "name": "OilCorp", "price": 530 },
+        { "name": "GreenFuture", "price": 385 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 865 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 15,
+      "news": {
+        "stocks": [
+          {
+            "text": "OilCorp разработала новую технологию переработки нефтяных отходов.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova сотрудничает с международным исследовательским центром.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture привлекает инвестиции для расширения производства.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Снижение цен на herring из-за перенасыщения рынка.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Морковь становится все более популярной среди здорового питания.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Ученые выявили, что изменение климата может повлиять на поставки Трески.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Государство выделяет средства на развитие аквакультуры по выращиванию Щуки.",
+            "type": "paid",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 425 },
+        { "name": "OilCorp", "price": 535 },
+        { "name": "GreenFuture", "price": 390 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 870 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 16,
+      "news": {
+        "stocks": [
+          {
+            "text": "GreenFuture разработала новую технологию утилизации углекислого газа.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova объявила о выпуске новой модели робота-ассистента.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp инвестирует в строительство электрозаправок для автомобилей.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Сельхозпроизводители переходят на экологичное выращивание Томатов.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Засуха угрожает урожаю Судака в водоемах.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Правительство планирует ввести программу поддержки для рыболовства Лосося.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Повышенный спрос на Картошку из-за праздничного сезона.",
+            "type": "paid",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 430 },
+        { "name": "OilCorp", "price": 540 },
+        { "name": "GreenFuture", "price": 395 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 875 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 17,
+      "news": {
+        "stocks": [
+          {
+            "text": "MediPlus разрабатывает новые методы лечения рака.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture открыла новую электростанцию на солнечных батареях.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova выпустила новый ноутбук с уникальными функциями.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Разлив нефти негативно повлиял на популяцию Леща.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Урожай Моркови в этом году бьет все рекорды.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Из-за высоких цен на Тунца потребители переключаются на другие виды рыбы.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Правительство поддерживает фермеров, выращивающих Клубнику.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 435 },
+        { "name": "OilCorp", "price": 545 },
+        { "name": "GreenFuture", "price": 400 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 880 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 18,
+      "news": {
+        "stocks": [
+          {
+            "text": "GreenFuture объявила о сотрудничестве с известным фондом охраны природы.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus планирует разработку новых вакцин против распространенных заболеваний.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova запускает новую программу обучения для IT специалистов.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Высокий урожай Картошки привел к снижению цен на рынке.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Нехватка рабочей силы сказывается на сборе урожая Пшеницы.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Власти планируют ввести новые ограничения на вылов Скумбрии.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "perch стал более доступным благодаря развитию аквакультуры.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 440 },
+        { "name": "OilCorp", "price": 550 },
+        { "name": "GreenFuture", "price": 405 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 885 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 19,
+      "news": {
+        "stocks": [
+          {
+            "text": "MediPlus ищет новые возможности для расширения бизнеса за рубежом.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture анонсировала разработку новых экологически чистых удобрений.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova сотрудничает с производителями электромобилей для разработки новых технологий.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Томаты становятся все более дорогими из-за неурожая.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Фермеры жалуются на нашествие вредителей на Клубнику.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Популярность органического Лосося растет с каждым днем.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Правительство вводит программу поддержки для развития производства Моркови.",
+            "type": "paid",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 445 },
+        { "name": "OilCorp", "price": 555 },
+        { "name": "GreenFuture", "price": 410 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 890 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 20,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova разрабатывает новое поколение AI для беспилотных автомобилей.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp планирует расширить свою деятельность в области биотоплива.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus объявила о прорыве в лечении генетических заболеваний.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Картофель стал основным продуктом питания из-за роста цен на другие продукты.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Фермеры жалуются на низкий урожай Пшеницы из-за засухи.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Регулирование рыболовства влияет на доступность Скумбрии.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "perch становится популярным выбором среди потребителей благодаря полезным свойствам.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 450 },
+        { "name": "OilCorp", "price": 560 },
+        { "name": "GreenFuture", "price": 415 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 895 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 21,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova выпускает новый AI чип с повышенной производительностью.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp запускает программу по очистке загрязненных территорий.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus разрабатывает лекарство от редкого генетического заболевания.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Власти ограничивают экспорт Моркови, чтобы обеспечить внутренний рынок.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Фермеры страдают от нашествия насекомых, что угрожает урожаю Кукурузы.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Ученые выяснили, что pike_perch содержит важные питательные вещества.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Загрязнение водоемов угрожает популяции Карася.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 455 },
+        { "name": "OilCorp", "price": 565 },
+        { "name": "GreenFuture", "price": 420 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 900 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 22,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova разрабатывает систему умного дома на базе AI.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp финансирует научные исследования в области возобновляемой энергии.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus расширяет свою сеть медицинских центров по всей стране.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Рынок наводнили ",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Спрос на Клубнику продолжает расти, цены бьют рекорды.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Правительство субсидирует рыболовство Лосося, чтобы поддержать отрасль.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Загрязнение водоемов угрожает популяции Трески.",
+            "type": "paid",
+            "reliability": "unreliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 460 },
+        { "name": "OilCorp", "price": 570 },
+        { "name": "GreenFuture", "price": 425 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 905 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 23,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova анонсирует новый смартфон с поддержкой 6G сети.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp разрабатывает новые технологии добычи нефти на шельфе.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus представляет новый метод диагностики сердечно-сосудистых заболеваний.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Резкий скачок цен на Пшеницу из-за неурожая в основных регионах.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Повышенный спрос на морковь связан с популяризацией здорового образа жизни.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Власти вводят ограничения на вылов Тунца в связи с уменьшением популяции.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Новые технологии в аквакультуре позволяют снизить цены на Щуку.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 465 },
+        { "name": "OilCorp", "price": 575 },
+        { "name": "GreenFuture", "price": 430 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 910 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 24,
+      "news": {
+        "stocks": [
+          {
+            "text": "MediPlus разрабатывает новые методы лечения болезни Альцгеймера.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture инвестирует в разработку новых ветряных электростанций в океане.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova представила новую операционную систему на основе искусственного интеллекта.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Повышение цен на Клубнику из-за неблагоприятных погодных условий.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Спрос на органический tuna превышает предложение, что ведет к росту цен.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Власти планируют усилить контроль за использованием пестицидов при выращивании Моркови.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Научные исследования подтверждают, что употребление Сельди полезно для здоровья.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 470 },
+        { "name": "OilCorp", "price": 580 },
+        { "name": "GreenFuture", "price": 435 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 915 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 25,
+      "news": {
+        "stocks": [
+          {
+            "text": "TechNova запускает производство роботов для сельского хозяйства.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "OilCorp снижает выбросы углекислого газа на своих предприятиях.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus разработала новые технологии для точной диагностики заболеваний.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Государственная программа поддержки направлена на развитие органического земледелия в области Томатов.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Засуха привела к снижению урожая Судака в некоторых регионах.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Правительство планирует увеличение квот на вылов Лосося для поддержки рыболовства.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Праздничный спрос приводит к росту цен на Картошку.",
+            "type": "paid",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 475 },
+        { "name": "OilCorp", "price": 585 },
+        { "name": "GreenFuture", "price": 440 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 920 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 26,
+      "news": {
+        "stocks": [
+          {
+            "text": "GreenFuture запускает программу по поддержке экологических проектов.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus планирует разработку нового препарата для лечения диабета.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova выпустила новую линейку товаров для умного дома.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Разлив нефти угрожает популяции Леща.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Высокий урожай Моркови приводит к снижению цен на рынке.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Высокие цены на Тунца заставляют потребителей переключаться на другие виды рыбы.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Правительство оказывает поддержку фермерам, выращивающим Клубнику.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 480 },
+        { "name": "OilCorp", "price": 590 },
+        { "name": "GreenFuture", "price": 445 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 925 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 27,
+      "news": {
+        "stocks": [
+          {
+            "text": "GreenFuture объявила о сотрудничестве с местным фондом защиты окружающей среды.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "MediPlus начала разработку новых вакцин против распространенных заболеваний.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova запускает новую программу обучения для IT-специалистов.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Высокий урожай Картошки привел к снижению цен на рынке.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Нехватка рабочей силы негативно влияет на сбор урожая Пшеницы.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Власти вводят новые ограничения на вылов Скумбрии.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "perch стал более доступным благодаря развитию технологий аквакультуры.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 485 },
+        { "name": "OilCorp", "price": 595 },
+        { "name": "GreenFuture", "price": 450 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 930 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    },
+    {
+      "day": 28,
+      "news": {
+        "stocks": [
+          {
+            "text": "MediPlus рассматривает новые возможности для расширения бизнеса за рубежом.",
+            "type": "paid",
+            "reliability": "reliable"
+          },
+          {
+            "text": "GreenFuture анонсировала разработку новых экологически чистых удобрений.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "TechNova сотрудничает с производителями электромобилей для разработки новых технологий.",
+            "type": "free",
+            "reliability": "reliable"
+          }
+        ],
+        "shop": [
+          {
+            "text": "Цены на Томаты растут из-за неурожая.",
+            "type": "paid",
+            "reliability": "unreliable"
+          },
+          {
+            "text": "Фермеры жалуются на вредителей на Клубнике.",
+            "type": "paid",
+            "reliability": "controversial"
+          },
+          {
+            "text": "Популярность органического Лосося растет.",
+            "type": "free",
+            "reliability": "reliable"
+          },
+          {
+            "text": "Правительство вводит программу поддержки для производства Моркови.",
+            "type": "paid",
+            "reliability": "reliable"
+          }
+        ]
+      },
+      "stocks": [
+        { "name": "TechNova", "price": 490 },
+        { "name": "OilCorp", "price": 600 },
+        { "name": "GreenFuture", "price": 455 },
+        { "name": "GameVerse", "price": 0 },
+        { "name": "MediPlus", "price": 935 }
+      ],
+      "products": [
+        { "name": "Морковка", "price": 213, "key": "carrot", "icon": "🥕" },
+        { "name": "Картошка", "price": 12, "key": "potato", "icon": "🥔" },
+        { "name": "Пшеница", "price": 123, "key": "wheat", "icon": "🌾" },
+        { "name": "Кукуруза", "price": 23, "key": "corn", "icon": "🌽" },
+        { "name": "Томаты", "price": 34, "key": "tomato", "icon": "🍅" },
+        { "name": "Клубника", "price": 65, "key": "strawberry", "icon": "🍓" },
+        { "name": "Карп", "price": 170, "key": "carp", "icon": "🐟" },
+        { "name": "Тунец", "price": 242, "key": "tuna", "icon": "🐟" },
+        { "name": "Судак", "price": 234, "key": "pike_perch", "icon": "🐟" },
+        { "name": "Треска", "price": 150, "key": "cod", "icon": "🐟" },
+        { "name": "Скумбрия", "price": 123, "key": "mackerel", "icon": "🐟" },
+        { "name": "Сельдь", "price": 234, "key": "herring", "icon": "🐟" },
+        { "name": "Окунь", "price": 21, "key": "perch", "icon": "🐟" },
+        { "name": "Щука", "price": 12, "key": "pike", "icon": "🐟" },
+        { "name": "Лещ", "price": 1223, "key": "bream", "icon": "🐟" }
+      ]
+    }
+  ]
 }

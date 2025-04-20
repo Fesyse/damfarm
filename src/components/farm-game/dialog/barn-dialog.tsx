@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/tooltip"
 import { toast } from "sonner"
 import { AnimalType, ResoursesType } from "@/types/store"
+import { getAnimalsPrices } from "@/data/json-data"
 
 const animalEmoji = {
   cow: "🐄",
@@ -89,13 +90,38 @@ const productEmoji = {
   meat: "🍖",
 }
 
+const animalPrices = getAnimalsPrices()
 const availableAnimals = [
-  { type: "cow", price: 2000, description: "Дает молоко каждый день" },
-  { type: "chicken", price: 500, description: "Несет яйца каждый день" },
-  { type: "sheep", price: 1500, description: "Дает шерсть каждые 3 дня" },
-  { type: "pig", price: 1200, description: "Быстро растет, дает мясо" },
-  { type: "rabbit", price: 400, description: "Дает мясо и мех" },
-  { type: "horse", price: 3000, description: "Ускоряет передвижение" },
+  {
+    type: "cow",
+    price: animalPrices.cow,
+    description: "Дает молоко каждый день",
+  },
+  {
+    type: "chicken",
+    price: animalPrices.chicken,
+    description: "Несет яйца каждый день",
+  },
+  {
+    type: "sheep",
+    price: animalPrices.sheep,
+    description: "Дает шерсть каждые 3 дня",
+  },
+  {
+    type: "pig",
+    price: animalPrices.pig,
+    description: "Быстро растет, дает мясо",
+  },
+  {
+    type: "rabbit",
+    price: animalPrices.rabbit,
+    description: "Дает мясо и мех",
+  },
+  {
+    type: "horse",
+    price: animalPrices.horse,
+    description: "Ускоряет передвижение",
+  },
 ] as const
 
 export function BarnDialog() {
@@ -130,16 +156,12 @@ export function BarnDialog() {
   }
 
   const collectProductsHandler = (id: number) => {
-    const error = collectProducts(id)
-    if (!error) {
-      toast.success("Вы собрали продукты!", {
-        description: (
-          <span className='text-foreground'>Возвращайтесь завтра!</span>
-        ),
-      })
-    } else {
-      toast.error(error)
-    }
+    collectProducts(id)
+    toast.success("Вы собрали продукты!", {
+      description: (
+        <span className='text-foreground'>Возвращайтесь завтра!</span>
+      ),
+    })
   }
 
   const buyAnimalHandler = (animal: AnimalType["type"]) => {
