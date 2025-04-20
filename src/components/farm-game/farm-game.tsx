@@ -76,7 +76,6 @@ import { Position } from "./types";
 import { InteractionPoint } from "./types/interaction-point";
 import { GameWorld } from "./world/game-world";
 
-// Mobile device detection
 function useIsMobile() {
 	const [isMobile, setIsMobile] = useState(false);
 
@@ -248,7 +247,6 @@ export function FarmGame() {
 	const [isMuted, setIsMuted] = useState(true);
 	const [hasInteracted, setHasInteracted] = useState(false);
 
-	// Mobile control state
 	const isMobile = useIsMobile();
 	const [showMobileControls, setShowMobileControls] = useState(true);
 	const [touchStartPos, setTouchStartPos] = useState<{
@@ -463,9 +461,6 @@ export function FarmGame() {
 
 	const handleFishCatch = useCallback((fish: Fish) => {
 		setInventory((prev) => [...prev, fish]);
-		// toast.success("Рыба поймана!", {
-		//   description: `Вы поймали ${fish.name}!`,
-		// })
 	}, []);
 
 	const handleTransitionComplete = useCallback(() => {
@@ -596,7 +591,6 @@ export function FarmGame() {
 				</DialogContent>
 			</Dialog>
 
-			{/* Sound Toggle Button */}
 			<button
 				onClick={() => {
 					setHasInteracted(true);
@@ -613,7 +607,6 @@ export function FarmGame() {
 				)}
 			</button>
 
-			{/* Game Instructions Toggle Button - Adjusted for mobile */}
 			<button
 				onClick={() => setShowInstructions(!showInstructions)}
 				className={`absolute ${
@@ -623,7 +616,6 @@ export function FarmGame() {
 				<CircleHelp size={isMobile ? 14 : 16} className="text-gray-700" />
 			</button>
 
-			{/* Player Position */}
 			{!isMobile && (
 				<div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-white/80 backdrop-blur-md p-2 rounded-lg shadow-lg z-40 flex items-center gap-2">
 					<User size={16} />
@@ -844,11 +836,10 @@ export function FarmGame() {
 				</motion.div>
 			</AnimatePresence>
 
-			{/* Interaction Dialogs */}
 			<Dialog
 				open={showDialog}
 				onOpenChange={(open) => {
-					// Предотвращаем автоматическое закрытие диалога рыбалки
+					// Предотвращаем автоматическое закрытие рыбалки
 					if (!open && dialogType === "fishing") {
 						return;
 					}
@@ -892,7 +883,6 @@ export function FarmGame() {
 				</DialogContent>
 			</Dialog>
 
-			{/* Game Instructions */}
 			<AnimatePresence>
 				{showInstructions && (
 					<motion.div
@@ -990,7 +980,6 @@ export function FarmGame() {
 				)}
 			</AnimatePresence>
 
-			{/* Interaction Prompt */}
 			<AnimatePresence mode="wait">
 				{nearInteraction && (
 					<motion.div

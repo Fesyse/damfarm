@@ -79,7 +79,6 @@ export function FishingDialog({
 
 	useEffect(() => {
 		if (gameState === "fishing") {
-			// Анимация поплавка
 			const bobberTimer = setInterval(() => {
 				setBobberOffset((prev) => {
 					const newOffset = prev + (Math.random() * 2 - 1);
@@ -87,10 +86,8 @@ export function FishingDialog({
 				});
 			}, 100);
 
-			// Случайная поклевка
 			const biteTimer = setInterval(() => {
 				if (Math.random() < 0.1) {
-					// 10% шанс поклевки
 					setIsBiting(true);
 					const timeout = setTimeout(() => {
 						setIsBiting(false);
@@ -127,7 +124,6 @@ export function FishingDialog({
 	useEffect(() => {
 		if (gameState === "catching") {
 			console.log("Catching state started");
-			// Таймер на поимку рыбы
 			const timeout = setTimeout(() => {
 				if (!hasStartedCatching && isMounted) {
 					setGameState("idle");
@@ -136,12 +132,10 @@ export function FishingDialog({
 			}, 5000);
 			setCatchTimeout(timeout);
 
-			// Движение рыбы
 			const timer = setInterval(() => {
 				if (isMounted) {
 					setFishPosition((prev) => {
 						const newPosition = prev + (Math.random() * 10 - 5);
-						// Ограничиваем движение рыбы в пределах 10-90%
 						return Math.max(10, Math.min(90, newPosition));
 					});
 				}
@@ -169,7 +163,6 @@ export function FishingDialog({
 			setGameState("hooking");
 			setIsBiting(false);
 			if (biteTimeout) clearTimeout(biteTimeout);
-			// Устанавливаем случайную цель для подсечки
 			setHookTarget(Math.random() * 100);
 		}
 	};
@@ -209,9 +202,7 @@ export function FishingDialog({
 		const position = (x / rect.width) * 100;
 		setHookPosition(Math.max(0, Math.min(100, position)));
 
-		// Проверяем, близко ли крючок к рыбе
 		if (Math.abs(hookPosition - fishPosition) < 10) {
-			// Если таймер еще не запущен, запускаем его
 			if (!holdTimer && isMounted) {
 				const timer = setInterval(() => {
 					if (!isMounted) {
@@ -220,9 +211,8 @@ export function FishingDialog({
 					}
 
 					setHoldProgress((prev) => {
-						const newProgress = prev + 100 / 30; // 3 секунды = 30 интервалов по 100мс
+						const newProgress = prev + 100 / 30;
 						if (newProgress >= 100) {
-							// Clear all timers before updating state
 							if (holdTimer) clearInterval(holdTimer);
 							if (catchTimeout) clearTimeout(catchTimeout);
 

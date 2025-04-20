@@ -28,26 +28,25 @@ interface Plot {
 	stage: number;
 	watered: boolean;
 	plantedAt: number | null;
-	lastWateredAt: number | null; // Added to track watering boost
+	lastWateredAt: number | null;
 }
 
-// Season-based growth modifiers
 const SEASON_MODIFIERS = {
-	spring: 1.1, // 10% faster in spring
-	summer: 1.2, // 20% faster in summer
-	autumn: 0.7, // 30% slower in autumn
-	winter: 0.4, // 60% slower in winter
+	spring: 1.1,
+	summer: 1.2,
+	autumn: 0.7,
+	winter: 0.4,
 };
 
-const WATERING_BOOST = 1.2; // 20% growth boost when watered (reduced from 30%)
-const WATERING_DURATION = 30; // Watering effect lasts for 30 seconds
+const WATERING_BOOST = 1.2;
+const WATERING_DURATION = 30;
 
 const PLANTS: Plant[] = [
 	{
 		key: "carrot",
 		name: "Морковь",
 		emoji: "🥕",
-		growthTime: 3, // растет 3 дня (increased from 2)
+		growthTime: 3, // растет 3 дня
 		basePrice: 10,
 		yield: 1,
 		seedType: "carrotsSeed",
@@ -56,7 +55,7 @@ const PLANTS: Plant[] = [
 		key: "potato",
 		name: "Картофель",
 		emoji: "🥔",
-		growthTime: 4, // растет 4 дня (increased from 3)
+		growthTime: 4, // растет 4 дня
 		basePrice: 15,
 		yield: 1,
 		seedType: "potatoesSeed",
@@ -65,7 +64,7 @@ const PLANTS: Plant[] = [
 		key: "wheat",
 		name: "Пшеница",
 		emoji: "🌾",
-		growthTime: 2, // растет 2 дня (increased from 1)
+		growthTime: 2, // растет 2 дня
 		basePrice: 8,
 		yield: 1,
 		seedType: "wheatSeed",
@@ -74,15 +73,15 @@ const PLANTS: Plant[] = [
 		key: "corn",
 		name: "Кукуруза",
 		emoji: "🌽",
-		growthTime: 5, // растет 5 дней (increased from 4)
+		growthTime: 5, // растет 5 дней
 		basePrice: 20,
 		yield: 1,
 		seedType: "cornSeed",
 	},
 ];
 
-const PLOT_PRICE = 800; // Increased from 500
-const PLOT_SELL_PRICE = Math.floor(PLOT_PRICE * 0.6); // 60% от цены покупки (reduced from 70%)
+const PLOT_PRICE = 800;
+const PLOT_SELL_PRICE = Math.floor(PLOT_PRICE * 0.6); // 60% от цены покупки
 
 type SeedKey =
 	| "carrotsSeed"
@@ -108,7 +107,6 @@ export function GreenhouseDialog() {
 		setMoney,
 	} = gameStore;
 
-	// Локальное состояние для грядок
 	const [localPlots, setLocalPlots] = useState<Plot[]>([]);
 	const [selectedSeed, setSelectedSeed] = useState<keyof ResoursesType | null>(
 		null
@@ -119,7 +117,6 @@ export function GreenhouseDialog() {
 		id: number;
 	} | null>(null);
 
-	// Синхронизируем локальное состояние с глобальным при монтировании
 	useEffect(() => {
 		if (!gamePlots || gamePlots.length === 0) {
 			const initialPlots = [
@@ -184,7 +181,6 @@ export function GreenhouseDialog() {
 			};
 		});
 
-		// Проверяем, есть ли изменения перед обновлением состояния
 		const hasChanges = updatedPlots.some((plot, index) => {
 			const currentPlot = localPlots[index];
 			return (
