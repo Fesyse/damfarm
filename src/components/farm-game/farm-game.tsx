@@ -125,21 +125,19 @@ function SkyController({
 
 		let animationId = 0;
 		let progress = 0;
-		const duration = 3; // seconds
+		const duration = 3;
 		const fps = 60;
 		const totalFrames = duration * fps;
 
-		// Day position values
 		const dayPosition: [number, number, number] = [100, 20, 100];
 		const dayTurbidity = 10;
 		const dayRayleigh = 2;
 		const dayMieCoefficient = 0.005;
 		const dayMieDirectionalG = 0.8;
 
-		// Night position values - use higher sun position for a blue night sky instead of black
 		const nightPosition: [number, number, number] = [100, -5, 100];
 		const nightTurbidity = 20;
-		const nightRayleigh = 4; // Higher rayleigh for bluer night
+		const nightRayleigh = 4;
 		const nightMieCoefficient = 0.003;
 		const nightMieDirectionalG = 0.7;
 
@@ -171,7 +169,6 @@ function SkyController({
 				progress = 1;
 				cancelAnimationFrame(animationId);
 
-				// Only call onTransitionComplete once and reset animation flag
 				if (!animationCompleted) {
 					setAnimationCompleted(true);
 					setShouldAnimate(false);
@@ -179,10 +176,8 @@ function SkyController({
 				}
 			}
 
-			// Apply easing (smooth transition)
 			const eased = easeInOutCubic(progress);
 
-			// Interpolate values
 			const newX =
 				startPosition[0] + (endPosition[0] - startPosition[0]) * eased;
 			const newY =
@@ -457,6 +452,9 @@ export function FarmGame() {
 			if (e.code === "KeyH") {
 				setShowInstructions((prev) => !prev);
 			}
+			if (e.code === "Escape") {
+				setShowMainMenu(true);
+			}
 		};
 
 		window.addEventListener("keydown", handleKeyPress);
@@ -561,14 +559,15 @@ export function FarmGame() {
 					<Button onClick={() => setShowMainMenu(false)}>
 						Возобновить игру
 					</Button>
-					<Button variant="outline">Настройки</Button>
-					<Button variant="destructive" onClick={() => window.close()}>
-						Выйти из игры
+					<Button asChild className="text-white" variant="destructive">
+						<Link href="/">Выйти из игры</Link>
 					</Button>
 					<Separator className="my-2" />
 					<AlertDialog>
 						<AlertDialogTrigger asChild>
-							<Button variant="destructive">Начать заново</Button>
+							<Button variant="destructive" className="text-white">
+								Начать заново
+							</Button>
 						</AlertDialogTrigger>
 						<AlertDialogContent>
 							<AlertDialogHeader>
@@ -940,6 +939,18 @@ export function FarmGame() {
 								</p>
 								<p className="flex items-center gap-1.5">
 									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
+										R
+									</span>
+									<span className="text-gray-600">квесты</span>
+								</p>
+								<p className="flex items-center gap-1.5">
+									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
+										ESC
+									</span>
+									<span className="text-gray-600">меню</span>
+								</p>
+								<p className="flex items-center gap-1.5">
+									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
 										ПКМ
 									</span>
 									<span className="text-gray-600">камера</span>
@@ -952,9 +963,9 @@ export function FarmGame() {
 								</p>
 								<p className="flex items-center gap-1.5">
 									<span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
-										ESC
+										H
 									</span>
-									<span className="text-gray-600">меню</span>
+									<span className="text-gray-600">подсказки</span>
 								</p>
 							</div>
 							{isMobile && (
