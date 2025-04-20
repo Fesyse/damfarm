@@ -1,10 +1,6 @@
 "use client"
 
-import {
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog"
+import { DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Sparkles } from "lucide-react"
@@ -12,6 +8,8 @@ import { useGameStore } from "@/store/game-store"
 import { useState } from "react"
 import { getQuest } from "@/story/story"
 import { FishType, ProductsType, ResoursesType } from "@/types/store"
+import { PRODUCTS_NAME } from "@/constants/products"
+import { FISH_NAME } from "@/constants/fishes"
 
 export function QuestDialog() {
   const gameStore = useGameStore(state => state)
@@ -35,7 +33,7 @@ export function QuestDialog() {
         // Вычитаем каждый ресурс
         const resourceName = name as keyof ResoursesType
         if (gameStore.resources[resourceName] < amount) {
-          setErrorMessage(`Недостаточно ${resourceName}`)
+          setErrorMessage(`Недостаточно ${PRODUCTS_NAME[resourceName]}`)
           return
         } else {
           gameStore.setResource(resourceName, -(amount as number))
@@ -48,7 +46,7 @@ export function QuestDialog() {
       Object.entries(quest.quest?.give).forEach(([name, amount]) => {
         const resourceName = name as keyof ProductsType
         if (gameStore.products[resourceName] < amount) {
-          setErrorMessage(`Недостаточно ${resourceName}`)
+          setErrorMessage(`Недостаточно ${PRODUCTS_NAME[resourceName]}`)
           return
         } else {
           {
@@ -63,7 +61,7 @@ export function QuestDialog() {
         // Вычитаем каждый ресурс
         const resourceName = name as keyof FishType
         if (gameStore.fishes[resourceName] < amount) {
-          setErrorMessage(`Недостаточно ${resourceName}`)
+          setErrorMessage(`Недостаточно ${FISH_NAME[resourceName]}`)
           return
         } else {
           gameStore.setFishes(resourceName, -(amount as number))
@@ -102,7 +100,12 @@ export function QuestDialog() {
                     {Object.entries(quest.quest?.give || {}).map(
                       ([key, value]) => (
                         <li key={key}>
-                          {key}: {value}
+                          {quest.quest?.type === "plants"
+                            ? PRODUCTS_NAME[key as keyof typeof PRODUCTS_NAME]
+                            : quest.quest?.type === "fish"
+                            ? FISH_NAME[key as keyof typeof FISH_NAME]
+                            : PRODUCTS_NAME[key as keyof typeof PRODUCTS_NAME]}
+                          : {value}
                         </li>
                       )
                     )}
