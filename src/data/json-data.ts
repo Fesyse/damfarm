@@ -34,3 +34,7 @@ export const getPricesForAnimalsProducts = () => {
 export const getAnimalsPrices = () => {
   return animalsPrices.animals
 }
+
+export const getAnimalsProductsIncomeAmount = () => {
+  return animalsProducts.animalsProductsIncomeAmount
+}

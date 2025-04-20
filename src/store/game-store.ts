@@ -14,7 +14,10 @@ import {
 } from "@/types/store"
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
-import { getAnimalsPrices } from "@/data/json-data"
+import {
+  getAnimalsPrices,
+  getAnimalsProductsIncomeAmount,
+} from "@/data/json-data"
 
 const resourceName = {
   wheat: "пшеницы",
@@ -95,11 +98,13 @@ export const useGameStore = create<GameState>()(
               newAnimal.hunger > 50 &&
               newAnimal.health > 50
             ) {
-              newAnimal.productAmount += Math.floor(Math.random() * 3)
+              newAnimal.productAmount =
+                getAnimalsProductsIncomeAmount().find(
+                  animal => animal.type === newAnimal.type
+                )!.income + animal.productAmount
             }
 
-            newAnimal.productAmount =
-              animal.productAmount + newAnimal.productAmount
+            console.log(newAnimal.productAmount)
 
             return newAnimal
           })
@@ -370,7 +375,7 @@ export const useGameStore = create<GameState>()(
             happiness: 100,
             isStroked: false,
             product: animalProduct[animal],
-            productAmount: 10,
+            productAmount: 0,
           }
 
           return {
