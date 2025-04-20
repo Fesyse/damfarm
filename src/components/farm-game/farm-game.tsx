@@ -591,6 +591,9 @@ export function FarmGame() {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
+          <Button variant='outline' asChild>
+            <Link href='/future'>Перейти к концу игры</Link>
+          </Button>
         </DialogContent>
       </Dialog>
 
