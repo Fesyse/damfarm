@@ -884,6 +884,12 @@ export function FarmGame() {
                 </p>
                 <p className="flex items-center gap-1.5">
                   <span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
+                    R
+                  </span>
+                  <span className="text-gray-600">сюжетные квесты</span>
+                </p>
+                <p className="flex items-center gap-1.5">
+                  <span className="bg-white/50 px-1.5 py-0.5 rounded text-[9px] font-bold text-gray-700">
                     M
                   </span>
                   <span className="text-gray-600">почта</span>
