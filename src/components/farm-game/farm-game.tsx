@@ -28,6 +28,7 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -551,18 +552,16 @@ export function FarmGame() {
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Menu</DialogTitle>
+            <DialogTitle>Меню</DialogTitle>
+            <DialogDescription>
+              Выберите действие, чтобы продолжить игру
+            </DialogDescription>
           </DialogHeader>
           <Button onClick={() => setShowMainMenu(false)}>
             Возобновить игру
           </Button>
           <Button variant='outline'>Настройки</Button>
-          <Button
-            variant='destructive'
-            onClick={() => {
-              window.close()
-            }}
-          >
+          <Button variant='destructive' onClick={() => window.close()}>
             Выйти из игры
           </Button>
           <Separator className='my-2' />
