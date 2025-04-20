@@ -33,13 +33,13 @@ interface Plot {
 
 // Season-based growth modifiers
 const SEASON_MODIFIERS = {
-	spring: 1.2, // 20% faster in spring
-	summer: 1.5, // 50% faster in summer
-	autumn: 0.8, // 20% slower in autumn
-	winter: 0.5, // 50% slower in winter
+	spring: 1.1, // 10% faster in spring
+	summer: 1.2, // 20% faster in summer
+	autumn: 0.7, // 30% slower in autumn
+	winter: 0.4, // 60% slower in winter
 };
 
-const WATERING_BOOST = 1.3; // 30% growth boost when watered
+const WATERING_BOOST = 1.2; // 20% growth boost when watered (reduced from 30%)
 const WATERING_DURATION = 30; // Watering effect lasts for 30 seconds
 
 const PLANTS: Plant[] = [
@@ -47,42 +47,42 @@ const PLANTS: Plant[] = [
 		key: "carrot",
 		name: "Морковь",
 		emoji: "🥕",
-		growthTime: 2, // растет 2 дня
+		growthTime: 3, // растет 3 дня (increased from 2)
 		basePrice: 10,
-		yield: 2,
+		yield: 1,
 		seedType: "carrotsSeed",
 	},
 	{
 		key: "potato",
 		name: "Картофель",
 		emoji: "🥔",
-		growthTime: 3, // растет 3 дня
+		growthTime: 4, // растет 4 дня (increased from 3)
 		basePrice: 15,
-		yield: 2,
+		yield: 1,
 		seedType: "potatoesSeed",
 	},
 	{
 		key: "wheat",
 		name: "Пшеница",
 		emoji: "🌾",
-		growthTime: 1, // растет 1 день
+		growthTime: 2, // растет 2 дня (increased from 1)
 		basePrice: 8,
-		yield: 2,
+		yield: 1,
 		seedType: "wheatSeed",
 	},
 	{
 		key: "corn",
 		name: "Кукуруза",
 		emoji: "🌽",
-		growthTime: 4, // растет 4 дня
+		growthTime: 5, // растет 5 дней (increased from 4)
 		basePrice: 20,
-		yield: 2,
+		yield: 1,
 		seedType: "cornSeed",
 	},
 ];
 
-const PLOT_PRICE = 500;
-const PLOT_SELL_PRICE = Math.floor(PLOT_PRICE * 0.7); // 70% от цены покупки
+const PLOT_PRICE = 800; // Increased from 500
+const PLOT_SELL_PRICE = Math.floor(PLOT_PRICE * 0.6); // 60% от цены покупки (reduced from 70%)
 
 type SeedKey =
 	| "carrotsSeed"

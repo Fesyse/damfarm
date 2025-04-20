@@ -60,7 +60,6 @@ export function StocksDialog() {
       selectedStock.name,
       history
     )
-    console.log(newHistory)
 
     if (chartRef.current && history.length > 0) {
       drawChart(chartRef.current, newHistory)

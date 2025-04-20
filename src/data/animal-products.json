@@ -1,8 +1,40 @@
 {
-	"products": [
-		{ "name": "Молоко", "icon": "🥛", "price": 7, "key": "milk" },
-		{ "name": "Мясо", "icon": "🥩", "price": 10, "key": "meat" },
-		{ "name": "Шерсть", "icon": "🐑", "price": 3, "key": "wool" },
-		{ "name": "Яйца", "icon": "🥚", "price": 0, "key": "eggs" }
-	]
+  "products": [
+    { "name": "Молоко", "icon": "🥛", "price": 150, "key": "milk" },
+    { "name": "Мясо", "icon": "🥩", "price": 300, "key": "meat" },
+    { "name": "Шерсть", "icon": "🐑", "price": 100, "key": "wool" },
+    { "name": "Яйца", "icon": "🥚", "price": 50, "key": "eggs" }
+  ],
+  "animalsProductsIncomeAmount": [
+    {
+      "type": "cow",
+      "product": "milk",
+      "income": 4
+    },
+    {
+      "type": "chicken",
+      "product": "eggs",
+      "income": 4
+    },
+    {
+      "type": "sheep",
+      "product": "wool",
+      "income": 5
+    },
+    {
+      "type": "pig",
+      "product": "meat",
+      "income": 2
+    },
+    {
+      "type": "rabbit",
+      "product": "meat",
+      "income": 1
+    },
+    {
+      "type": "horse",
+      "product": "meat",
+      "income": 4
+    }
+  ]
 }

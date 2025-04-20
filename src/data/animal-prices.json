@@ -1,0 +1,10 @@
+{
+  "animals": {
+    "cow": 3500,
+    "chicken": 900,
+    "sheep": 2700,
+    "pig": 2000,
+    "rabbit": 800,
+    "horse": 5000
+  }
+}

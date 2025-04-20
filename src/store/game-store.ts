@@ -2,17 +2,22 @@ import {
   animalFeedResource,
   animalFeedResourceAmount,
 } from "@/components/farm-game/dialog"
-import { animalPrices, animalProduct } from "@/constants/animals"
+import { animalProduct } from "@/constants/animals"
 import { SEASONS } from "@/constants/seasons"
 import {
   AnimalType,
   GameState,
   ProductsType,
   SeedsType,
+  ShopItem,
   ToolsType,
 } from "@/types/store"
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
+import {
+  getAnimalsPrices,
+  getAnimalsProductsIncomeAmount,
+} from "@/data/json-data"
 
 const resourceName = {
   wheat: "пшеницы",
@@ -22,6 +27,49 @@ const resourceName = {
   tomato: "помидоров",
   strawberry: "клубнике",
 }
+
+const defaultShopItems: ShopItem[] = [
+  {
+    name: "Семена моркови",
+    icon: "🥕",
+    price: 20,
+    stock: 6,
+    type: "seed",
+    id: "carrotsSeed",
+  },
+  {
+    name: "Семена картофеля",
+    icon: "🥔",
+    price: 25,
+    stock: 6,
+    type: "seed",
+    id: "potatoesSeed",
+  },
+  {
+    name: "Семена пшеницы",
+    icon: "🌾",
+    price: 15,
+    stock: 6,
+    type: "seed",
+    id: "wheatSeed",
+  },
+  {
+    name: "Семена кукурузы",
+    icon: "🌽",
+    price: 35,
+    stock: 6,
+    type: "seed",
+    id: "cornSeed",
+  },
+  {
+    name: "Лейка",
+    icon: "💧",
+    price: 500,
+    stock: 1,
+    type: "tool",
+    id: "wateringCan",
+  },
+]
 
 export const useGameStore = create<GameState>()(
   persist(
@@ -47,19 +95,34 @@ export const useGameStore = create<GameState>()(
 
             if (
               newAnimal.happiness > 50 &&
-              newAnimal.hunger < 50 &&
+              newAnimal.hunger > 50 &&
               newAnimal.health > 50
             ) {
-              newAnimal.productAmount += Math.floor(Math.random() * 5)
+              newAnimal.productAmount =
+                getAnimalsProductsIncomeAmount().find(
+                  animal => animal.type === newAnimal.type
+                )!.income + animal.productAmount
             }
 
-            newAnimal.productAmount =
-              animal.productAmount + newAnimal.productAmount
+            console.log(newAnimal.productAmount)
 
             return newAnimal
           })
 
+          const newShopItems = defaultShopItems.map((item, i) => {
+            if (defaultShopItems[i].type === "tool") {
+              return {
+                ...item,
+                stock:
+                  item.stock -
+                  (state.tools[item.id as keyof ToolsType] ? 1 : 0),
+              }
+            }
+            return item
+          })
+
           return {
+            shopItems: newShopItems,
             animals: newAnimals,
             seasons:
               (state.days + 1) % 7 == 0 ? state.setSeason() : state.seasons,
@@ -68,7 +131,7 @@ export const useGameStore = create<GameState>()(
         })
       },
 
-      moneys: 2500,
+      moneys: 1100,
       setMoney: moneys =>
         set(state => ({
           moneys: state.moneys + moneys,
@@ -85,6 +148,11 @@ export const useGameStore = create<GameState>()(
             [name]: value,
           },
         }))
+      },
+
+      shopItems: defaultShopItems,
+      setShopItems: (shopItems: ShopItem[]) => {
+        set(() => ({ shopItems }))
       },
 
       resources: {
@@ -293,7 +361,7 @@ export const useGameStore = create<GameState>()(
       buyAnimal: animal => {
         let error
         set(state => {
-          const price = animalPrices[animal]
+          const price = getAnimalsPrices()[animal]
           if (state.moneys < price) {
             error = "Недостаточно монет"
             return {}
@@ -307,7 +375,7 @@ export const useGameStore = create<GameState>()(
             happiness: 100,
             isStroked: false,
             product: animalProduct[animal],
-            productAmount: 10,
+            productAmount: 0,
           }
 
           return {
