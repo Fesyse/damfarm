@@ -5,13 +5,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { SEASONS } from "@/constants/seasons"
 import { useGameStore } from "@/store/game-store"
 import { ResoursesType } from "@/types/store"
 import { AnimatePresence, motion } from "framer-motion"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useState } from "react"
 import { toast } from "sonner"
 
-interface Plant {
+export interface Plant {
   key: string
   name: string
   emoji: string
@@ -21,32 +22,30 @@ interface Plant {
   seedType: string
 }
 
-interface Plot {
-  id: number
-  plant: string | null
-  stage: number
-  watered: boolean
-  plantedAt: number | null
-  lastWateredAt: number | null // Added to track watering boost
-}
-
 // Season-based growth modifiers
-const SEASON_MODIFIERS = {
-  spring: 1.1, // 10% faster in spring
-  summer: 1.2, // 20% faster in summer
-  autumn: 0.7, // 30% slower in autumn
-  winter: 0.4, // 60% slower in winter
+export const SEASON_MODIFIERS = {
+  spring: 1.1,
+  summer: 1.2,
+  autumn: 0.7,
+  winter: 0.4,
 }
 
-const WATERING_BOOST = 1.2 // 20% growth boost when watered (reduced from 30%)
-const WATERING_DURATION = 30 // Watering effect lasts for 30 seconds
+// Map season index to season key for modifiers
+export const SEASON_MAP: Record<number, keyof typeof SEASON_MODIFIERS> = {
+  0: "spring",
+  1: "summer",
+  2: "autumn",
+  3: "winter",
+}
 
-const PLANTS: Plant[] = [
+export const WATERING_BOOST = 1.2 // 20% growth boost when watered
+
+export const PLANTS: Plant[] = [
   {
     key: "carrot",
     name: "Морковь",
     emoji: "🥕",
-    growthTime: 3, // растет 3 дня (increased from 2)
+    growthTime: 3,
     basePrice: 10,
     yield: 1,
     seedType: "carrotsSeed",
@@ -55,7 +54,7 @@ const PLANTS: Plant[] = [
     key: "potato",
     name: "Картофель",
     emoji: "🥔",
-    growthTime: 4, // растет 4 дня (increased from 3)
+    growthTime: 4,
     basePrice: 15,
     yield: 1,
     seedType: "potatoesSeed",
@@ -64,7 +63,7 @@ const PLANTS: Plant[] = [
     key: "wheat",
     name: "Пшеница",
     emoji: "🌾",
-    growthTime: 2, // растет 2 дня (increased from 1)
+    growthTime: 2,
     basePrice: 8,
     yield: 1,
     seedType: "wheatSeed",
@@ -73,15 +72,15 @@ const PLANTS: Plant[] = [
     key: "corn",
     name: "Кукуруза",
     emoji: "🌽",
-    growthTime: 5, // растет 5 дней (increased from 4)
+    growthTime: 5,
     basePrice: 20,
     yield: 1,
     seedType: "cornSeed",
   },
 ]
 
-const PLOT_PRICE = 800 // Increased from 500
-const PLOT_SELL_PRICE = Math.floor(PLOT_PRICE * 0.6) // 60% от цены покупки (reduced from 70%)
+const PLOT_PRICE = 800
+const PLOT_SELL_PRICE = Math.floor(PLOT_PRICE * 0.6)
 
 type SeedKey =
   | "carrotsSeed"
@@ -92,7 +91,6 @@ type SeedKey =
   | "strawberriesSeed"
 
 export function GreenhouseDialog() {
-  const gameStore = useGameStore()
   const {
     plots: gamePlots,
     setPlots,
@@ -101,101 +99,17 @@ export function GreenhouseDialog() {
     days,
     seeds,
     setSeeds,
-    seasons: season,
     tools,
     moneys,
     setMoney,
-  } = gameStore
+    seasons,
+  } = useGameStore()
 
-  // Локальное состояние для грядок
-  const [localPlots, setLocalPlots] = useState<Plot[]>([])
-  const [selectedSeed, setSelectedSeed] = useState<keyof ResoursesType | null>(
-    null
-  )
   const [selectedPlant, setSelectedPlant] = useState<string>("carrotsSeed")
   const [harvestAnimation, setHarvestAnimation] = useState<{
     emoji: string
     id: number
   } | null>(null)
-
-  // Синхронизируем локальное состояние с глобальным при монтировании
-  useEffect(() => {
-    if (!gamePlots || gamePlots.length === 0) {
-      const initialPlots = [
-        {
-          id: 1,
-          plant: null,
-          stage: 0,
-          watered: false,
-          plantedAt: null,
-          lastWateredAt: null,
-        },
-        {
-          id: 2,
-          plant: null,
-          stage: 0,
-          watered: false,
-          plantedAt: null,
-          lastWateredAt: null,
-        },
-        {
-          id: 3,
-          plant: null,
-          stage: 0,
-          watered: false,
-          plantedAt: null,
-          lastWateredAt: null,
-        },
-      ]
-      setLocalPlots(initialPlots)
-      setPlots(initialPlots)
-    } else {
-      setLocalPlots(gamePlots)
-    }
-  }, [gamePlots, setPlots])
-
-  // Обновляем рост растений при изменении дня
-  useEffect(() => {
-    if (!localPlots?.length) return
-
-    const updatedPlots = localPlots.map(plot => {
-      if (!plot.plant || !plot.plantedAt) return plot
-
-      const plant = PLANTS.find(p => p.seedType === plot.plant)
-      if (!plant) return plot
-
-      const daysPassed = days - plot.plantedAt
-      const isWatered = !!(plot.lastWateredAt && days - plot.lastWateredAt < 1)
-
-      let newStage = 0
-      if (daysPassed >= plant.growthTime) {
-        newStage = 3 // Готово к сбору
-      } else if (daysPassed >= plant.growthTime * 0.66) {
-        newStage = 2 // Цветение
-      } else if (daysPassed >= plant.growthTime * 0.33) {
-        newStage = 1 // Росток
-      }
-
-      return {
-        ...plot,
-        stage: newStage,
-        watered: isWatered,
-      }
-    })
-
-    // Проверяем, есть ли изменения перед обновлением состояния
-    const hasChanges = updatedPlots.some((plot, index) => {
-      const currentPlot = localPlots[index]
-      return (
-        plot.stage !== currentPlot.stage || plot.watered !== currentPlot.watered
-      )
-    })
-
-    if (hasChanges) {
-      setLocalPlots(updatedPlots)
-      setPlots(updatedPlots)
-    }
-  }, [days, localPlots, setPlots])
 
   const handlePlant = useCallback(
     (plotId: number) => {
@@ -211,7 +125,7 @@ export function GreenhouseDialog() {
         return
       }
 
-      const newPlots = localPlots.map(plot =>
+      const newPlots = gamePlots.map(plot =>
         plot.id === plotId
           ? {
               ...plot,
@@ -224,7 +138,6 @@ export function GreenhouseDialog() {
           : plot
       )
 
-      setLocalPlots(newPlots)
       setPlots(newPlots)
 
       const newSeeds = { ...seeds }
@@ -234,7 +147,7 @@ export function GreenhouseDialog() {
       }
       setSeeds(newSeeds)
     },
-    [localPlots, selectedPlant, days, seeds, setPlots, setSeeds]
+    [gamePlots, selectedPlant, days, seeds, setPlots, setSeeds]
   )
 
   const handleWater = useCallback(
@@ -244,26 +157,25 @@ export function GreenhouseDialog() {
         return
       }
 
-      const newPlots = localPlots.map(plot =>
+      const newPlots = gamePlots.map(plot =>
         plot.id === plotId
           ? { ...plot, watered: true, lastWateredAt: days }
           : plot
       )
-      setLocalPlots(newPlots)
       setPlots(newPlots)
     },
-    [localPlots, days, tools.wateringCan, setPlots]
+    [gamePlots, days, tools.wateringCan, setPlots]
   )
 
   const handleHarvest = useCallback(
     (plotId: number) => {
-      const plot = localPlots.find(p => p.id === plotId)
+      const plot = gamePlots.find(p => p.id === plotId)
       if (!plot?.plant || plot.stage < 3) return
 
       const plant = PLANTS.find(p => p.seedType === plot.plant)
       if (!plant) return
 
-      const newPlots = localPlots.map(p =>
+      const newPlots = gamePlots.map(p =>
         p.id === plotId
           ? {
               ...p,
@@ -275,12 +187,9 @@ export function GreenhouseDialog() {
             }
           : p
       )
-      setLocalPlots(newPlots)
+
       setPlots(newPlots)
-      setResource(
-        plant.key as keyof ResoursesType,
-        (resources[plant.key as keyof ResoursesType] || 0) + plant.yield
-      )
+      setResource(plant.key as keyof ResoursesType, plant.yield)
 
       setHarvestAnimation({ emoji: plant.emoji, id: plotId })
       const timer = setTimeout(() => {
@@ -289,7 +198,7 @@ export function GreenhouseDialog() {
 
       return () => clearTimeout(timer)
     },
-    [localPlots, resources, setPlots, setResource]
+    [gamePlots, resources, setPlots, setResource]
   )
 
   const handleBuyPlot = useCallback(() => {
@@ -310,7 +219,6 @@ export function GreenhouseDialog() {
     }
 
     const newPlots = [...gamePlots, newPlot]
-    setLocalPlots(newPlots)
     setPlots(newPlots)
 
     toast.success("Вы приобрели новую грядку!")
@@ -332,7 +240,6 @@ export function GreenhouseDialog() {
       }
 
       const newPlots = gamePlots.filter(p => p.id !== plotId)
-      setLocalPlots(newPlots)
       setPlots(newPlots)
       setMoney(PLOT_SELL_PRICE)
       toast.success("Грядка продана!")
@@ -354,6 +261,35 @@ export function GreenhouseDialog() {
             Здесь вы можете выращивать растения в контролируемых условиях
           </DialogDescription>
         </DialogHeader>
+
+        <div className='flex gap-4 p-3 bg-gray-50 rounded-lg text-sm'>
+          <div className='flex items-center gap-1'>
+            <span className='font-medium'>Сезон:</span>
+            <span
+              className={`
+              ${SEASON_MAP[seasons] === "spring" && "text-green-500"}
+              ${SEASON_MAP[seasons] === "summer" && "text-yellow-500"}
+              ${SEASON_MAP[seasons] === "autumn" && "text-orange-500"}
+              ${SEASON_MAP[seasons] === "winter" && "text-blue-500"}
+            `}
+            >
+              {SEASONS[seasons]}
+              {SEASON_MODIFIERS[SEASON_MAP[seasons]] > 1
+                ? ` (+${Math.round(
+                    (SEASON_MODIFIERS[SEASON_MAP[seasons]] - 1) * 100
+                  )}% к росту)`
+                : ` (${Math.round(
+                    (SEASON_MODIFIERS[SEASON_MAP[seasons]] - 1) * 100
+                  )}% к росту)`}
+            </span>
+          </div>
+          <div className='flex items-center gap-1'>
+            <span className='font-medium'>Полив:</span>
+            <span className='text-blue-500'>
+              +{Math.round((WATERING_BOOST - 1) * 100)}% к скорости роста
+            </span>
+          </div>
+        </div>
 
         <div className='flex gap-2 flex-wrap'>
           {PLANTS.map(plant => {
@@ -385,7 +321,7 @@ export function GreenhouseDialog() {
         </div>
 
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
-          {localPlots.map(plot => {
+          {gamePlots.map(plot => {
             return (
               <div
                 key={plot.id}
@@ -480,7 +416,7 @@ export function GreenhouseDialog() {
                       {PLANTS.find(p => p.seedType === selectedPlant)?.emoji}
                     </button>
 
-                    {localPlots.length > 1 && (
+                    {gamePlots.length > 1 && (
                       <button
                         onClick={() => handleSellPlot(plot.id)}
                         className='px-2 py-1 bg-gray-200 text-gray-600 rounded text-xs hover:bg-gray-300 transition-colors mt-1'
@@ -501,7 +437,7 @@ export function GreenhouseDialog() {
                       className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl pointer-events-none z-50'
                     >
                       {harvestAnimation.emoji}
-                      <span className='text-2xl ml-1'>×2</span>
+                      <span className='text-2xl ml-1'>×1</span>
                     </motion.div>
                   )}
                 </AnimatePresence>

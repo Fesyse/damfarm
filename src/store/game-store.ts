@@ -5,6 +5,12 @@ import {
 import { animalProduct } from "@/constants/animals"
 import { SEASONS } from "@/constants/seasons"
 import {
+  PLANTS,
+  SEASON_MODIFIERS,
+  SEASON_MAP,
+  WATERING_BOOST,
+} from "@/components/farm-game/dialog/greenhouse-dialog"
+import {
   AnimalType,
   GameState,
   ProductsType,
@@ -104,8 +110,6 @@ export const useGameStore = create<GameState>()(
                 )!.income + animal.productAmount
             }
 
-            console.log(newAnimal.productAmount)
-
             return newAnimal
           })
 
@@ -121,9 +125,52 @@ export const useGameStore = create<GameState>()(
             return item
           })
 
+          const updatedPlots = state.plots.map(plot => {
+            if (!plot.plant || !plot.plantedAt) return plot
+
+            const plant = PLANTS.find(p => p.seedType === plot.plant)
+            if (!plant) return plot
+
+            const seasonKey = SEASON_MAP[state.seasons] || "summer"
+            const seasonModifier = SEASON_MODIFIERS[seasonKey]
+
+            const isWatered = !!(
+              plot.lastWateredAt && state.days - plot.lastWateredAt < 1
+            )
+            const wateringModifier = isWatered ? WATERING_BOOST : 1
+
+            const rawDaysPassed = state.days + 1 - plot.plantedAt
+            const effectiveDaysPassed =
+              rawDaysPassed * seasonModifier * wateringModifier
+
+            let newStage = 0
+
+            if (rawDaysPassed > 0) {
+              if (effectiveDaysPassed >= plant.growthTime) {
+                newStage = 3 // Готово к сбору
+              } else if (effectiveDaysPassed >= plant.growthTime * 0.66) {
+                newStage = 2 // Цветение
+              } else if (effectiveDaysPassed >= plant.growthTime * 0.33) {
+                newStage = 1 // Росток
+              } else {
+                newStage = Math.min(
+                  1,
+                  Math.floor(rawDaysPassed / (plant.growthTime * 0.33))
+                )
+              }
+            }
+
+            return {
+              ...plot,
+              stage: newStage,
+              watered: isWatered,
+            }
+          })
+
           return {
             shopItems: newShopItems,
             animals: newAnimals,
+            plots: updatedPlots,
             seasons:
               (state.days + 1) % 7 == 0 ? state.setSeason() : state.seasons,
             days: state.days + 1,
@@ -164,14 +211,41 @@ export const useGameStore = create<GameState>()(
         strawberry: 0,
       },
       setResource: (name, value) => {
-        set(state => ({
-          resources: {
-            ...state.resources,
-            [name]: state.resources[name] + value,
-          },
-        }))
+        set(state => {
+          return {
+            resources: {
+              ...state.resources,
+              [name]: state.resources[name] + value,
+            },
+          }
+        })
       },
-      plots: [],
+      plots: [
+        {
+          id: 1,
+          plant: null,
+          stage: 0,
+          watered: false,
+          plantedAt: null,
+          lastWateredAt: null,
+        },
+        {
+          id: 2,
+          plant: null,
+          stage: 0,
+          watered: false,
+          plantedAt: null,
+          lastWateredAt: null,
+        },
+        {
+          id: 3,
+          plant: null,
+          stage: 0,
+          watered: false,
+          plantedAt: null,
+          lastWateredAt: null,
+        },
+      ],
       setPlots: plots => {
         set(state => ({
           ...state,
