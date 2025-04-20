@@ -2,7 +2,7 @@ import {
   animalFeedResource,
   animalFeedResourceAmount,
 } from "@/components/farm-game/dialog"
-import { animalPrices, animalProduct } from "@/constants/animals"
+import { animalProduct } from "@/constants/animals"
 import { SEASONS } from "@/constants/seasons"
 import {
   AnimalType,
@@ -14,6 +14,7 @@ import {
 } from "@/types/store"
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
+import { getAnimalsPrices } from "@/data/json-data"
 
 const resourceName = {
   wheat: "пшеницы",
@@ -28,39 +29,39 @@ const defaultShopItems: ShopItem[] = [
   {
     name: "Семена моркови",
     icon: "🥕",
-    price: 10,
-    stock: 8,
+    price: 20,
+    stock: 6,
     type: "seed",
     id: "carrotsSeed",
   },
   {
     name: "Семена картофеля",
     icon: "🥔",
-    price: 15,
-    stock: 8,
+    price: 25,
+    stock: 6,
     type: "seed",
     id: "potatoesSeed",
   },
   {
     name: "Семена пшеницы",
     icon: "🌾",
-    price: 5,
-    stock: 8,
+    price: 15,
+    stock: 6,
     type: "seed",
     id: "wheatSeed",
   },
   {
     name: "Семена кукурузы",
     icon: "🌽",
-    price: 20,
-    stock: 8,
+    price: 35,
+    stock: 6,
     type: "seed",
     id: "cornSeed",
   },
   {
     name: "Лейка",
     icon: "💧",
-    price: 1000,
+    price: 500,
     stock: 1,
     type: "tool",
     id: "wateringCan",
@@ -91,10 +92,10 @@ export const useGameStore = create<GameState>()(
 
             if (
               newAnimal.happiness > 50 &&
-              newAnimal.hunger < 50 &&
+              newAnimal.hunger > 50 &&
               newAnimal.health > 50
             ) {
-              newAnimal.productAmount += Math.floor(Math.random() * 5)
+              newAnimal.productAmount += Math.floor(Math.random() * 3)
             }
 
             newAnimal.productAmount =
@@ -125,7 +126,7 @@ export const useGameStore = create<GameState>()(
         })
       },
 
-      moneys: 2500,
+      moneys: 1100,
       setMoney: moneys =>
         set(state => ({
           moneys: state.moneys + moneys,
@@ -355,7 +356,7 @@ export const useGameStore = create<GameState>()(
       buyAnimal: animal => {
         let error
         set(state => {
-          const price = animalPrices[animal]
+          const price = getAnimalsPrices()[animal]
           if (state.moneys < price) {
             error = "Недостаточно монет"
             return {}

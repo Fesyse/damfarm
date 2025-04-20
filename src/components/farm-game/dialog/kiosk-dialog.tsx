@@ -276,7 +276,7 @@ function InventoryGrid({
 
   return (
     <div className='grid grid-cols-2 gap-4'>
-      {items.map(({ name: itemName, price, key }, i) => {
+      {items.map(({ name: itemName, price, icon, key }, i) => {
         const myItemsCount =
           gameStore.resources[key as keyof typeof gameStore.resources] ??
           gameStore.products[key as keyof typeof gameStore.products] ??
@@ -288,7 +288,9 @@ function InventoryGrid({
             className='border rounded-lg p-4 bg-background flex flex-col h-full'
           >
             <div className='flex items-center gap-3 mb-3 justify-between w-full'>
-              <span className='font-medium'>{itemName}</span>
+              <span className='font-medium'>
+                {icon} {itemName}
+              </span>
               <span className='text-muted-foreground text-xs'>
                 У меня: {myItemsCount}
               </span>
