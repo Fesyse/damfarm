@@ -178,7 +178,7 @@ export const useGameStore = create<GameState>()(
         })
       },
 
-      moneys: 1100,
+      moneys: 100,
       setMoney: moneys =>
         set(state => ({
           moneys: state.moneys + moneys,
