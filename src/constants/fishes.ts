@@ -11,7 +11,15 @@ export const FISHES: Fish[] = [
   { id: "8", name: "pike", icon: "🐠", rarity: "epic", chance: 0.07 },
   { id: "9", name: "bream", icon: "🐋", rarity: "uncommon", chance: 0.25 },
 ]
-// { id: "1", name: "Карась", icon: "🐟", rarity: "common", value: 10 },
-// { id: "2", name: "Щука", icon: "🐠", rarity: "uncommon", value: 25 },
-// { id: "3", name: "Сом", icon: "🐡", rarity: "rare", value: 50 },
-// { id: "4", name: "Форель", icon: "🐋", rarity: "epic", value: 100 },
+
+export const FISH_NAME = {
+  carp: "Карась",
+  tuna: "Тунец",
+  pike_perch: "Щука",
+  cod: "Сельдь",
+  mackerel: "Макрель",
+  herring: "Скумбрия",
+  perch: "Сельдь",
+  pike: "Щука",
+  bream: "Брест",
+}

@@ -74,6 +74,8 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Separator } from "../ui/separator"
 import Link from "next/link"
+import { FISH_NAME } from "@/constants/fishes"
+import { PRODUCTS_NAME } from "@/constants/products"
 
 // Mobile device detection
 function useIsMobile() {
@@ -761,7 +763,11 @@ export function FarmGame() {
                                 </div>
                                 <div className='text-lg font-bold'>{count}</div>
                                 <div className='text-xs text-muted-foreground capitalize'>
-                                  {plant}
+                                  {
+                                    PRODUCTS_NAME[
+                                      plant as keyof typeof PRODUCTS_NAME
+                                    ]
+                                  }
                                 </div>
                               </CardContent>
                             </Card>
@@ -784,7 +790,7 @@ export function FarmGame() {
                                     {count}
                                   </div>
                                   <div className='text-xs text-muted-foreground capitalize'>
-                                    {fish}
+                                    {FISH_NAME[fish as keyof typeof FISH_NAME]}
                                   </div>
                                 </CardContent>
                               </Card>
@@ -819,7 +825,11 @@ export function FarmGame() {
                                     {count}
                                   </div>
                                   <div className='text-xs text-muted-foreground capitalize'>
-                                    {product}
+                                    {
+                                      PRODUCTS_NAME[
+                                        product as keyof typeof PRODUCTS_NAME
+                                      ]
+                                    }
                                   </div>
                                 </CardContent>
                               </Card>
