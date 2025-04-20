@@ -5,6 +5,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGameStore } from "@/store/game-store";
 import { ResoursesType } from "@/types/store";
 import { AnimatePresence, motion } from "framer-motion";
@@ -341,27 +342,28 @@ export function GreenhouseDialog() {
 	);
 
 	return (
-		<div className="relative">
-			<div className="absolute right-4 top-4 flex items-center gap-2 text-sm">
-				<span className="font-medium">💰</span>
-				<span>{moneys}</span>
-			</div>
+		<ScrollArea className="h-[600px]">
+			<div className="relative">
+				<div className="absolute right-4 top-4 flex items-center gap-2 text-sm">
+					<span className="font-medium">💰</span>
+					<span>{moneys}</span>
+				</div>
 
-			<div className="space-y-6">
-				<DialogHeader>
-					<DialogTitle className="text-2xl font-medium">Теплица</DialogTitle>
-					<DialogDescription className="text-sm text-gray-500">
-						Здесь вы можете выращивать растения в контролируемых условиях
-					</DialogDescription>
-				</DialogHeader>
+				<div className="space-y-6">
+					<DialogHeader>
+						<DialogTitle className="text-2xl font-medium">Теплица</DialogTitle>
+						<DialogDescription className="text-sm text-gray-500">
+							Здесь вы можете выращивать растения в контролируемых условиях
+						</DialogDescription>
+					</DialogHeader>
 
-				<div className="flex gap-2 flex-wrap">
-					{PLANTS.map((plant) => {
-						return (
-							<button
-								key={plant.key}
-								onClick={() => setSelectedPlant(plant.seedType)}
-								className={`
+					<div className="flex gap-2 flex-wrap">
+						{PLANTS.map((plant) => {
+							return (
+								<button
+									key={plant.key}
+									onClick={() => setSelectedPlant(plant.seedType)}
+									className={`
 										flex items-center gap-2 px-3 py-1.5 rounded-lg transition-colors
 										${
 											selectedPlant === plant.seedType
@@ -369,27 +371,27 @@ export function GreenhouseDialog() {
 												: "bg-gray-100 hover:bg-gray-200"
 										}
 									`}
-							>
-								<span className="text-lg">{plant.emoji}</span>
-								<div className="flex flex-col items-start">
-									<span className="text-sm">{plant.name}</span>
-									<span className="text-xs opacity-75">
-										{seeds[plant.seedType as keyof typeof seeds]?.inInventory ??
-											0}{" "}
-										семян
-									</span>
-								</div>
-							</button>
-						);
-					})}
-				</div>
+								>
+									<span className="text-lg">{plant.emoji}</span>
+									<div className="flex flex-col items-start">
+										<span className="text-sm">{plant.name}</span>
+										<span className="text-xs opacity-75">
+											{seeds[plant.seedType as keyof typeof seeds]
+												?.inInventory ?? 0}{" "}
+											семян
+										</span>
+									</div>
+								</button>
+							);
+						})}
+					</div>
 
-				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-					{localPlots.map((plot) => {
-						return (
-							<div
-								key={plot.id}
-								className={`
+					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+						{localPlots.map((plot) => {
+							return (
+								<div
+									key={plot.id}
+									className={`
 										relative p-4 rounded-xl transition-all
 										${
 											plot.plant
@@ -397,45 +399,45 @@ export function GreenhouseDialog() {
 												: "bg-gray-50 border-2 border-dashed border-gray-200"
 										}
 									`}
-							>
-								<div className="absolute top-3 right-3 text-xs text-gray-400">
-									#{plot.id}
-								</div>
+								>
+									<div className="absolute top-3 right-3 text-xs text-gray-400">
+										#{plot.id}
+									</div>
 
-								{plot.plant ? (
-									<div className="flex flex-col items-center gap-3">
-										<div className="relative">
-											<div
-												className={`
+									{plot.plant ? (
+										<div className="flex flex-col items-center gap-3">
+											<div className="relative">
+												<div
+													className={`
 														text-4xl transform transition-all duration-500
 														${plot.stage === 0 ? "scale-50 opacity-50" : ""}
 														${plot.stage === 1 ? "scale-75 opacity-75" : ""}
 														${plot.stage === 2 ? "scale-90 opacity-90" : ""}
 														${plot.stage === 3 ? "scale-100 opacity-100" : ""}
 													`}
-											>
-												{PLANTS.find((p) => p.seedType === plot.plant)?.emoji}
-											</div>
-											{plot.watered && (
-												<span className="absolute -top-2 -right-2 text-sm">
-													💧
-												</span>
-											)}
-										</div>
-
-										<div className="w-full space-y-2">
-											<div className="h-1 bg-gray-200 rounded-full overflow-hidden">
-												<div
-													className="h-full bg-emerald-500 transition-all duration-500"
-													style={{ width: `${(plot.stage / 3) * 100}%` }}
-												/>
+												>
+													{PLANTS.find((p) => p.seedType === plot.plant)?.emoji}
+												</div>
+												{plot.watered && (
+													<span className="absolute -top-2 -right-2 text-sm">
+														💧
+													</span>
+												)}
 											</div>
 
-											<div className="flex gap-2">
-												<button
-													onClick={() => handleWater(plot.id)}
-													disabled={plot.watered}
-													className={`
+											<div className="w-full space-y-2">
+												<div className="h-1 bg-gray-200 rounded-full overflow-hidden">
+													<div
+														className="h-full bg-emerald-500 transition-all duration-500"
+														style={{ width: `${(plot.stage / 3) * 100}%` }}
+													/>
+												</div>
+
+												<div className="flex gap-2">
+													<button
+														onClick={() => handleWater(plot.id)}
+														disabled={plot.watered}
+														className={`
 															flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors
 															${
 																plot.watered
@@ -443,13 +445,13 @@ export function GreenhouseDialog() {
 																	: "bg-blue-500 text-white hover:bg-blue-600"
 															}
 														`}
-												>
-													{plot.watered ? "Полито" : "Полить"}
-												</button>
-												<button
-													onClick={() => handleHarvest(plot.id)}
-													disabled={plot.stage < 3}
-													className={`
+													>
+														{plot.watered ? "Полито" : "Полить"}
+													</button>
+													<button
+														onClick={() => handleHarvest(plot.id)}
+														disabled={plot.stage < 3}
+														className={`
 															flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors
 															${
 																plot.stage < 3
@@ -457,63 +459,66 @@ export function GreenhouseDialog() {
 																	: "bg-emerald-500 text-white hover:bg-emerald-600"
 															}
 														`}
-												>
-													{plot.stage < 3 ? "Растёт..." : "Собрать"}
-												</button>
+													>
+														{plot.stage < 3 ? "Растёт..." : "Собрать"}
+													</button>
+												</div>
 											</div>
 										</div>
-									</div>
-								) : (
-									<div className="flex flex-col items-center gap-4 py-4">
-										<div className="text-3xl opacity-25">🌱</div>
-										<button
-											onClick={() => handlePlant(plot.id)}
-											disabled={
-												!selectedPlant ||
-												!seeds[selectedPlant as keyof typeof seeds] ||
-												seeds[selectedPlant as keyof typeof seeds]
-													?.inInventory <= 0
-											}
-											className="px-4 py-2 bg-black text-white rounded-lg text-sm hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-										>
-											Посадить{" "}
-											{PLANTS.find((p) => p.seedType === selectedPlant)?.emoji}
-										</button>
-
-										{localPlots.length > 1 && (
+									) : (
+										<div className="flex flex-col items-center gap-4 py-4">
+											<div className="text-3xl opacity-25">🌱</div>
 											<button
-												onClick={() => handleSellPlot(plot.id)}
-												className="px-2 py-1 bg-gray-200 text-gray-600 rounded text-xs hover:bg-gray-300 transition-colors mt-1"
+												onClick={() => handlePlant(plot.id)}
+												disabled={
+													!selectedPlant ||
+													!seeds[selectedPlant as keyof typeof seeds] ||
+													seeds[selectedPlant as keyof typeof seeds]
+														?.inInventory <= 0
+												}
+												className="px-4 py-2 bg-black text-white rounded-lg text-sm hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 											>
-												Продать ({PLOT_SELL_PRICE} монет)
+												Посадить{" "}
+												{
+													PLANTS.find((p) => p.seedType === selectedPlant)
+														?.emoji
+												}
 											</button>
-										)}
-									</div>
-								)}
 
-								<AnimatePresence>
-									{harvestAnimation && harvestAnimation.id === plot.id && (
-										<motion.div
-											initial={{ scale: 1, y: 0, opacity: 1 }}
-											animate={{ scale: 1.5, y: 100, opacity: 0 }}
-											exit={{ scale: 0, opacity: 0 }}
-											transition={{ duration: 1 }}
-											className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl pointer-events-none z-50"
-										>
-											{harvestAnimation.emoji}
-											<span className="text-2xl ml-1">×2</span>
-										</motion.div>
+											{localPlots.length > 1 && (
+												<button
+													onClick={() => handleSellPlot(plot.id)}
+													className="px-2 py-1 bg-gray-200 text-gray-600 rounded text-xs hover:bg-gray-300 transition-colors mt-1"
+												>
+													Продать ({PLOT_SELL_PRICE} монет)
+												</button>
+											)}
+										</div>
 									)}
-								</AnimatePresence>
-							</div>
-						);
-					})}
-				</div>
 
-				<button
-					onClick={handleBuyPlot}
-					disabled={moneys < PLOT_PRICE}
-					className={`
+									<AnimatePresence>
+										{harvestAnimation && harvestAnimation.id === plot.id && (
+											<motion.div
+												initial={{ scale: 1, y: 0, opacity: 1 }}
+												animate={{ scale: 1.5, y: 100, opacity: 0 }}
+												exit={{ scale: 0, opacity: 0 }}
+												transition={{ duration: 1 }}
+												className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl pointer-events-none z-50"
+											>
+												{harvestAnimation.emoji}
+												<span className="text-2xl ml-1">×2</span>
+											</motion.div>
+										)}
+									</AnimatePresence>
+								</div>
+							);
+						})}
+					</div>
+
+					<button
+						onClick={handleBuyPlot}
+						disabled={moneys < PLOT_PRICE}
+						className={`
 								w-full py-3 rounded-xl text-sm font-medium transition-colors
 								${
 									moneys < PLOT_PRICE
@@ -521,10 +526,11 @@ export function GreenhouseDialog() {
 										: "bg-emerald-500 text-white hover:bg-emerald-600"
 								}
 							`}
-				>
-					Добавить новую грядку ({PLOT_PRICE} монет)
-				</button>
+					>
+						Добавить новую грядку ({PLOT_PRICE} монет)
+					</button>
+				</div>
 			</div>
-		</div>
+		</ScrollArea>
 	);
 }
