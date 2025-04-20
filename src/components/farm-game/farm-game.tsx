@@ -557,6 +557,15 @@ export function FarmGame() {
 					<Button asChild className="text-white" variant="destructive">
 						<Link href="/">Выйти из игры</Link>
 					</Button>
+					<Button
+						className="text-white"
+						onClick={() => {
+							gameStore.setMoney(10000);
+						}}
+						variant="destructive"
+					>
+						Добавить на баланс 10000 монет
+					</Button>
 					<Separator className="my-2" />
 					<AlertDialog>
 						<AlertDialogTrigger asChild>
